@@ -1,0 +1,9 @@
+What is the arithmetic intensity for the full gravitational N-body
+problem when evaluated with a simple nested double loop?
+Steps: 1. Write down the equations for the acceleration of each body
+(3D), 2. Count the number of floating point operations required for
+the evaluation, to leading order. Assume the square root operation is
+equivalent to 10 FLOPs. 3. Count the number of bytes that need to be
+accessed from memory. 4. Take the ratio.
+Based on this ratio, do you think this calculation is floating-point
+limited or data-transfer limited?

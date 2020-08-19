@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>16 Reformulated Problems</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 5--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch15.html" >prev</a>] [<a 
+href="compphysicsch15.html#tailcompphysicsch15.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch16.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch16.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;16</span><br /><a 
+ id="x18-6500016"></a>Reformulated Problems</h2>
+<!--l. 7--><p class="noindent" >A Nobel prize was awarded for the invention of a method to calculate the
+quantum mechanical ground state of many-electron systems. This was based, not
+on the invention of a new numerical method or algorithm, nor on the
+implementation of one, but on an approximate reformulation of the governing
+equation. This last chapter illustrates the power of reformulating equations to
+make them amiable to numerical solution.
+   <h3 class="sectionHead"><span class="titlemark">16.1   </span> <a 
+ id="x18-6600016.1"></a>Three and a half formulations of electrostatics</h3>
+<!--l. 13--><p class="noindent" >The electric field in a static situation obeys the equations <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="compphysics99x.png" alt=" &#x2207; &#x22C5; E  =   &#x03C1;&#x2215;&#x03F5;0
+&#x2207; &#x00D7; E   =   0    (formulation 1)
+" class="math-display" ></center>
+</div>Here, <span 
+class="cmmi-12">&#x03C1; </span>is the charge density and <span 
+class="cmmi-12">&#x03F5;</span><sub><span 
+class="cmr-8">0</span></sub> a universal physical constant. These are four
+coupled partial differential equations (PDEs). Since the curl of <span 
+class="cmmi-12">E </span>vanishes, it is
+possible to introduce the electric potential &#x03A6;, and then obtain the electric field as
+the derivative of the potential <span 
+class="cmmi-12">E </span>= <span 
+class="cmsy-10x-x-120">-&#x2207;</span>&#x03A6;, thus
+   <center class="math-display" >
+<img 
+src="compphysics100x.png" alt="&#x2207;2&#x03A6;  = - &#x03C1;&#x2215;&#x03F5;0    (formulation 2)
+" class="math-display" ></center>
+<!--l. 23--><p class="nopar" > The potential is a scalar function, and hence easier to deal with than the three
+component vector <span 
+class="cmmi-12">E</span>. This simple reformulation leads to a single partial
+differential equation, and hence simplifies the problem tremendously. Instead of
+solving four coupled PDEs we solve one PDE.
+                                                                          
+
+                                                                          
+<!--l. 27--><p class="indent" >   In empty space, the potential obeys <span 
+class="cmsy-10x-x-120">&#x2207;</span><sup><span 
+class="cmr-8">2</span></sup>&#x03A6; = 0; when the right-hand side
+vanishes it is called the &#8220;Laplace equation&#8221;; when there is a source term it is
+called &#8220;Poisson equation&#8221;.
+<!--l. 29--><p class="indent" >   There is yet another formulation of electrostatics. It is well known that the
+electric potential of a point charge is given by &#x03A6; = 1<span 
+class="cmmi-12">&#x2215;</span>(4<span 
+class="cmmi-12">&#x03C0;&#x03F5;</span><sub><span 
+class="cmr-8">0</span></sub>)<span 
+class="cmmi-12">q&#x2215;r</span>, where <span 
+class="cmmi-12">q </span>is the
+electric charge and <span 
+class="cmmi-12">r </span>is the distance between the point charge and the point
+where the potential is evaluated. The Laplacian of this expression is zero
+everywhere, <span 
+class="cmsy-10x-x-120">&#x2207;</span><sup><span 
+class="cmr-8">2</span></sup>&#x03A6; = 0, except at the origin. For a collection of point charges the
+potentials add up, &#x03A6;(<span 
+class="cmmi-12">r</span>) = 1<span 
+class="cmmi-12">&#x2215;</span>(4<span 
+class="cmmi-12">&#x03C0;&#x03F5;</span><sub><span 
+class="cmr-8">0</span></sub>) <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-12">q</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-12">&#x2215;</span><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">r </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmsy-10x-x-120">|</span>, where the sum is over point
+charges with charge <span 
+class="cmmi-12">q</span><sub><span 
+class="cmmi-8">j</span></sub> at position <span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">j</span></sub>. Generalizing further, for a continuous
+charge distribution the potential can be expressed by integrating over all
+sources,
+   <center class="math-display" >
+<img 
+src="compphysics101x.png" alt="             &#x222B;
+        --1--   -&#x03C1;(r&#x2032;)-  &#x2032;
+&#x03A6; (r) = 4&#x03C0; &#x03F5;    |r - r&#x2032;|dr .    (formulation  3)
+           0
+" class="math-display" ></center>
+<!--l. 33--><p class="nopar" > This was a physically guided derivation; with a bit of calculus it could be verified
+that this integral indeed satisfies the Poisson equation, and is thus equivalent to
+the previous formulation. Each of the three formulations describes the same
+physics. The integral is an alternative to solving the partial differential
+equation.
+<!--l. 36--><p class="indent" >   Such methods can be constructed whenever a PDE can be reformulated as
+an integral over sources. (Another example is the integral solution to
+the diffusion equation given in section <a 
+href="compphysicsch15.html#x17-6300015.2">15.2<!--tex4ht:ref: pdes:sec2 --></a>.) If the potential is required
+at only a few locations in space or if the charges occupy only a small
+portion of space, the integral may be computationally the most efficient
+formulation.
+<!--l. 39--><p class="indent" >   In addition to exact reformulations, there may be <span 
+class="cmti-12">approximate </span>formulations of
+the problem that drastically reduce its computational complexity. For example,
+the gravitational force from a distant star cluster may be approximated by that of
+its center of mass. If the approximation is a good one, this can be game changer.
+After all, because of roundoff, no numerical result is exact, so fundamentally an
+approximation is not necessarily inferior.
+                                                                          
+
+                                                                          
+<!--l. 44--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">16.2   </span> <a 
+ id="x18-6700016.2"></a>Schrödinger equation<sup><span 
+class="cmsy-8">*</span></sup></h3>
+<!--l. 46--><p class="noindent" >The spatial behavior of microscopic matter, of atoms and electrons, is
+described by the Schrödinger equation, which is a partial differential equation
+for the complex-valued wavefunction <span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span>) in a potential <span 
+class="cmmi-12">V </span>(<span 
+class="cmmi-12">r</span>). Both are
+functions of the three-dimensional position vector <span 
+class="cmmi-12">r</span>. In its time-independent
+form
+   <center class="math-display" >
+<img 
+src="compphysics102x.png" alt="  1-  2
+- 2 &#x2207; &#x03C8; (r) + V(r)&#x03C8; (r) = E&#x03C8; (r)
+" class="math-display" ></center>
+<!--l. 49--><p class="nopar" > and the wavefunction must be normalized such that the integral of <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span>)<span 
+class="cmsy-10x-x-120">|</span><sup><span 
+class="cmr-8">2</span></sup> over
+all space yields 1, <span 
+class="cmex-10x-x-120">&#x222B;</span>
+  <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span>)<span 
+class="cmsy-10x-x-120">|</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">dr </span>= 1. This is a boundary value problem, which may
+have solutions only for certain values of energy <span 
+class="cmmi-12">E </span>(which is how energy
+quantization comes about).
+<!--l. 52--><p class="indent" >   The energy is obtained by multiplying the above expression with the complex
+conjugate <span 
+class="cmmi-12">&#x03C8;</span><sup><span 
+class="cmsy-8">*</span></sup> and integrating both sides of the equation. For the ground state, the
+energy <span 
+class="cmmi-12">E </span>is a minimum (Rayleigh-Ritz variational principle). An expression for
+the ground state energy is
+   <center class="math-display" >
+<img 
+src="compphysics103x.png" alt="             [                  ]
+          &#x222B;     1  *  2         2
+Egs = min     - -&#x03C8;  &#x2207;  &#x03C8; + V |&#x03C8; |  dr
+       &#x03C8;        2
+" class="math-display" ></center>
+<!--l. 59--><p class="nopar" > where the minimum is over all normalized complex functions. The principle
+implies that we can try out various wavefunctions, even some that do not satisfy
+the Schrödinger equation, but the one with minimum energy is also a solution to
+the Schrödinger equation.
+<!--l. 62--><p class="indent" >   Here is one way of solving the Schrödinger equation. The wavefunction is
+written as a sum of functions <span 
+class="cmmi-12">&#x03C6;</span><sub><span 
+class="cmmi-8">n</span></sub>(<span 
+class="cmmi-12">r</span>): <span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span>) = <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-12">a</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-12">&#x03C6;</span><sub><span 
+class="cmmi-8">n</span></sub>(<span 
+class="cmmi-12">r</span>). If the <span 
+class="cmmi-12">&#x03C6;</span>&#8217;s are well chosen
+then the first few terms in the series approximate the wavefunction and more and
+more terms can make the approximation arbitrarily accurate. Adjusting the
+coefficients <span 
+class="cmmi-12">a</span><sub><span 
+class="cmmi-8">n</span></sub> to minimize the energy, analytically or numerically, will provide an
+approximate ground state.
+<!--l. 66--><p class="indent" >   For two electrons, rather than one, the wavefunction <span 
+class="cmmi-12">&#x03C8; </span>becomes a function of
+the position of both electrons, but <span 
+class="cmmi-12">&#x03C8; </span>still obeys the Schrödinger equation. There is
+                                                                          
+
+                                                                          
+one additional property that comes out of a deeper physical theory, namely
+that the wavefunction must obey <span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">,r</span><sub><span 
+class="cmr-8">2</span></sub>) = <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">,r</span><sub><span 
+class="cmr-8">1</span></sub>). This is called
+the &#8220;Pauli exclusion principle,&#8221; because it was discovered by physicist
+Wolfang Pauli and it implies that the wavefunction for two electrons at
+the same location vanishes, <span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r,r</span>) = 0. For more than two electrons the
+wavefunction is antisymmetric with respect to exchange of any pair of
+electrons.
+<!--l. 68--><p class="indent" >   Suppose we wish to determine the ground state of the helium atom. Since
+nuclei are much heavier than electrons we neglect their motion, and we neglect all
+magnetic interactions. The potential due to the electric field of the nucleus is
+<span 
+class="cmmi-12">V </span>(<span 
+class="cmmi-12">r</span>) = <span 
+class="cmsy-10x-x-120">-</span>2<span 
+class="cmmi-12">e</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;r</span>, where <span 
+class="cmmi-12">e </span>is the charge of a proton. In addition, there is also
+electrostatic repulsion between the two electrons. The Schrödinger equation for
+the helium atom is
+   <center class="math-display" >
+<img 
+src="compphysics104x.png" alt="[  1       1        e2       e2    e2 ]
+ - --&#x2207;21 - -&#x2207;22+ -------- - 2-- - 2--  &#x03C8; (r1,r2) = E &#x03C8; (r1,r2)
+ &#x25DF;-2---&#x25DD;&#x25DC;--2--&#x25DE;  |&#x25DF;r1&#x25DD;-&#x25DC;-r2|&#x25DE;&#x25DF;--r1&#x25DD;&#x25DC;--r2&#x25DE;
+        T           Vee       Vext
+" class="math-display" ></center>
+<!--l. 77--><p class="nopar" > The symbol <span 
+class="cmsy-10x-x-120">&#x2207;</span><sub><span 
+class="cmr-8">1</span></sub> means the gradient is with respect to the first argument, here the
+coordinate vector <span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">1</span></sub>. The expressions are grouped into terms that give rise to the
+kinetic energy <span 
+class="cmmi-12">T</span>, electron-electron interaction <span 
+class="cmmi-12">V</span> <sub><span 
+class="cmmi-8">ee</span></sub>, and the external potential due
+to the attraction of the nucleus&#8212;external from the electron&#8217;s point of view, <span 
+class="cmmi-12">V</span> <sub><span 
+class="cmmi-8">ext</span></sub>.
+The Schrödinger equation with this potential cannot be solved analytically, but
+the aforementioned method of approximation by minimization is still
+applicable.
+<!--l. 80--><p class="indent" >   A helium atom has only two electrons. A large molecule, say a protein, can
+easily have tens of thousands of electrons. Since <span 
+class="cmmi-12">&#x03C8; </span>becomes a function of many
+variables, three for each additional electron, an increasing number of parameters is
+required to describe the solution in that many variables to a given accuracy. The
+number of necessary parameters for <span 
+class="cmmi-12">N </span>electrons is (a few)<sup><span 
+class="cmr-8">3</span><span 
+class="cmmi-8">N</span></sup>, where &#8220;a
+few&#8221; is the number of parameters desired to describe the wavefunction
+along a single dimension. The computational cost increases exponentially
+with the number of electrons. Calculating the ground state of a quantum
+system with many electrons is computationally unfeasible with the method
+described.
+                                                                          
+
+                                                                          
+<!--l. 89--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">16.3   </span> <a 
+ id="x18-6800016.3"></a>Outline of density functional method<sup><span 
+class="cmsy-8">*</span></sup></h3>
+<!--l. 91--><p class="noindent" >It turns out that energies in the <span 
+class="cmmi-12">N</span>-electron Schrödinger equation can also be
+written in terms of the charge density <span 
+class="cmmi-12">n</span>(<span 
+class="cmmi-12">r</span>),
+   <center class="math-display" >
+<img 
+src="compphysics105x.png" alt="         &#x222B;   &#x222B;
+                 *
+n(r) = N   ...  &#x03C8;  (r,r2,...,rN )&#x03C8;(r,r2,...,rN)dr2...drN .
+" class="math-display" ></center>
+<!--l. 94--><p class="nopar" > The integrals are over all but one of the coordinate vectors, and because of the
+antisymmetries of the wavefunction it does not matter which coordinate
+vector is left out. For brevity the integrals over all <span 
+class="cmmi-12">r</span>&#8217;s can be denoted
+by
+   <center class="math-display" >
+<img 
+src="compphysics106x.png" alt="                    &#x222B;  &#x222B;
+&#x27E8;&#x03C8;|(anything )|&#x03C8;&#x27E9; =  ...  &#x03C8;*(r1,r2,...)(anything )&#x03C8;(r1,r2,...)dr1dr2...drN .
+" class="math-display" ></center>
+<!--l. 101--><p class="nopar" > This notation is independent of the number of electrons. We then have
+<img 
+src="compphysics107x.png" alt="&#x27E8;&#x03C8;|"  class="left" align="middle"><span 
+class="cmmi-12">V</span> <sub><span 
+class="cmmi-8">ext</span></sub><img 
+src="compphysics108x.png" alt="|&#x03C8; &#x27E9;"  class="left" align="middle"> = <span 
+class="cmex-10x-x-120">&#x222B;</span>
+  <span 
+class="cmmi-12">V </span>(<span 
+class="cmmi-12">r</span>)<span 
+class="cmmi-12">n</span>(<span 
+class="cmmi-12">r</span>)<span 
+class="cmmi-12">dr </span>for the energy of nuclear attraction.
+<!--l. 105--><p class="indent" >   The expression for the total energy becomes
+   <center class="math-display" >
+<img 
+src="compphysics109x.png" alt="                                             &#x222B;
+E = &#x27E8;&#x03C8; |T + Vee + Vext|&#x03C8; &#x27E9; = &#x27E8;&#x03C8;|T +  Vee|&#x03C8;&#x27E9; +    V(r)n(r)dr
+" class="math-display" ></center>
+<!--l. 109--><p class="nopar" > where <span 
+class="cmmi-12">&#x03C8; </span>is a solution to the time-independent multi-electron Schrödinger
+equation. The ground state can be obtained by minimization over all normalized
+wavefunctions with the necessary antisymmetry properties. Such trial
+wavefunctions do not need to satisfy the Schrödinger equation. Of course, the
+minimization can be restricted to trial wavefunctions with ground state charge
+                                                                          
+
+                                                                          
+density <span 
+class="cmmi-12">n</span><sub><span 
+class="cmmi-8">gs</span></sub>,
+   <center class="math-display" >
+<img 
+src="compphysics110x.png" alt="                           &#x222B;
+E  =  min &#x27E8;&#x03C8; |T + V  |&#x03C8; &#x27E9; +   V (r)n  (r)dr
+ gs   &#x03C8;|ngs         ee               gs
+" class="math-display" ></center>
+<!--l. 124--><p class="nopar" > The problem splits into two parts
+   <center class="math-display" >
+<img 
+src="compphysics111x.png" alt="          {        &#x222B;             }
+
+Egs = minn   F [n ] +   V(r)n (r )dr
+" class="math-display" ></center>
+<!--l. 128--><p class="nopar" >
+   <center class="math-display" >
+<img 
+src="compphysics112x.png" alt="and   F [n] = min &#x27E8;&#x03C8; |T + V   |&#x03C8; &#x27E9;
+              &#x03C8;|n          ee
+" class="math-display" ></center>
+<!--l. 131--><p class="nopar" > Hence, the energy <span 
+class="cmmi-12">E </span>is a function purely of the charge density <span 
+class="cmmi-12">n</span>(<span 
+class="cmmi-12">r</span>) and does not
+need to be expressed in terms of <span 
+class="cmmi-12">&#x03C8;</span>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">,r</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">,...</span>), which would be a function of many
+more variables. This is known as the Kohn-Hohenberg formulation. The above
+equations do not tell us specifically how <span 
+class="cmmi-12">E </span>depends on <span 
+class="cmmi-12">n</span>, but at least the
+reduction is possible in principle.
+<!--l. 134--><p class="indent" >   The kinetic energy and self-interaction of the electrons expressed in terms of
+the charge density, <span 
+class="cmmi-12">F</span>[<span 
+class="cmmi-12">n</span>], is called a &#8220;density functional,&#8221; since functional is the
+name for a function that takes a function, here the electron density, as an
+argument. The functional <span 
+class="cmmi-12">F</span>[<span 
+class="cmmi-12">n</span>] is independent of the external potential <span 
+class="cmmi-12">V</span> <sub><span 
+class="cmmi-8">ext</span></sub>; it
+describes how the electrons interact with themselves. Once an expression, or
+approximation, for <span 
+class="cmmi-12">F</span>[<span 
+class="cmmi-12">n</span>] is found, it is possible to determine the ground state
+energy and charge density by minimizing <span 
+class="cmmi-12">E </span>with respect to <span 
+class="cmmi-12">n </span>for a specific
+external potential. Since <span 
+class="cmmi-12">n </span>is a function in 3 rather than 3<span 
+class="cmmi-12">N </span>variables, the
+computational cost of this method no longer increases exponentially with the
+number of electrons. (It is essential that good approximations to <span 
+class="cmmi-12">F</span>[<span 
+class="cmmi-12">n</span>] can
+found at a reasonable computational cost, but we will not deal with this
+here.)
+<!--l. 137--><p class="indent" >   The wavefunction is not determined by this method, but <span 
+class="cmmi-12">E </span>provides the
+                                                                          
+
+                                                                          
+energy; <span 
+class="cmmi-12">n </span>provides the size and shape of the molecule, and changes of <span 
+class="cmmi-12">E </span>with
+respect to displacements yield the electrostatic forces, such that physically
+interesting quantities really <span 
+class="cmti-12">are </span>described in terms of the charge density
+alone.
+<!--l. 139--><p class="indent" >   This chapter described two different approaches for the same problem, one
+using the many-electron wavefunction, the other the electron density. With a large
+number of electrons only the latter method is computationally feasible. The
+problem was split into an expensive part that describes the electrons by
+themselves and a computationally cheap part that describes the interaction of
+the electrons with the external potential. Molecules and solids are built
+by electronic interactions, and the density functional method is one of
+the most consequential achievements of computational physics; it was
+awarded a Nobel prize in chemistry. The key progress has been achieved
+not by improvements in numerical methods or computing power, but
+by a sophisticated mathematical reformulation of the equations to be
+solved.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 96--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch15.html" >prev</a>] [<a 
+href="compphysicsch15.html#tailcompphysicsch15.html" >prev-tail</a>] [<a 
+href="compphysicsch16.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch16.html" >up</a>] </p></div>
+<!--l. 96--><p class="indent" >   <a 
+ id="tailcompphysicsch16.html"></a>   
+</body></html> 

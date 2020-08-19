@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>13 Symbolic Computation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch14.html" >next</a>] [<a 
+href="compphysicsch12.html" >prev</a>] [<a 
+href="compphysicsch12.html#tailcompphysicsch12.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch13.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch13.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;13</span><br /><a 
+ id="x15-5200013"></a>Symbolic Computation</h2>
+   <h3 class="sectionHead"><span class="titlemark">13.1   </span> <a 
+ id="x15-5300013.1"></a>Computer algebra systems</h3>
+<!--l. 6--><p class="noindent" >Symbolic computation can reduce an expression like <span 
+class="cmmi-12">ab&#x2215;b</span><sup><span 
+class="cmr-8">2</span></sup> to <span 
+class="cmmi-12">a&#x2215;b </span>or evaluate the
+integral of <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup> as <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-12">&#x2215;</span>3 + <span 
+class="cmmi-12">C</span>. This can be very time-saving. For example, integration
+of rational functions would require one to sit down and work out a partial fraction
+decomposition&#8212;a tedious procedure. Instead, we can get answers immediately
+using symbolic computation software.
+<!--l. 9--><p class="indent" >   A sample session with the program Mathematica:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-16">
+/*&#x00A0;simple&#x00A0;indefinite&#x00A0;integral&#x00A0;*/
+&#x00A0;<br />
+&#x00A0;<br />In[1]:=&#x00A0;Integrate[x^2,x]
+&#x00A0;<br />
+&#x00A0;<br />Out[1]=&#x00A0;x^3/3
+&#x00A0;<br />
+&#x00A0;<br />/*&#x00A0;integration&#x00A0;of&#x00A0;rational&#x00A0;function&#x00A0;*/
+&#x00A0;<br />
+&#x00A0;<br />In[2]:=&#x00A0;Integrate[(4-x^2+x^5)/(1+x^2),x]
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;2&#x00A0;&#x00A0;&#x00A0;&#x00A0;4&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x&#x00A0;&#x00A0;&#x00A0;&#x00A0;x&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;Log[1&#x00A0;+&#x00A0;x&#x00A0;]
+&#x00A0;<br />Out[2]=&#x00A0;-x&#x00A0;-&#x00A0;--&#x00A0;+&#x00A0;--&#x00A0;+&#x00A0;5&#x00A0;ArcTan[x]&#x00A0;+&#x00A0;-----------
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;2&#x00A0;&#x00A0;&#x00A0;&#x00A0;4&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;2
+&#x00A0;<br />
+&#x00A0;<br />/*&#x00A0;roots&#x00A0;of&#x00A0;a&#x00A0;4th-degree&#x00A0;polynomial&#x00A0;*/
+&#x00A0;<br />
+&#x00A0;<br />In[3]:=&#x00A0;Solve[-48-80*x+20*x^3+3*x^4==0,x]
+&#x00A0;<br />
+&#x00A0;<br />Out[3]=&#x00A0;{{x&#x00A0;-&#x003E;&#x00A0;-6},&#x00A0;{x&#x00A0;-&#x003E;&#x00A0;-2},&#x00A0;{x&#x00A0;-&#x003E;&#x00A0;-2/3},&#x00A0;{x&#x00A0;-&#x003E;&#x00A0;2}}
+&#x00A0;<br />
+&#x00A0;<br />/*&#x00A0;Taylor&#x00A0;expansion&#x00A0;around&#x00A0;0&#x00A0;up&#x00A0;to&#x00A0;5th&#x00A0;order&#x00A0;*/
+&#x00A0;<br />
+&#x00A0;<br />In[4]:=&#x00A0;Series[f[h]&#x00A0;-&#x00A0;2&#x00A0;f[0]&#x00A0;+&#x00A0;f[-h],{h,0,5}]
+&#x00A0;<br />
+&#x00A0;<br />Out[4]=&#x00A0;f&#8217;&#8217;[0]&#x00A0;h^2&#x00A0;+&#x00A0;(1/12)&#x00A0;f^(4)[0]&#x00A0;h^4&#x00A0;+&#x00A0;O[h]^6
+</div>
+<!--l. 38--><p class="nopar" >
+<!--l. 41--><p class="indent" >   Symbolic computation software is efficient for certain tasks, but worse
+than the human mind for others. For example, simplifying expressions is
+something humans appear to be far better in than computers. Especially
+when the same calculation is carried out by hand over and over again,
+the human brain recognizes simplifications that elude symbolic algebra
+packages.
+<!--l. 45--><p class="indent" >   Software packages can have bugs and mathematical handbooks can have typos.
+Fortunately, bugs tend to get corrected over time, in books as well as
+                                                                          
+
+                                                                          
+in software. And there are still explicitly solvable integrals that current
+symbolic computation programs are unable to recognize. Can we rely
+on results from computer algebra systems? The answer is that neither
+can we rely on manual symbolic manipulations. Numerical results have
+proven theoretical results incorrect. The reliability of any result depends on
+thoughtfulness.
+<!--l. 50--><p class="indent" >   <span 
+class="msam-10x-x-120">&#x25A1; </span>Currently available comprehensive packages with symbolic computation
+abilities include <span 
+class="cmti-12">Axiom, Maple, Mathematica, Maxima, Reduce</span>, and <span 
+class="cmti-12">SymPy</span>. For
+more information try SymbolicNet at <a 
+href="http://www.symbolicnet.org" class="url" ><span 
+class="cmtt-12">http://www.symbolicnet.org</span></a>.
+<!--l. 55--><p class="indent" >   A special purpose data base is the <span 
+class="cmti-12">On-Line Encyclopedia of Integer Sequences</span>
+by Neil J.&#x00A0;A.&#x00A0;Sloane at <a 
+href="http://oeis.org" class="url" ><span 
+class="cmtt-12">http://oeis.org</span></a>.
+<!--l. 60--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">13.2   </span> <a 
+ id="x15-5400013.2"></a>Diagrammatic techniques<sup><span 
+class="cmsy-8">*</span></sup></h3>
+<!--l. 64--><p class="noindent" >One kind of symbolic computation, used by humans and for computers, are
+diagrammatic perturbation expansions. Consider a classical gas at temperature <span 
+class="cmmi-12">T</span>.
+The partition function, which is key to calculating thermal properties of a
+statistical system, is the sum of exponential factors exp(<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">E&#x2215;kT</span>), where <span 
+class="cmmi-12">E </span>is
+kinetic plus potential energy and <span 
+class="cmmi-12">k </span>the Boltzmann constant. Denote <span 
+class="cmmi-12">&#x03B2; </span>= 1<span 
+class="cmmi-12">&#x2215;kT </span>for
+brevity. The kinetic energy of a particle is its momentum squared divided by two
+times its mass, <span 
+class="cmmi-12">p</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>2<span 
+class="cmmi-12">m</span>. The potential energy is given by the distance <span 
+class="cmmi-12">r</span>
+between particles via the pairwise potential <span 
+class="cmmi-12">u</span>(<span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">r</span><span 
+class="cmsy-10x-x-120">|</span>), whose form we keep
+general.
+<!--l. 72--><p class="indent" >   For one particle there is no potential energy and the partition function is
+<span 
+class="cmmi-12">Z</span>(<span 
+class="cmmi-12">&#x03B2;,V,m</span>) = <span 
+class="cmmi-12">C</span> <span 
+class="cmex-10x-x-120">&#x222B;</span>
+  <span 
+class="cmmi-12">dp</span><span 
+class="cmex-10x-x-120">&#x222B;</span>
+ <span 
+class="cmmi-12">dre</span><sup><span 
+class="cmsy-8">-</span><span 
+class="cmmi-8">&#x03B2;p</span><sup><span 
+class="cmr-6">2</span></sup><span 
+class="cmmi-8">&#x2215;</span><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">m</span></sup>, where <span 
+class="cmmi-12">V </span>is the volume and <span 
+class="cmmi-12">C </span>a physical
+constant. (That constant contains information about how many elements the sum
+has within a continuous interval.) For two particles the partition function
+is
+   <center class="math-display" >
+<img 
+src="compphysics66x.png" alt="                &#x222B;        &#x222B;           [ p2  p2        ]
+                                   -&#x03B2; 21m +22m+u(r1-r2)
+Z (&#x03B2;,V, m ) = C   dp1dp2    dr1dr2e                  .
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+<!--l. 80--><p class="nopar" > The integrals over momentum could be easily carried out since they are
+Gaussian integrals. However, a gas without interactions is an ideal gas and
+hence we simply write <span 
+class="cmmi-12">Z </span>= <span 
+class="cmmi-12">Z</span><sub><span 
+class="cmmi-8">ideal</span></sub> <span 
+class="cmex-10x-x-120">&#x222B;</span>
+    <span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">e</span><sup><span 
+class="cmsy-8">-</span><span 
+class="cmmi-8">&#x03B2;u</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">r</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmsy-8">-</span><span 
+class="cmmi-8">r</span><sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmr-8">)</span></sup>, which also absorbs
+the constant <span 
+class="cmmi-12">C</span>. An expansion for small <span 
+class="cmmi-12">&#x03B2;</span>, that is, high temperature,
+yields <span 
+class="cmmi-12">Z </span>= <span 
+class="cmmi-12">Z</span><sub><span 
+class="cmmi-8">ideal</span></sub> <span 
+class="cmex-10x-x-120">&#x222B;</span>
+    <span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">2</span></sub>[1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">&#x03B2;u</span><sub><span 
+class="cmr-8">12</span></sub> + <img 
+src="compphysics67x.png" alt=" 2
+&#x03B2;-
+ 2"  class="frac" align="middle"><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">12</span></sub><sup><span 
+class="cmr-8">2</span></sup> + <span 
+class="cmmi-12">...</span>]. Here, we abbreviated
+<span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">12</span></sub> = <span 
+class="cmmi-12">u</span>(<span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-120">|</span>). For three particles, <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="compphysics68x.png" alt="  Z        &#x222B;
+------ =     dr1dr2dr3e -&#x03B2;(u12+u13+u23)
+Zideal      &#x222B;
+
+       =     dr1dr2dr3 [1 - &#x03B2; (u12 + u13 + u23) +
+                2
+             + &#x03B2;-(u212 + u213 + u223 + 2u12u13 + 2u12u23 + 2u13u23) + ...]
+           &#x222B;   2!      [                                   ]
+                                      &#x03B2;2- 2
+       =     dr1dr2dr3  1 - 3&#x03B2;u12 + 3 2! (u12 + 2u12u13) + ...
+" class="math-display" ></center>
+</div>To keep track of the terms, they can be represented by diagrams. For example,
+<div class="center" 
+>
+<!--l. 97--><p class="noindent" >
+<div class="tabular"> <table id="TBL-20" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-20-1g"><col 
+id="TBL-20-1"><col 
+id="TBL-20-2"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-20-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-1"  
+class="td11"><span 
+class="cmex-10x-x-120">&#x222B;</span>
+ <span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">12</span></sub> =</td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-2"  
+class="td11"><img 
+src="compphysics69x.png" alt="PICT" >       </td>
+</tr></table></div></div>
+<!--l. 111--><p class="noindent" >Since <span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">12</span></sub>, <span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">13</span></sub>, and <span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">23</span></sub> yield the same contribution, one diagram suffices to represent
+all three terms. The full perturbation expansion for <span 
+class="cmmi-12">Z&#x2215;Z</span><sub><span 
+class="cmmi-8">ideal</span></sub> in diagrammatic form
+is
+                                                                          
+
+                                                                          
+<div class="center" 
+>
+<!--l. 115--><p class="noindent" >
+<div class="tabular"> <table id="TBL-21" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-21-1g"><col 
+id="TBL-21-1"><col 
+id="TBL-21-2"><col 
+id="TBL-21-3"><col 
+id="TBL-21-4"><col 
+id="TBL-21-5"><col 
+id="TBL-21-6"><col 
+id="TBL-21-7"><col 
+id="TBL-21-8"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-21-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-1"  
+class="td11"><img 
+src="compphysics70x.png" alt="PICT" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-2"  
+class="td11"><span 
+class="cmsy-10x-x-120">-</span>3<span 
+class="cmmi-12">&#x03B2;</span><span 
+class="cmsy-10x-x-120">&#x00D7;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-3"  
+class="td11"><img 
+src="compphysics71x.png" alt="PICT" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-4"  
+class="td11">+<img 
+src="compphysics72x.png" alt="-3
+2!"  class="frac" align="middle"><span 
+class="cmmi-12">&#x03B2;</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmsy-10x-x-120">&#x00D7;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-5"  
+class="td11"><img 
+src="compphysics73x.png" alt="PICT" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-6"  
+class="td11">+3<span 
+class="cmmi-12">&#x03B2;</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmsy-10x-x-120">&#x00D7;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-7"  
+class="td11"><img 
+src="compphysics74x.png" alt="PICT" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-8"  
+class="td11">+ ...</td>
+</tr></table></div></div>
+<!--l. 156--><p class="noindent" >The number of dots is the number of particles. The number of lines corresponds to
+the power of <span 
+class="cmmi-12">&#x03B2;</span>, that is, the order of the expansion. Every diagram has a
+multiplication factor corresponding to the number of distinct possibilities it can
+be drawn. In addition, it has a factorial and a binomial prefactor from the
+coefficients in the expansion. Using the diagrams, it is straightforward to
+write down the perturbation expansion for more particles or to higher
+order.
+<!--l. 159--><p class="indent" >   Not every diagram requires to calculate a new integral. For example, the
+four-particle term <span 
+class="cmex-10x-x-120">&#x222B;</span>
+  <span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-12">dr</span><sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">12</span></sub><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">34</span></sub> = <img 
+src="compphysics75x.png" alt="(&#x222B;          )
+   dr1dr2u12"  class="left" align="middle"><img 
+src="compphysics76x.png" alt="(&#x222B;          )
+   dr3dr4u34"  class="left" align="middle">. Hence,
+this diagram can be reduced to the product of simpler diagrams:
+   <div  
+class="centerline"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-22" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-22-1g"><col 
+id="TBL-22-1"><col 
+id="TBL-22-2"><col 
+id="TBL-22-3"><col 
+id="TBL-22-4"><col 
+id="TBL-22-5"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-22-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-1"  
+class="td11"><img 
+src="compphysics77x.png" alt="PICT" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-2"  
+class="td11">=</td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-3"  
+class="td11"><div class="center" 
+>
+<!--l. 196--><p class="noindent" >
+<!--l. 196--><p class="center" ><img 
+src="compphysics78x.png" alt="PICT" >
+</div> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-4"  
+class="td11"><span 
+class="cmsy-10x-x-120">&#x00D7;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-5"  
+class="td11"><div class="center" 
+>
+<!--l. 196--><p class="noindent" >
+<!--l. 196--><p class="center" ><img 
+src="compphysics79x.png" alt="PICT" >
+</div>  </td> 
+</tr></table>                           </div> </div>
+Disconnected parts of diagrams always multiply each other.
+<!--l. 201--><p class="indent" >   For the series expansion to converge, integrals of <span 
+class="cmmi-12">u </span>and of powers of <span 
+class="cmmi-12">u </span>need to
+converge. Unfortunately, the integrals diverge for many potentials. For example,
+for a one-dimensional gas of charged particles, <span 
+class="cmmi-12">u </span>is proportional to 1<span 
+class="cmmi-12">&#x2215;r</span>, and
+<span 
+class="cmex-10x-x-120">&#x222B;</span>
+  <span 
+class="cmmi-12">u</span>(<span 
+class="cmmi-12">r</span>)<span 
+class="cmmi-12">dr </span>diverges when the particles are very close to each other <span 
+class="cmti-12">and </span>when they
+are very far from each other. In physics, these two types of singularities are called
+ultraviolet and infrared divergences, respectively; a purely verbal analogy
+to the wavelength extremes of visible light. Despite divergent integrals,
+power series expansions of exponentials are common in quantum field
+theory.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch14.html" >next</a>] [<a 
+href="compphysicsch12.html" >prev</a>] [<a 
+href="compphysicsch12.html#tailcompphysicsch12.html" >prev-tail</a>] [<a 
+href="compphysicsch13.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch13.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch13.html"></a>   
+</body></html> 

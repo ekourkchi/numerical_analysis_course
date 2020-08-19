@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>About This Document</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch1.html" >next</a>] [<a 
+href="#tailcompphysicsli1.html">tail</a>] [<a 
+href="compphysics.html#compphysicsli1.html" >up</a>] </p></div>
+   <h2 class="likechapterHead"><a 
+ id="x2-1000"></a>About This Document</h2> <a 
+ id="Q1-2-2"></a>
+<!--l. 4--><p class="noindent" >Fundamental scientific discoveries have been made with the help of computational
+methods. For example, commonalities in the behavior of chaotic systems, most
+prominently Feigenbaum universality, have been discovered by means of numerical
+calculations. This required only simple and small computations. An example
+at the opposite extreme, using large and complex computations, is the
+prediction of the mass of the proton from fundamental theories of matter; only
+with numerical computations was it possible to evaluate the theoretical
+expressions sufficiently accurate for comparison with experimental measurement.
+Such examples highlight the crucial role of numerical calculations in basic
+science.
+<!--l. 6--><p class="indent" >   Even before the dawn of electronic computers, to name but one example,
+Milutin Milankovitch spent one hundred full days, from morning until night, with
+paper and fountain pen calculations on one of his investigations into Ice Ages.
+Today, the same computation can be done in seconds with electronic computers.
+Even small numerical calculations can solve problems not easily accessible with
+mathematical theory.
+<!--l. 8--><p class="indent" >   While today&#8217;s students and researchers are trained in the theoretical,
+experimental, and observational methods of their field, comparatively little
+educational literature is available about the computational branch of
+scientific inquiry. Moreover, the rapid advances in computer technology have
+changed the way we do scientific computing. As a consequence of such
+developments, part of the conventional wisdom about computing has become
+outdated.
+<!--l. 10--><p class="indent" >   This book is a collection of concise writings that expose the reader to a wide
+range of approaches, conceptional ideas, and practical issues. Often when working
+on the manuscript, it grew shorter, because less relevant material was discarded.
+It is written with an eye on usefulness, longevity, and breadth. Short-lived but
+useful pointers to specific resources are listed toward the end of each chapter or
+section.
+<!--l. 12--><p class="indent" >   The book takes a broad and interdisciplinary approach. Numerical methods,
+computer technology, and their interconnections are treated with the goal to
+                                                                          
+
+                                                                          
+facilitate scientific research. Viewpoints from several subject areas are often
+compounded within a single chapter.
+<!--l. 14--><p class="indent" >   The book can serve as supplementary reading material for upper-level college
+and graduate classes in computational physics or scientific computing in general.
+It can also be used as sole textbook for a one hour per week graduate class.
+Although the book is focused on physicis, all but a few chapters are accessible to
+and relevant for a much broader audience in the physical sciences. Sections with a
+star symbol (<sup><span 
+class="cmsy-8">*</span></sup>) are specifically intended for physicists and chemists. For
+better readability, references and footnotes within the text are entirely
+omitted.
+<!--l. 19--><p class="indent" >   I am indebted to my teachers and colleagues, and to many textbook authors
+who have, knowingly or unknowingly, contributed to the substance of
+this book. They include Prof.&#x00A0;Leo Kadanoff, who taught me why we
+compute, Prof.&#x00A0;James Sethian, on whose lectures chapter&#x00A0;15 is based on, and
+the authors of &#8220;Numerical Recipes&#8221;, to name but a few. Many friends
+and colleagues have provided valuable feedback on draft versions of this
+material.
+<!--l. 24--><p class="indent" >                                                                <span 
+class="cmcsc-10x-x-120">N<span 
+class="small-caps">o</span><span 
+class="small-caps">r</span><span 
+class="small-caps">b</span><span 
+class="small-caps">e</span><span 
+class="small-caps">r</span><span 
+class="small-caps">t</span></span>
+<span 
+class="cmcsc-10x-x-120">S<span 
+class="small-caps">c</span><span 
+class="small-caps">h</span></span><span 
+class="cmcsc-10x-x-120">ö<span 
+class="small-caps">r</span><span 
+class="small-caps">g</span><span 
+class="small-caps">h</span><span 
+class="small-caps">o</span><span 
+class="small-caps">f</span><span 
+class="small-caps">e</span><span 
+class="small-caps">r</span></span><br 
+class="newline" />Honolulu, Hawaii<br 
+class="newline" />December, 2015
+<!--l. 32--><p class="indent" >
+                                                                          
+
+                                                                          
+   <h3 class="likesectionHead"><a 
+ id="x2-2000"></a>To the Instructor</h3>
+<a 
+ id="Q1-2-4"></a>
+<!--l. 36--><p class="noindent" >This material is intended as a modernized, broad, and compact introduction into
+scientific computing. It is appropriate as main textbook or as supplementary
+reading in upper-level college and in graduate courses on scientific computing or
+computational physics, astrophysics, chemistry, meteorology, etc.&#x00A0;(the hard
+sciences). Prerequisites are basic calculus, linear algebra, and introductory
+physics. Prior knowledge of numerical analysis and a programming language are
+optional, although students will have to pick up programming skills during
+the course. In a 1-credit (1 academic hour per week) graduate course,
+I covered 12 of the 16 chapters. A few homework problems are posted
+on the website, not yet enough to cover most possible variants of the
+course.
+<!--l. 42--><p class="indent" >   Instead of slides, I use the pdf version of the manuscript to display figures and
+tables. The lectures involved interactive exercises with a Mac computer
+connected to the same LCD projector. These interactive exercises are
+mentioned in the text and based on files in the Programs folder. Each
+chapter is designed to cover about one academic hour, but chapter&#x00A0;7 is too
+long, and if optional material is left out, several other chapters are too
+short.
+<!--l. 47--><p class="indent" >   The content of the book can be roughly divided into two parts. The first half
+deals with small computations. Chapter&#x00A0;1 illustrates how insight can be gained
+from numerical calculations, introducing binary floating-point numbers along the
+way. The next three chapters provide an overview of numerical analysis, go into
+the nature of numbers on computers, and discuss programming languages, which
+readies the student to carry out the sample problem in chapter&#x00A0;5. Examples and
+homework try to establish the process of computational research as routine:
+problem setup, program implementation, testing, analysis of results, and
+iteration of these steps. The subsequent chapter elaborates on elements of
+this process, and forms a gradual transition into the second part of the
+book that deals mainly with large computations. Performance is discussed
+first on a hardware level, which then leads into the classical operation
+count of numerical analysis. Topics discussed next are random numbers,
+algorithms, and symbolic computations. Topics about data are collected in one
+chapter, followed by two chapters on partial differential equations applied to
+fluids and quantum systems. By the end, the student has been exposed to
+a wide range of methods, concepts, and practical material. Even some
+                                                                          
+
+                                                                          
+graduate level physics is introduced in optional sections, such as almost
+integrable systems, diagrammatic perturbation expansions, and density
+functionals.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+<!--l. 78--><p class="indent" >
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch1.html" >next</a>] [<a 
+href="compphysicsli1.html" >front</a>] [<a 
+href="compphysics.html#compphysicsli1.html" >up</a>] </p></div>
+<!--l. 2--><p class="indent" >   <a 
+ id="tailcompphysicsli1.html"></a>   
+</body></html> 

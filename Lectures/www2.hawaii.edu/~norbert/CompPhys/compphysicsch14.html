@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>14 Data: Small and Big</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch15.html" >next</a>] [<a 
+href="compphysicsch13.html" >prev</a>] [<a 
+href="compphysicsch13.html#tailcompphysicsch13.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch14.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch14.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;14</span><br /><a 
+ id="x16-5500014"></a>Data: Small and Big</h2>
+   <h3 class="sectionHead"><span class="titlemark">14.1   </span> <a 
+ id="x16-5600014.1"></a>Data files and formats</h3>
+<!--l. 6--><p class="noindent" >For checking purposes it is advantageous to create human readable output, that
+is, plain text. Plain text is also a highly portable file format; except, the end of
+line encoding can vary between operating system, which can be a nuisance,
+until one discovers one of the tools that convert them automatically. The
+line-ending for Unix, Linux, and Mac is <span 
+class="cmsy-10x-x-120">\</span><span 
+class="cmtt-12">n</span>; that for Windows &amp; DOS is
+<span 
+class="cmsy-10x-x-120">\</span><span 
+class="cmtt-12">r</span><span 
+class="cmsy-10x-x-120">\</span><span 
+class="cmtt-12">n</span>.
+<!--l. 9--><p class="indent" >   <span 
+class="cmti-12">File Size. </span>It is possible to at least estimate file size. When data are stored in
+text format, as they often are, each character takes up one byte. Delimiters and
+blank spaces also count as characters. The number <span 
+class="cmtt-12">1.23456E-04</span>, without leading
+or trailing blanks, takes up 11 bytes on the storage medium. If an invisible
+carriage return is at the end of the number, then it consumes an additional byte.
+A single-precision number, like <span 
+class="cmtt-12">1.23456E-04</span>, typically takes up four bytes of
+memory. As a rule of thumb, a set of stored data takes up more disk space than
+the same set in memory.
+<!--l. 12--><p class="indent" >   <span 
+class="cmti-12">Compression. </span>A large file containing mostly numbers uses only a small part of
+the full character set and can hence be substantially compressed into a file of
+smaller size. Number-only files typically compress, with conventional utilities, to
+around 40% of their original size. If repetitive patterns are present in the file, the
+compression will be even stronger.
+<!--l. 15--><p class="indent" >   Binary files are typically smaller than plain text files. They are portable,
+except for a flip in endian-ness on different machines; some computers write
+groups of bytes left-to-right and others right-to-left.
+<!--l. 17--><p class="indent" >   XML (EXtensible Markup Language) was designed to describe data. (HTML
+was designed to display data, and CSS formats data.) This format has widespread
+support for creation, reading, and decoding. An alternative to XML is
+JSON (JavaScript Object Notation). Although originally derived from the
+JavaScript scripting language, JSON is a language-independent data format.
+Code for parsing and generating JSON data is readily available in many
+programming languages. JSON is promoted as a low-overhead alternative to
+XML.
+                                                                          
+
+                                                                          
+<!--l. 25--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">14.2   </span> <a 
+ id="x16-5700014.2"></a>Text processing utilities</h3>
+<!--l. 27--><p class="noindent" >Data, whether real or from computer simulations, come in different formats, are
+created on different operating systems, have different symbols for comment lines,
+and different placeholders for invalid entries. Handy tools for file manipulation are
+operating system utilities and scripting languages. Sophisticated automated
+manipulations can be done quickly with text processing languages such as awk,
+perl, sed, and others.
+<!--l. 31--><p class="indent" >   To illustrate the capabilities of text processing tools, here are a few useful
+one-liners:
+      <ul class="itemize1">
+      <li class="itemize">Print all lines where the entry in the first column is larger than zero:
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-17">
+      awk&#x00A0;&#8216;{if&#x00A0;($1&#x003E;0.)&#x00A0;print}&#8217;&#x00A0;yourfile
+</div>
+      <!--l. 38--><p class="nopar" >
+      </li>
+      <li class="itemize">Print the first column and the sum of the third and fourth column of a
+      comma separated table, and replace commas with spaces:
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-18">
+      awk&#x00A0;-F,&#x00A0;&#8216;{print&#x00A0;$1,$3+$4}&#8217;&#x00A0;yourfile.csv
+</div>
+      <!--l. 45--><p class="nopar" >
+      </li>
+      <li class="itemize">Display all lines except whose that contain &#8217;NaN&#8217;:
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-19">
+      grep&#x00A0;-v&#x00A0;NaN&#x00A0;yourfile
+</div>
+      <!--l. 51--><p class="nopar" >
+      </li>
+      <li class="itemize">Replace the word &#8220;NaN&#8221; with &#8220;-9999&#8221; everywhere:
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-20">
+      sed&#x00A0;&#8216;s/NaN/-9999/&#8217;&#x00A0;yourfile
+</div>
+      <!--l. 57--><p class="nopar" >
+      </li>
+      <li class="itemize">replace line breaks with spaces:
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-21">
+      tr&#x00A0;"\n"&#x00A0;"&#x00A0;"&#x00A0;&#x003C;&#x00A0;yourfile
+</div>
+      <!--l. 63--><p class="nopar" >
+      </li>
+      <li class="itemize">Flip order of rows:
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-22">
+      perl&#x00A0;-e&#x00A0;&#8216;print&#x00A0;reverse&#x00A0;&#x003C;&#x003E;&#8217;&#x00A0;yourfile
+</div>
+      <!--l. 76--><p class="nopar" >
+      </li></ul>
+<!--l. 81--><p class="indent" >   <span 
+class="cmtt-12">sed </span>is a <span 
+class="cmti-12">stream editor </span>used for non-interactive editing. <span 
+class="cmtt-12">awk </span>is a programming
+language designed for text processing and often used as a data extraction
+tool. <span 
+class="cmtt-12">Perl </span>is a bigger language than <span 
+class="cmtt-12">awk </span>and <span 
+class="cmtt-12">sed </span>and can, in principle,
+replace both. The command-line Unix utility <span 
+class="cmtt-12">grep </span>is an excellent data
+filter.
+<!--l. 90--><p class="indent" >   A <span 
+class="cmtt-12">regular expression </span>is a special text string that describes a search
+pattern. For example, a wildcard <span 
+class="cmtt-12">* </span>matches any string, <span 
+class="cmtt-12">? </span>matches any
+one character, <span 
+class="cmtt-12">[09] </span>matches 0 or 9, [0-9] any number from 0 to 9, and
+[0-9a-fA-F] matches a single digit of a hexadecimal number. Unix utilities
+and other tools often recognize regular expressions (e.g.&#x00A0;awk, grep, and
+Perl).
+<!--l. 96--><p class="indent" >   <span 
+class="cmtt-12">wget </span>and <span 
+class="cmtt-12">curl </span>are command line tools that can download content from web
+addresses without user interaction.
+<!--l. 99--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">14.3   </span> <a 
+ id="x16-5800014.3"></a>Big data</h3>
+<!--l. 101--><p class="noindent" >&#8220;Big data&#8221; is a broad and vague term that refers to data so large or complex that
+traditional data processing methods or technology become inadequate. They
+may require distributed storage, new numerical methods, and enhanced
+curation.
+<!--l. 104--><p class="indent" >   The following problems may arise when working with large data sets:
+      <ol  class="enumerate1" >
+      <li 
+  class="enumerate" id="x16-58002x1">Data don&#8217;t fit in main memory: This is common and the method has to
+      consider <span 
+class="cmti-12">data locality </span>that minimizes the number of time data is read
+      from the hard drive instead of minimizing the number of floating point
+      operations. An example of such a numerical algorithm is the tiling for
+      matrix multiplication in sec.&#x00A0;<a 
+href="compphysicsch10.html#x12-4200010.4">10.4<!--tex4ht:ref: sec:locality --></a>.
+                                                                          
+
+                                                                          
+      </li>
+      <li 
+  class="enumerate" id="x16-58004x2">Data don&#8217;t fit on the local drive, but can be streamed through: In
+      addition to data local processing, it becomes important that data are
+      formatted  rigorously,  because  otherwise  dealing  with  no-longer  rare
+      exceptions will amount to a significant effort.
+      </li>
+      <li 
+  class="enumerate" id="x16-58006x3">Data are too big to be downloaded: Storage is easier than transfer,
+      hence analysis has to be where the data are not where the user is.
+      This is a game changer, as now the responsibility for data analysis
+      infrastructure lies with the data host. &#8220;Cloud computing&#8221; primarily
+      deals with this issue.
+      <!--l. 118--><p class="noindent" >Analyzing  data  on  somebody  else&#8217;s  computer  also  implies  that  the
+      researcher  is  limited  to  the  software  provided  by  the  host.  SQL
+      (Structured  Query  Language)  is  a  query  language  for  requesting
+      information  from  a  database.  It  is  not  only  a  special-purpose
+      programming language, but an old rudimentary version of SQL is an
+      official  standard,  and  its  syntax  and  concepts  have  become  widely
+      used. Many derivatives and extended versions of SQL are in use today.
+      Apache Hadoop is an open-source software framework for distributed
+      storage and distributed processing of very large data sets on computer
+      clusters.
+      </li>
+      <li 
+  class="enumerate" id="x16-58008x4">Data don&#8217;t fit anywhere, or the data is produced in bursts and cannot
+      be stored fast enough (e.g., particle collider experiments, arrays of radio
+      telescopes). In other words, the data move too fast. This situation has
+      to be dealt with with on-the-fly data analysis, also known as &#8220;stream
+      processing&#8221;.  Floating  point  is  much  faster  than  writing  to  disk,  so
+      valuable analysis can be done on the fly. Hardware accelerators, such
+      as GPUs (sec.&#x00A0;<a 
+href="compphysicsch9.html#x11-370009.3">9.3<!--tex4ht:ref: sec:gpus --></a>), are natural candidates for such a situation.
+      </li>
+      <li 
+  class="enumerate" id="x16-58010x5">Big  data  is  not  necessarily  large  data.  Data  that  are  complex  but
+      unstructured or insufficiently structured may require too much time to
+      be properly analyzed.
+      </li></ol>
+<!--l. 135--><p class="indent" >   Example of a Big data tool: JPEG-2000 (or JP2) is an image format that
+                                                                          
+
+                                                                          
+incorporates &#8220;smart&#8221; decoding for work with very large images. It is possible to
+smoothly pan and zoom with decompression of only a portion of the compressed
+data. And downsampled versions of the image can be viewed without adding to
+the file size. The JPEG2000 standard also provides an internet protocol
+(JPIP &#8211; JPEG 2000 Interactive Protocol) for efficient transmission of JP2
+files over the network. JPIP makes it possible to pan and zoom gigapixel
+images in real time over the network. For example, JPIP is used to view
+lossless JP2 images from the Mars Reconnaissance Orbiter on the HiRISE
+website.
+<!--l. 142--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">14.4   </span> <a 
+ id="x16-5900014.4"></a>Network and storage technologies</h3>
+<!--l. 145--><p class="noindent" >Ethernet can transfer up to 10 Gigabits per second (Gbps) and can be up to
+several hundreds meter long. Optical fibers have higher transfer rates
+(commercially currently up to about 100 Gbps on a single fiber) and can be used
+over longer distances. They are more expensive, not because of the cost of the
+cable, but because opto-electrical converters are needed at the beginning
+and end of each line. Wireless (radio) is nowadays implemented with
+low-cost semiconductor technology, and commonly provides up to 100
+Mbps.
+<!--l. 150--><p class="indent" >   Assuming an actual average download speed of 0.1&#x00A0;Gbps (already 3
+times of what I get at my research institution on a weekend in 2015),
+downloading 1&#x00A0;TB takes 22&#x00A0;hours. Data of the size of 1&#x00A0;PB are hence, for
+all practical purposes, physically stuck in place, which gives rise to the
+concept that analysis has to be where the data are not where the user
+is.
+<!--l. 152--><p class="indent" >   When data sets are very large, they have to be distributed over many physical
+storage units. And since every piece of hardware has a failure probability, failure is
+commonplace in a large cloud or data center. Modern file systems can
+automatically handle this situation, without interruption to normal operations, by
+maintaining replica of all data. A rule of thumb is to keep two copies
+for every piece of data, one nearby (e.g.&#x00A0;on the same rack) and another
+remote.
+<!--l. 154--><p class="indent" >   RAID (Redundant Array of Independent Disks) is a storage system that
+distributes data across multiple physical drives to achieve data redundancy, fast
+data access, or a bit of both.
+                                                                          
+
+                                                                          
+<!--l. 156--><p class="indent" >   HDFS (Hadoop Distributed File System) is designed to hold very large
+amounts of data. Data nodes can talk to each other to move copies around, but
+coordination is through a master node.
+<!--l. 162--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">14.5   </span> <a 
+ id="x16-6000014.5"></a>Data archiving</h3>
+<!--l. 164--><p class="noindent" >
+      <div class="quote">
+      <!--l. 165--><p class="noindent" ><span 
+class="cmti-12">&#8220;you have no idea the number of excuses people come up with to</span>
+      <span 
+class="cmti-12">hang onto their data and not give it to you&#8221;</span>
+      Tim Berners-Lee
+<!--l. 170--><p class="noindent" >Archiving of data enhances their scientific value. In particular, it allows for
+combining data from different sources. The lower the barrier to finding, obtaining,
+and understanding data, the better. That said, data need to be <span 
+class="cmti-12">curated</span>, and that
+requires extra effort by the data creator. Today data by themselves, without any
+scientific conclusion derived from them, can be published and cited, giving the
+data creators the credit they deserve.
+<!--l. 173--><p class="indent" >   The following features serve the function of an archive: Long-term availability,
+open accessibility (without pre-approval), standardized formats and file types,
+independent peer review, documentation, and citability.
+<!--l. 175--><p class="indent" >   Longevity of file formats: As technology changes, both hardware and software
+may become obsolete. And if the past is any guide, they really do. File
+formats more likely to be accessible in the future are non-proprietary, open,
+documented standards commonly used by the research community. Where file
+size permits, uncompressed plain text (ASCII or Unicode) is an excellent
+choice.
+<!--l. 177--><p class="indent" >   <span 
+class="msam-10x-x-120">&#x25A1; </span>Good file format choices for data archiving include: Plain text (Ascii/
+UTF-8) or Open Document Format (not Word), CSV (not Excel), JPEG2000
+(not JPG), TIFF or PNG (not GIF), MPEG-4 (not Quicktime), and
+XML.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch15.html" >next</a>] [<a 
+href="compphysicsch13.html" >prev</a>] [<a 
+href="compphysicsch13.html#tailcompphysicsch13.html" >prev-tail</a>] [<a 
+href="compphysicsch14.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch14.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch14.html"></a>   
+</body></html> 

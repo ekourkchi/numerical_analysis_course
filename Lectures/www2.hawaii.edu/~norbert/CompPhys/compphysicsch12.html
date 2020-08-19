@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>12 Algorithms, Data Structures, and Complexity</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch13.html" >next</a>] [<a 
+href="compphysicsch11.html" >prev</a>] [<a 
+href="compphysicsch11.html#tailcompphysicsch11.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch12.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch12.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;12</span><br /><a 
+ id="x14-4700012"></a>Algorithms, Data Structures, and Complexity</h2>
+   <h3 class="sectionHead"><span class="titlemark">12.1   </span> <a 
+ id="x14-4800012.1"></a>An example algorithm and basic data structures</h3>
+<!--l. 5--><p class="noindent" ><span 
+class="cmti-12">Heapsort </span>is a general-purpose sorting algorithm, which is fast even in the worst
+case scenario. It exploits data arrangement and demonstrates that a good
+algorithm does not have to be straightforward. Suppose we need to order <span 
+class="cmmi-12">N </span>real
+numbers. We start by taking three numbers and select the largest among them.
+We do the same with the next two numbers combined with one of the numbers at
+the bottom of the tree to produce a heap of numbers as illustrated in
+figure&#x00A0;<a 
+href="#x14-480011">12.1<!--tex4ht:ref: fig:heap --></a>(a). If the upper number in any triplet is not the largest, it is swapped
+with the larger of the two numbers beneath it. At the end, the largest element is
+on top. The final arrangement of data is shown in the rightmost tree of
+figure&#x00A0;<a 
+href="#x14-480011">12.1<!--tex4ht:ref: fig:heap --></a>(a).
+<!--l. 7--><p class="indent" >   The next stage of the algorithm starts with the largest element, on top, and
+replaces it with the largest element on the level below, which is in turn replaced
+with its largest element on the level below, and so on. In this way the largest
+element is pulled off first, then the second largest, third largest, and so
+on, and all numbers are eventually sorted according to their size; see
+figure&#x00A0;<a 
+href="#x14-480011">12.1<!--tex4ht:ref: fig:heap --></a>(b).
+<!--l. 9--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x14-480011"></a>
+                                                                          
+
+                                                                          
+<!--l. 11--><p class="noindent" ><span 
+class="cmr-10">(a)</span><div class="minipage"><span 
+class="cmr-10">&#x00A0;</span><span 
+class="cmr-10">&#x00A0;</span><span 
+class="cmr-10">&#x00A0;</span><span 
+class="cmr-10">&#x00A0;</span><span 
+class="cmr-10">&#x00A0;                                                                      finished heap</span><div class="verbatim" id="verbatim-14">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;7&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;9&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;9
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\
+&#x00A0;<br />&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;4.1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;7&#x00A0;&#x00A0;&#x00A0;&#x00A0;4.1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;7&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;8
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;\
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;5&#x00A0;9&#x00A0;8&#x00A0;2&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;5&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;8&#x00A0;&#x00A0;2&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;5&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;4.1&#x00A0;2
+</div>
+<!--l. 20--><p class="nopar" >
+</div> <span 
+class="cmr-10">(b)</span><div class="minipage"><div class="verbatim" id="verbatim-15">
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;9&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;8&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;7&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;5
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;&#x00A0;&#x00A0;\
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;7&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;8&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;7&#x00A0;&#x00A0;&#x00A0;&#x00A0;4.1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;5&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;4.1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;4.1&#x00A0;&#x00A0;&#x00A0;&#x00A0;...
+&#x00A0;<br />&#x00A0;&#x00A0;/&#x00A0;\&#x00A0;&#x00A0;&#x00A0;/&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;\&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;\
+&#x00A0;<br />&#x00A0;5&#x00A0;&#x00A0;&#x00A0;1&#x00A0;4.1&#x00A0;2&#x00A0;&#x00A0;&#x00A0;5&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;2&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;2
+</div>
+<!--l. 31--><p class="nopar" >
+</div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;12.1:  </span><span  
+class="content">Example  of  heapsort  algorithm  applied  to  the  unsorted
+sequence 7, 1, 4.1, 5, 9, 8, 2. (a) construction of the heap; (b) extraction of
+the maximum. </span></div><!--tex4ht:label?: x14-480011 -->
+                                                                          
+
+                                                                          
+<!--l. 36--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 39--><p class="indent" >   Take <span 
+class="cmmi-12">N</span><span 
+class="cmsy-10x-x-120">&#x2032; </span>to be the smallest integer power of 2 larger than <span 
+class="cmmi-12">N</span>. The
+number of levels in the heap is log <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">N</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>. The first stage of the algorithm,
+building the heap, requires up to <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>) = <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>) work. In
+the second stage, comparing and swapping is necessary up to <span 
+class="cmmi-12">N </span>times
+for each level of the tree. Hence the algorithm is 2<span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>), which
+is the same as <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>). Considering that merely going through <span 
+class="cmmi-12">N</span>
+numbers is <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>) and that log <span 
+class="cmmi-12">N </span>is usually a small number, sorting is
+&#8220;fast.&#8221;
+<!--l. 41--><p class="indent" >   A binary tree as in figure&#x00A0;<a 
+href="#x14-480022">12.2<!--tex4ht:ref: fig:binarytree --></a> can simply be stored as a one-dimensional
+array. The index in the array for the <span 
+class="cmmi-12">i</span>-th element in the <span 
+class="cmmi-12">b</span>-th level of the tree can
+be chosen as 2<sup><span 
+class="cmmi-8">b</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sup> + <span 
+class="cmmi-12">i </span><span 
+class="cmsy-10x-x-120">- </span>1.
+<!--l. 43--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x14-480022"></a>
+                                                                          
+
+                                                                          
+<!--l. 45--><p class="center" ><img 
+src="compphysics62x.png" alt="PICT" >
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;12.2: </span><span  
+class="content">A binary tree indexed as one-dimensional array with elements
+<span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">,...,a</span><sub><span 
+class="cmr-8">15</span></sub>. </span></div><!--tex4ht:label?: x14-480022 -->
+                                                                          
+
+                                                                          
+<!--l. 64--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 66--><p class="indent" >   Trees, which we have encountered in the heapsort algorithm, are a &#8220;data
+structure.&#8221; Arrays are another, simple data structure. A further possibility is to
+store pointers to data, that is, every data entry includes a reference to
+where the next entry is stored. Such a storage arrangement is called &#8220;list.&#8221;
+Inserting an element in a sequence of data is faster when the data are
+stored as a list rather than as an array. On the other hand, accessing
+the last element is faster in an array than in a list. Lists cause cache
+misses (described in chapter&#x00A0;<a 
+href="compphysicsch8.html#x10-300008">8<!--tex4ht:ref: chap:performance --></a>), because sequential elements are not stored
+sequentially in memory, in contrast to the cache&#8217;s locality assumption. A
+&#8220;hash table&#8221; is a data structure that can map a search term to an index
+for an array (an integer). A hash table uses a hash function to compute
+this index. It allows efficient lookup: given a string (e.g.&#x00A0;the name of
+a chemical compound), find the corresponding value (e.g.&#x00A0;a chemical
+formula).
+<!--l. 70--><p class="noindent" ><span 
+class="cmbx-12">Brainteaser: </span>Sort one suit of a deck of cards with the heapsort algorithm.
+<a 
+href="https://www.youtube.com/watch?v=WYII2Oau_VY" class="url" ><span 
+class="cmtt-12">https://www.youtube.com/watch?v=WYII2Oau_VY</span></a>
+   <h3 class="sectionHead"><span class="titlemark">12.2   </span> <a 
+ id="x14-4900012.2"></a>Computational complexity; intractable problems</h3>
+<!--l. 79--><p class="noindent" >It is rarely possible to prove it takes <span 
+class="cmti-12">at least </span>a certain number of steps to solve a
+problem, no matter what algorithm one can come up with. Hence one can rarely
+avoid thinking &#8220;Isn&#8217;t there a faster way to do this?&#8221; (A famous example of this
+kind is multiplication of two <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">N </span>matrices in <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">log</span> <sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmr-8">7</span></sup>) steps, log <sub>
+<span 
+class="cmr-8">2</span></sub>7 = 2<span 
+class="cmmi-12">.</span>8<span 
+class="cmmi-12">...</span>,
+which is less than <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>). Unfortunately, the prefactor of the operation count for
+this asymptotically faster algorithm is impractically large.) The operation count of
+the fastest possible algorithm is called the &#8220;computational complexity&#8221; of the
+problem.
+<!--l. 85--><p class="indent" >   The number of necessary steps can increase very rapidly with problem size.
+Not only like a power as <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>, but as <span 
+class="cmmi-12">N</span>! or exp(<span 
+class="cmmi-12">N</span>). These are computationally
+unfeasible problems, because even for moderate <span 
+class="cmmi-12">N </span>they cannot be solved on any
+existing computer, e.g. 100! <span 
+class="cmsy-10x-x-120">&#x2248; </span>10<sup><span 
+class="cmr-8">158</span></sup>; even 10<sup><span 
+class="cmr-8">9</span></sup> FLOPs a second cannot tackle this.
+A problem is called computationally &#8220;intractable&#8221; when the required number of
+steps to solve it increases faster than any power of <span 
+class="cmmi-12">N</span>. For example, combinatorial
+problems can be intractable when it is necessary to try more or less all possible
+                                                                          
+
+                                                                          
+combinations.
+<!--l. 89--><p class="indent" >   A concrete example of an intractable problem is finding the longest common
+subsequence among several strings. A subsequence is the string with elements
+deleted. For example, <span 
+class="cmtt-12">ATG </span>is a subsequence of <span 
+class="cmtt-12">CATAGC</span>. The elements have the
+same order but do not have to be contiguous. This problem arises in spell
+checking and genome comparisons. (Genomes contain sequences of nucleotide
+bases and these bases are abbreviated with single letters.) Finding the longest
+common subsequence requires an algorithm which is exponential in the number of
+sequences; see figure&#x00A0;<a 
+href="#x14-490013">12.3<!--tex4ht:ref: fig:genome --></a>.
+<!--l. 91--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x14-490013"></a>
+                                                                          
+
+                                                                          
+<!--l. 92--><p class="noindent" ><span 
+class="cmtt-12">AGTGGACTTTGACAGA</span><br 
+class="newline" /><span 
+class="cmtt-12">AGTGGACTTAGATTTA</span><br 
+class="newline" /><span 
+class="cmtt-12">TGGATCTTGACAGATT</span><br 
+class="newline" /><span 
+class="cmtt-12">AGTTGACTTACGTGCA</span><br 
+class="newline" /><span 
+class="cmtt-12">ATCGATCTATTCACCG</span>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;12.3: </span><span  
+class="content">Five sequences consisting of letters <span 
+class="cmtt-12">A</span>, <span 
+class="cmtt-12">C</span>, <span 
+class="cmtt-12">G</span>, and <span 
+class="cmtt-12">T</span>. The longest
+common subsequence is <span 
+class="cmtt-12">TGACTTAG</span>. </span></div><!--tex4ht:label?: x14-490013 -->
+                                                                          
+
+                                                                          
+<!--l. 99--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 101--><p class="indent" >   For some problems it has been proven that it is impossible to solve them in
+polynomial time; others are merely believed to be intractable since nobody has
+found a way to do them in polynomial time. (By the way, proving that finding the
+longest common subsequence, or any equivalent problem, cannot be solved in
+polynomial time is one of the major outstanding questions in present-day
+mathematics.) Since intractable problems do arise in practice, remedies have been
+looked for. For example, it might be possible to obtain a solution that is probably
+optimal in less time and the probability of error can be smaller than the
+chance that a cosmic ray particle hits the CPU and causes an error in the
+calculation.
+   <h3 class="sectionHead"><span class="titlemark">12.3   </span> <a 
+ id="x14-5000012.3"></a>Finite precision can reduce complexity</h3>
+<!--l. 109--><p class="noindent" >The integral of certain functions cannot be obtained in closed form. For example,
+the integral of exp(<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup>) cannot be expressed in terms of elementary functions, or
+at least not by a finite number of elementary functions. Yet, the integral is
+simply the Error function, a special function. Are special functions more
+difficult to evaluate numerically than elementary functions? Not profoundly.
+Either type of function can be expanded in a series that converges fast or
+approximated by some kind of interpolating function. A computer, and
+any online or pocket calculator for that matter, evaluates an elementary
+function, like sine, the same way. It uses an approximation algorithm, a
+rapidly converging series for instance. At the end, the hardware only adds,
+subtracts, multiplies, and divides. There is no fundamental definition of
+elementary function other than convention. Elementary functions are the ones
+frequently available on calculators and within programming languages. They
+are most likely to have ready-made, highly efficient implementations.
+Calculating an elementary function, a special function, or a function with
+no name at all to 16-digit precision is fundamentally the same kind of
+problem. For example, the Error function can be calculated to six digits
+of precision with only 23 floating point operations, with the following
+expression (from Abramovitz &amp; Stegun, <span 
+class="cmti-12">Handbook of Mathematical Functions</span>):
+<div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="compphysics63x.png" alt="              &#x222B; x
+erf(x) =  &#x221A;2--    e-t2dt
+            &#x03C0;  0
+                                    1
+       &#x2248;  1 - (1 +-a-x-+-a-x2-+-a-x3-+-a-x4-+-a-x5-+-a-x6)16
+                    1     2      3      4      5      6
+" class="math-display" ></center>
+</div>where <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">1</span></sub>=0.0705230784, <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">2</span></sub>=0.0422820123, <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">3</span></sub>=0.0092705272, <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">4</span></sub>=0.0001520143,
+<span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">5</span></sub>=0.0002765672, and <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">6</span></sub>=0.0000430638. For <span 
+class="cmmi-12">x &#x003C; </span>0 use <span 
+class="cmsy-10x-x-120">-</span>erf(<span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">|</span>). (Rearranging
+the polynomial can reduce the number of floating point operations from 23 to 18,
+but may worsen roundoff.)
+<!--l. 126--><p class="indent" >   Finite precision can reduce the computational complexity of a problem
+substantially. Actually the new C math library includes an <span 
+class="cmtt-12">erf </span>function, which
+can be called the same way as <span 
+class="cmtt-12">sin</span>.
+<!--l. 131--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">12.4   </span> <a 
+ id="x14-5100012.4"></a>Approximations can reduce complexity: Tree based N-body
+method</h3>
+<!--l. 133--><p class="noindent" >The formula for the gravitational force of <span 
+class="cmmi-12">N </span>objects on each other,
+<span 
+class="cmmi-12">F</span><sub><span 
+class="cmmi-8">i</span></sub> = <span 
+class="cmmi-12">m</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span><span 
+class="cmmi-8">,j</span><span 
+class="cmmi-8">&#x2260;</span><span 
+class="cmmi-8">i</span></sub><sup><span 
+class="cmmi-8">N</span></sup><span 
+class="cmmi-12">m</span><sub>
+<span 
+class="cmmi-8">j</span></sub>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">j</span></sub>)<span 
+class="cmmi-12">&#x2215;</span>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">j</span></sub>)<sup><span 
+class="cmr-8">3</span></sup> inevitably involves <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>) operations. For
+example, the gravitational interaction of a 100&#x00A0;billion stars in a galaxy cannot be
+simulated with direct evaluation of all pairwise forces. If however the result is
+desired only to a certain precision, for example the roundoff precision, nearby
+objects can be grouped together to obtain the force they exert on all objects far
+away from them.
+<!--l. 137--><p class="indent" >   The tree based (Barnes-Hut) algorithm uses an adaptive grid that successively
+subdivides the domain until there is only one particle in each box (Fig.&#x00A0;<a 
+href="#x14-510014">12.4<!--tex4ht:ref: fig:barneshut --></a>). The
+boxes are subdivided as particles are added. The grid is remade for every time
+step.
+<!--l. 140--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x14-510014"></a>
+                                                                          
+
+                                                                          
+<div class="tabular">
+ <table id="TBL-19" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-19-1g"><col 
+id="TBL-19-1"><col 
+id="TBL-19-2"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-19-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-1"  
+class="td11"><img 
+src="compphysics64x.png" alt="PIC" class="graphics" width="142.26378pt" height="112.90962pt" ><!--tex4ht:graphics  
+name="compphysics64x.png" src="subgrid.eps"  
+--></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-2"  
+class="td11"><div class="minipage"><!--l. 147--><p class="center" ><img 
+src="compphysics65x.png" alt="PICT" >
+                     </div></td></tr></table>
+</div>
+<br />  <div class="caption" 
+><span class="id">Figure&#x00A0;12.4:  </span><span  
+class="content">Adaptive  grid  for  the  <span 
+class="cmmi-12">N</span>-body  problem  in  2D  and  the
+corresponding quadtree. Tree nodes right to left correspond to the NE, NW,
+SW, and SE quadrants. </span></div><!--tex4ht:label?: x14-510014 -->
+                                                                          
+
+                                                                          
+<!--l. 179--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 181--><p class="indent" >   A convenient data structure for the adaptive grid is an (incomplete) quadtree
+in 2D or an octtree in 3D (Fig.&#x00A0;<a 
+href="#x14-510014">12.4<!--tex4ht:ref: fig:barneshut --></a>). The children are ordered. The particles are
+at the leaves of the tree. Each node contains the total mass and center of mass
+coordinates for all the particles it contains.
+<!--l. 183--><p class="indent" >   If the ratio <span 
+class="cmmi-12">D&#x2215;r </span>= (size of box) / (distance from particle to center of mass of
+box) is small enough, then the gravitational force due to all the particles in the
+box is approximated by their center of mass. To evaluate the forces, we start
+at the head of the tree and calculate the distance, and move down the
+tree, until the criterion <span 
+class="cmmi-12">D&#x2215;r &#x003C; </span>&#x0398; is satisfied, where &#x0398; is a user-supplied
+threshold.
+<!--l. 185--><p class="indent" >   If the particles are uniformly distributed, each body is about at the same level
+in the tree, and the depth of the tree is log <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-12">N</span>. The cost of adding a particle
+is proportional to the distance from the root to the leaf in which the
+particle resides. Hence, the complexity of inserting all the particles is
+<span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>).
+<!--l. 189--><p class="indent" >   The operation count for the force evaluation can be determined by plotting all
+the boxes around an individual particle that satisfy the geometric criterion
+<span 
+class="cmmi-12">D&#x2215;r &#x003C; </span>&#x0398;. Their size doubles with distance, and since there are at most 3
+undivided squares at each level, the total amount of work is proportional to
+the depth in the tree at which particle is stored. Hence, this cost is also
+proportional to <span 
+class="cmmi-12">O</span>(log <span 
+class="cmmi-12">N</span>) for each particle. In total, the tree-based <span 
+class="cmmi-12">N</span>-body
+method is an <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>) algorithm, at least when the bodies are distributed
+homogeneously.
+<!--l. 192--><p class="indent" >   <span 
+class="msam-10x-x-120">&#x25A1; </span>Some interactive tools that visualize the Barnes-Hut
+algorithm: <a 
+href="http://www.stefanom.org/wgc/test_tree.html?v=0" class="url" ><span 
+class="cmtt-12">http://www.stefanom.org/wgc/test_tree.html?v=0</span></a>,
+<a 
+href="https://www.khanacademy.org/computer-programming/quadtree-hut-tree/1179074380" class="url" ><span 
+class="cmtt-12">https://www.khanacademy.org/computer-programming/quadtree-hut-tree/1179074380</span></a>
+<!--l. 196--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>Cormen, Leiserson, Rivest &amp; Stein, <span 
+class="cmti-12">Introduction to</span>
+<span 
+class="cmti-12">Algorithms </span>is a widely used textbook.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch13.html" >next</a>] [<a 
+href="compphysicsch11.html" >prev</a>] [<a 
+href="compphysicsch11.html#tailcompphysicsch11.html" >prev-tail</a>] [<a 
+href="compphysicsch12.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch12.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch12.html"></a>   
+</body></html> 

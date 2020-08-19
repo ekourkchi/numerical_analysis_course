@@ -1,0 +1,810 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>15 A Crash Course on
+Partial Differential Equations</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch16.html" >next</a>] [<a 
+href="compphysicsch14.html" >prev</a>] [<a 
+href="compphysicsch14.html#tailcompphysicsch14.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch15.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch15.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;15</span><br /><a 
+ id="x17-6100015"></a>A Crash Course on<br 
+class="newline" />Partial Differential Equations</h2>
+<!--l. 4--><p class="noindent" >Partial differential equations (PDEs) are differential equations in two or
+more variables, and because they involve several dimensions, solving them
+numerically is often computationally intensive. Moreover, they come in
+such a variety that they often require tailoring for individual situations.
+Usually very little can be found out about a PDE analytically, so they often
+require numerical methods. Hence, something should be said about them
+here.
+<!--l. 6--><p class="indent" >   There are two major distinct types of PDEs. One type describes the evolution
+over time, or any other variable, starting from an initial configuration. Physical
+examples are the propagation of sound waves (wave equation) and the spread of
+heat in a medium (diffusion equation or heat equation). These are &#8220;initial value
+problems.&#8221; The other group are static solutions constrained by boundary
+conditions. Examples are the electric field of charges at rest (Poisson equation)
+and the charge distribution of electrons in an atom (time-independent Schrödinger
+equation). These are &#8220;boundary value problems.&#8221; The same distinction
+can already be made for ordinary differential equations. For example,
+<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;&#x2032;</span>(<span 
+class="cmmi-12">x</span>) = <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) with <span 
+class="cmmi-12">f</span>(0) = 1 and <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(0) = <span 
+class="cmsy-10x-x-120">-</span>1 is an initial value problem, while
+the same equation with <span 
+class="cmmi-12">f</span>(0) = 1 and <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(1) = <span 
+class="cmsy-10x-x-120">-</span>1 is a boundary value
+problem.
+   <h3 class="sectionHead"><span class="titlemark">15.1   </span> <a 
+ id="x17-6200015.1"></a>Initial value problems by finite differences</h3>
+<!--l. 12--><p class="noindent" >As an example of an initial value problem, consider the advection equation in
+one-dimensional space <span 
+class="cmmi-12">x </span>and time <span 
+class="cmmi-12">t</span>:
+   <center class="math-display" >
+<img 
+src="compphysics80x.png" alt="&#x2202;f (x, t)    &#x2202;f(x, t)
+--------+ v --------=  0.
+   &#x2202;t         &#x2202;x
+" class="math-display" ></center>
+<!--l. 15--><p class="nopar" > This describes, for example, the transport of a substance with concentration <span 
+class="cmmi-12">f </span>in
+a fluid with velocity <span 
+class="cmmi-12">v</span>. When a quantity is conserved, changes with time are due
+to material moving in from one side or out the other side. The flux at any point is
+<span 
+class="cmmi-12">vf </span>and the amount of material in an interval of length 2<span 
+class="cmmi-12">h </span>is 2<span 
+class="cmmi-12">hf</span>, hence
+                                                                          
+
+                                                                          
+<span 
+class="cmmi-12">&#x2202;</span>(2<span 
+class="cmmi-12">fh</span>)<span 
+class="cmmi-12">&#x2215;&#x2202;t </span>= <span 
+class="cmmi-12">vf</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">vf</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>). In the limit <span 
+class="cmmi-12">h </span><span 
+class="cmsy-10x-x-120">&#x2192; </span>0, this leads to the local
+conservation law <span 
+class="cmmi-12">&#x2202;f&#x2215;&#x2202;t</span> + <span 
+class="cmmi-12">&#x2202;</span>(<span 
+class="cmmi-12">vf</span>)<span 
+class="cmmi-12">&#x2215;&#x2202;x </span>= 0.
+<!--l. 19--><p class="indent" >   If <span 
+class="cmmi-12">v </span>is constant, then the solution is simply <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) = <span 
+class="cmmi-12">g</span>(<span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">vt</span>), where <span 
+class="cmmi-12">g </span>can be
+any function in one variable; its form is determined by the initial condition
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x, </span>0). In an infinite domain or for periodic boundary conditions, the average of <span 
+class="cmmi-12">f</span>
+and the maximum of <span 
+class="cmmi-12">f </span>never change.
+<!--l. 21--><p class="indent" >   A simple numerical scheme would be to replace the time derivative with
+[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t </span>+ <span 
+class="cmmi-12">k</span>) <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>)]<span 
+class="cmmi-12">&#x2215;k </span>and the spatial derivative with [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h,t</span>) <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">h,t</span>)]<span 
+class="cmmi-12">&#x2215;</span>2<span 
+class="cmmi-12">h</span>,
+where <span 
+class="cmmi-12">k </span>is a small time interval and <span 
+class="cmmi-12">h </span>a short distance. The advection equation
+then becomes
+   <center class="math-display" >
+<img 
+src="compphysics81x.png" alt="f-(x,-t +-k-) --f-(x,-t)+ O (k) + vf-(x +-h,t) --f-(x --h,t)+ O(h2) = 0.
+         k                                2h
+" class="math-display" ></center>
+<!--l. 25--><p class="nopar" > This discretization is accurate to first order in time and to second order in space. With
+this choice we arrive at the scheme <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>+<span 
+class="cmmi-12">k</span>) = <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>)<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">kv</span>[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>+<span 
+class="cmmi-12">h,t</span>)<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">h,t</span>)]<span 
+class="cmmi-12">&#x2215;</span>2<span 
+class="cmmi-12">h</span>.
+<!--l. 28--><p class="indent" >   Instead of the forward difference for the time discretization we can use
+the backward difference [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">k</span>)]<span 
+class="cmmi-12">&#x2215;k </span>or the center difference
+[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t </span>+ <span 
+class="cmmi-12">k</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">k</span>)]<span 
+class="cmmi-12">&#x2215;</span>2<span 
+class="cmmi-12">k</span>. Or, <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) in the forward difference can be
+eliminated by replacing it with [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h,t</span>) + <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h,t</span>)]<span 
+class="cmmi-12">&#x2215;</span>2. There are further
+possibilities, but let us consider only these four. Table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a> lists the resulting
+difference schemes and some of their properties.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 31--><p class="indent" >   <a 
+ id="x17-620011"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-23" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-23-1g"><col 
+id="TBL-23-1"><col 
+id="TBL-23-2"><col 
+id="TBL-23-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-1-1"  
+class="td11">stencil</td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-1-2"  
+class="td11">scheme                                             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-1-3"  
+class="td11">stability               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-2-1"  
+class="td11">      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-3-1"  
+class="td11"><img 
+src="compphysics82x.png" alt="PICT" >   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-3-2"  
+class="td11"><span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> = <span 
+class="cmmi-12">f</span><sub>
+<span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">v</span> <span 
+class="cmmi-8">k</span> _
+<span 
+class="cmr-8">2</span><span 
+class="cmmi-8">h</span>(<span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">+1</span></sub><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span><sub>
+<span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmmi-8">n</span></sup>)          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-3-3"  
+class="td11">unconditionally  &#x00A0;&#x00A0;
+unstable              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-4-1"  
+class="td11">      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-5-1"  
+class="td11"><img 
+src="compphysics83x.png" alt="PICT" >   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-5-2"  
+class="td11"><span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> + <span 
+class="cmmi-12">v</span> <span 
+class="cmmi-8">k</span> _
+<span 
+class="cmr-8">2</span><span 
+class="cmmi-8">h</span>(<span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">+1</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span><sub>
+<span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup>) = <span 
+class="cmmi-12">f</span><sub>
+<span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span></sup>      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-5-3"  
+class="td11">unconditionally
+stable                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-6-1"  
+class="td11">      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-7-1"  
+class="td11"><img 
+src="compphysics84x.png" alt="PICT" >   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-7-2"  
+class="td11"><span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> = <span 
+class="cmmi-12">f</span><sub>
+<span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">v</span> <span 
+class="cmmi-8">k</span> 
+<span 
+class="cmmi-8">h</span>(<span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">+1</span></sub><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span><sub>
+<span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmmi-8">n</span></sup>)         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-7-3"  
+class="td11">conditionally stable
+<span 
+class="cmmi-12">k&#x2215;h &#x003C; </span>1<span 
+class="cmmi-12">&#x2215;</span><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">v</span><span 
+class="cmsy-10x-x-120">|</span>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-8-1"  
+class="td11">      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-9-1"  
+class="td11"><img 
+src="compphysics85x.png" alt="PICT" >   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-9-2"  
+class="td11"><span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> = <span 
+class="cmr-8">1</span> 
+<span 
+class="cmr-8">2</span>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">v</span> <span 
+class="cmmi-8">k</span> 
+<span 
+class="cmmi-8">h</span>)<span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">+1</span></sub><sup><span 
+class="cmmi-8">n</span></sup> + <span 
+class="cmr-8">1</span> 
+<span 
+class="cmr-8">2</span>(1 + <span 
+class="cmmi-12">v</span> <span 
+class="cmmi-8">k</span> 
+<span 
+class="cmmi-8">h</span>)<span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmmi-8">n</span></sup></td><td  style="white-space:nowrap; text-align:left;" id="TBL-23-9-3"  
+class="td11">conditionally stable
+<span 
+class="cmmi-12">k&#x2215;h &#x003C; </span>1<span 
+class="cmmi-12">&#x2215;</span><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">v</span><span 
+class="cmsy-10x-x-120">|</span>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-10-1"  
+class="td11">      </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;15.1: </span><span  
+class="content">A few finite-difference schemes for the advection equation. The
+first column illustrates the space and time coordinates that appear in the
+finite-difference formulae, where the horizontal is the spatial coordinate and
+the vertical the time coordinate, up being the future. Subscripts indicate the
+spatial index and superscripts the time step, <span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">n</span></sup> = <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">jh,nk</span>).</span></div><!--tex4ht:label?: x17-620011 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 86--><p class="indent" >   For purely historical reasons some of these schemes have names. The second
+scheme is called Lax-Wendroff, the third Leapfrog (a look at its stencil in
+table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a> explains why), and the last Lax-Friedrichs. But there are so many
+possible schemes that this nomenclature is not practical.
+<!--l. 88--><p class="indent" >   The first scheme does not work at all, even for constant velocity. Figure&#x00A0;<a 
+href="#x17-620021">15.1<!--tex4ht:ref: fig:advectsol --></a>(a)
+shows the appearance of large, growing oscillations that cannot be correct, since
+the exact solution is the initial conditions shifted. This is a numerical
+instability.
+<!--l. 90--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x17-620021"></a>
+                                                                          
+
+                                                                          
+<!--l. 91--><p class="noindent" >(a)<img 
+src="compphysics86x.png" alt="PIC" class="graphics" width="167.87125pt" height="117.5104pt" ><!--tex4ht:graphics  
+name="compphysics86x.png" src="advect1.eps"  
+-->
+(b)<img 
+src="compphysics87x.png" alt="PIC" class="graphics" width="167.87125pt" height="117.5104pt" ><!--tex4ht:graphics  
+name="compphysics87x.png" src="advect2.eps"  
+--><br 
+class="newline" />(c)<img 
+src="compphysics88x.png" alt="PIC" class="graphics" width="167.87125pt" height="117.5104pt" ><!--tex4ht:graphics  
+name="compphysics88x.png" src="advect3.eps"  
+-->
+(d)<img 
+src="compphysics89x.png" alt="PIC" class="graphics" width="167.87125pt" height="117.5104pt" ><!--tex4ht:graphics  
+name="compphysics89x.png" src="advect4.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;15.1:  </span><span  
+class="content">Numerical  solution  of  the  advection  equation  (solid  line)
+compared to the exact solution (dashed line) for four different numerical
+methods. All four schemes are integrated over the same time period and from
+the same initial condition.</span></div><!--tex4ht:label?: x17-620021 -->
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+<!--l. 97--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 99--><p class="indent" >   Since the advection equation is linear in <span 
+class="cmmi-12">f</span>, we can consider a single mode
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) = <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">t</span>) exp(<span 
+class="cmmi-12">imx</span>), where <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">t</span>) is the amplitude and <span 
+class="cmmi-12">m </span>the wave number. The
+general solution is a superposition (sum) of such modes. For the first scheme in
+table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a> this leads to
+   <center class="math-display" >
+<img 
+src="compphysics90x.png" alt="f (t + k) = f(t) - vkf (t)[exp(imh ) - exp(- imh )]&#x2215;2h
+" class="math-display" ></center>
+<!--l. 103--><p class="nopar" > and further to <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">t </span>+ <span 
+class="cmmi-12">k</span>)<span 
+class="cmmi-12">&#x2215;f</span>(<span 
+class="cmmi-12">t</span>) = 1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">ikv</span> sin(<span 
+class="cmmi-12">mh</span>)<span 
+class="cmmi-12">&#x2215;h</span>. Hence, the amplification
+factor
+   <center class="math-display" >
+<img 
+src="compphysics91x.png" alt="|A|2 = |f(t + k )&#x2215;f (t)|2 = 1 + (kv&#x2215;h )2 sin2(mh ),
+" class="math-display" ></center>
+<!--l. 107--><p class="nopar" > which is larger than 1. Modes grow with time, no matter how fine the
+resolution. Modes with shorter wavelength (larger <span 
+class="cmmi-12">m</span>) grow faster, therefore the
+instability.
+<!--l. 111--><p class="indent" >   The same analysis applied, for instance, to the last of the four schemes
+yields
+   <center class="math-display" >
+<img 
+src="compphysics92x.png" alt="|A |2 = cos2(mh ) + (vk&#x2215;h)2 sin2(mh ).
+" class="math-display" ></center>
+<!--l. 114--><p class="nopar" > As long as <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">vk&#x2215;h</span><span 
+class="cmsy-10x-x-120">|&#x2264; </span>1, the amplification factor <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">A</span><span 
+class="cmsy-10x-x-120">|&#x2264; </span>1, even for the worst <span 
+class="cmmi-12">m</span>.
+Hence, the time step <span 
+class="cmmi-12">k </span>must be chosen such that <span 
+class="cmmi-12">k </span><span 
+class="cmsy-10x-x-120">&#x2264; </span><span 
+class="cmmi-12">h&#x2215;</span><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">v</span><span 
+class="cmsy-10x-x-120">|</span>. This is a requirement
+for numerical stability.
+<!--l. 117--><p class="indent" >   The second scheme in table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a> contains <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup>, the solution at a future
+time, simultaneously at several grid points and hence leads only to an
+implicit equation for <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup>. It is therefore called an &#8220;implicit&#8221; scheme.
+For all other discretizations shown in the table, <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> is given explicitly
+in terms of <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span></sup>. The system of linear equations can be represented by a
+matrix that multiplies the vector <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup> and yields <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span></sup> at the right-hand side:
+<div class="center" 
+>
+                                                                          
+
+                                                                          
+<!--l. 119--><p class="noindent" >
+<center class="par-math-display" >
+<img 
+src="compphysics93x.png" alt="(  1   *            * )n+1(   f1  ) n+1   (  f1  ) n
+|                     |   |       |       |      |
+|  *   1   *          |   |   f2  |       |  f2  |
+||     ...  ... ...    ||   ||    ...  ||    =  ||   ...  ||
+|(                     |)   |(       |)       |(      |)
+           *    1   *        fN -1          fN -1
+   *            *   1         fN             fN
+" class="par-math-display" ></center>
+<!--l. 138--><p class="nopar" ></div>
+<!--l. 140--><p class="noindent" >Stars stand for plus or minus <span 
+class="cmmi-12">vk&#x2215;</span>2<span 
+class="cmmi-12">h </span>and all blank entries are zeros. The elements in
+the upper right and lower left corner arise from periodic boundary conditions. (If
+we were to solve the advection equation in more than one spatial dimension, the
+matrix would become more complicated.) The implicit scheme leads to a
+tridiagonal system of equations that needs to be solved at every time step, if the
+velocity depends on time. With or without corner elements, the system can be
+solved in <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>) steps and requires only <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>) storage. Hence, the computational
+cost is not at all prohibitive. The scheme is stable for any step size. It
+becomes less and less accurate as the step size increases, but is never
+unstable.
+<!--l. 142--><p class="indent" >   The third, center-difference scheme is explicit and second-order accurate in
+time, but requires three instead of two storage levels, because it simultaneously
+involves <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup>, <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span></sup>, and <span 
+class="cmmi-12">f</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sup>. It is just like taking half a time step and
+evaluating the spatial derivative there, then using this information to take
+the whole step. Starting the scheme requires a single-differenced step
+initially.
+<!--l. 144--><p class="indent" >   The stability of the last of the four schemes was already discussed. The scheme
+is first-order accurate in time and second-order accurate in space, so that the error
+is <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">k</span>) + <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>). When the time step is chosen as <span 
+class="cmmi-12">k </span>= <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span>), as appropriate for the
+stability condition <span 
+class="cmmi-12">k </span><span 
+class="cmsy-10x-x-120">&#x2264; </span><span 
+class="cmmi-12">h&#x2215;</span><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">v</span><span 
+class="cmsy-10x-x-120">|</span>, the time integration is effectively the less accurate
+discretization. Higher orders of accuracy in both space and time could be achieved
+with larger stencils.
+<!--l. 146--><p class="indent" >   Of course, we would like to solve the advection equation with a varying,
+rather than a constant, velocity. Over small time and space steps the
+velocity can be linearized, so that the conclusions we have drawn remain
+                                                                          
+
+                                                                          
+practically valid. If the equation is supposed to express a conservation law, the
+velocity should be inside the spatial derivative and should be discretized
+correspondingly.
+<!--l. 148--><p class="indent" >   This lesson demonstrates that choosing finite differences is somewhat of
+an art. Not only is one discretization a little better than another, but
+some work and others do not. Many of the properties of such schemes
+are not obvious, like stability; it takes some analysis or insight to see
+it.
+   <h3 class="sectionHead"><span class="titlemark">15.2   </span> <a 
+ id="x17-6300015.2"></a>Numerical stability revisited</h3>
+<!--l. 155--><p class="noindent" >Calculating the amplification of individual modes can reveal the stability of a
+scheme, but there are also other methods. Series expansion of the last scheme in
+table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a> leads to <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) + <span 
+class="cmmi-12">k&#x2202;f&#x2215;&#x2202;t </span>= <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">vk&#x2202;f&#x2215;&#x2202;x </span>+ (<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>2)<span 
+class="cmmi-12">&#x2202;</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">f&#x2215;&#x2202;x</span><sup><span 
+class="cmr-8">2</span></sup>, and
+further to
+   <center class="math-display" >
+<img 
+src="compphysics94x.png" alt="              2  2
+&#x2202;f-+  v&#x2202;f-=  h--&#x2202;-f-.
+&#x2202;t     &#x2202;x    2k &#x2202;x2
+" class="math-display" ></center>
+<!--l. 159--><p class="nopar" > This is closer to what we are actually solving than the advection equation itself.
+The right-hand side, not present in the original equation, is a dissipation term
+that arises from the discretization. The dissipation constant is <span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>2<span 
+class="cmmi-12">k</span>, so the
+&#8220;constant&#8221; depends on the resolution. This is called &#8220;numerical dissipation.&#8221; The
+scheme damps modes, compared to the exact solution. Indeed, in figure&#x00A0;<a 
+href="#x17-620021">15.1<!--tex4ht:ref: fig:advectsol --></a>(d) a
+decay of the numeric solution relative to the exact solution is discernible. The
+higher the spatial resolution (the smaller <span 
+class="cmmi-12">h</span>), the smaller is the dissipation
+constant, because a suitable <span 
+class="cmmi-12">k </span>is proportional to <span 
+class="cmmi-12">h </span>to the first power, and the less
+is the damping.
+<!--l. 162--><p class="indent" >   There is the intuitive notion that the time step must be small enough to
+include the region the solution depends on&#8212;for any numerical integrator of PDEs.
+For the advection equation, the solution shifts proportionally with time and
+therefore this causality criterion is <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">v</span><span 
+class="cmsy-10x-x-120">| </span><span 
+class="cmmi-12">&#x003C; h&#x2215;k </span>for explicit schemes. This correctly
+reproduces the stability criterion of the last two schemes in table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a>. (In fact,
+the solution depends only on the &#8220;upwind&#8221; direction, and it is possible to
+construct a stable finite-difference scheme that only uses <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t </span>+ <span 
+class="cmmi-12">k</span>) and
+                                                                          
+
+                                                                          
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) when the velocity is negative, and <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">k</span>) and <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,t</span>) when the
+velocity is positive.) In the second scheme of table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a>, the implicit scheme,
+every point in the future depends on every point in the past, so that
+the causality criterion is satisfied for any time step, corresponding to
+unconditional stability. The criterion is not sufficient, as the first scheme
+shows, which is unstable for any step size. In summary, the causality
+criterion works, as a necessary condition, for all the schemes we have
+considered.
+<!--l. 164--><p class="indent" >   The causality criterion does not always need to be fully satisfied for
+numerically stable schemes. Explicit schemes for the diffusion equation,
+<span 
+class="cmmi-12">&#x2202;f&#x2215;&#x2202;t </span>= <span 
+class="cmmi-12">D&#x2202;</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">f&#x2215;&#x2202;x</span><sup><span 
+class="cmr-8">2</span></sup>, are such an example. In an infinite domain, the solution at
+time <span 
+class="cmmi-12">t </span>+ <span 
+class="cmmi-12">k </span>is given by
+   <center class="math-display" >
+<img 
+src="compphysics95x.png" alt="                      &#x222B;
+                 1      &#x221E;  - (x-x&#x2032;)2&#x2215;(4Dk)   &#x2032;     &#x2032;
+f (x, t + k) = &#x221A;-------    e             f(x ,t)dx .
+                4&#x03C0;Dk   -&#x221E;
+" class="math-display" ></center>
+<!--l. 167--><p class="nopar" > Hence, the solution depends on the <span 
+class="cmti-12">entire </span>domain even after an arbitrarily
+short time. The information travels with infinite speed. A simple explicit
+forward-difference scheme turns out to have the stability requirement
+<span 
+class="cmmi-12">k &#x003C; h</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>(2<span 
+class="cmmi-12">D</span>). Therefore, an integration scheme for the diffusion equation can be
+numerically stable even when it uses information from part of the domain only.
+However, the integral from <span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">&#x2032; </span>= <span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h </span>to <span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">&#x2032; </span>= <span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h </span>does include most of the
+dependence as long as <span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-120">&#x2265; </span><span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">kD</span>), so that most of the causal dependence is
+satisfied for numerically stable schemes.
+<!--l. 172--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">15.3   </span> <a 
+ id="x17-6400015.3"></a>Methods for PDEs</h3>
+<!--l. 174--><p class="noindent" >The major types of methods for solving PDEs are
+      <ul class="itemize1">
+      <li class="itemize">Finite-difference methods
+      </li>
+      <li class="itemize">Spectral methods (and more generally, integral transform methods)
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">Finite-element methods
+      </li>
+      <li class="itemize">Particle methods</li></ul>
+<!--l. 184--><p class="indent" >   In finite-difference methods all derivatives are approximated by finite
+differences. The four examples in table&#x00A0;<a 
+href="#x17-620011">15.1<!--tex4ht:ref: tbl:stencils --></a> are all of this type.
+<!--l. 186--><p class="indent" >   For spectral methods at least one of the variables is treated in spectral space,
+say, Fourier space. For example, the advection equation with a time-dependent
+but space-independent velocity would become <span 
+class="cmmi-12">&#x2202;</span><img 
+src="compphysics96x.png" alt="&#x02C6;f"  class="circ" > (<span 
+class="cmmi-12">&#x03BA;,t</span>)<span 
+class="cmmi-12">&#x2215;&#x2202;t </span>= <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">i&#x03BA;v</span>(<span 
+class="cmmi-12">t</span>)<img 
+src="compphysics97x.png" alt="&#x02C6;f"  class="circ" > (<span 
+class="cmmi-12">&#x03BA;,t</span>), where
+<span 
+class="cmmi-12">&#x03BA; </span>is the wave number and <img 
+src="compphysics98x.png" alt="f&#x02C6;"  class="circ" > the Fourier transform of <span 
+class="cmmi-12">f </span>with respect to <span 
+class="cmmi-12">x</span>. In this
+simple case, each Fourier mode can be integrated as an ordinary differential
+equation.
+<!--l. 188--><p class="indent" >   For finite-element methods the domain is decomposed into a mesh other than
+a rectangular grid, perhaps triangles with varying shapes and mesh density. Such
+grids can accommodate boundaries of any shape and solutions that vary rapidly
+in a small part of the domain.
+<!--l. 190--><p class="indent" >   Particle methods represent the solution in terms of fields generated by
+localized objects. The idea is exemplified by the electric field produced by point
+charges. The electric potential obeys a PDE, the Poisson equation, but it can also
+be expressed by Coulomb&#8217;s law. To calculate the force exerted by a collection of
+point charges, it is possible to sum the Coulomb forces instead of solving the
+Poisson equation in all of space. And the force exerted by a continuous patch of
+charges can be obtained by integration over the patch. (In mathematics, this
+method of solving partial differential equations is called the &#8220;method of
+sources.&#8221;)
+<!--l. 196--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>LeVeque <span 
+class="cmti-12">Numerical Methods for Conservation Laws</span>
+provides an introduction to the topic described in its title, especially the
+one-dimensional case. Gustafsson, Kreiss, and Oliger <span 
+class="cmti-12">Time Dependent Problems</span>
+<span 
+class="cmti-12">and Difference Methods </span>contains a comprehensive mathematical treatment of
+finite difference methods.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 5--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch16.html" >next</a>] [<a 
+href="compphysicsch14.html" >prev</a>] [<a 
+href="compphysicsch14.html#tailcompphysicsch14.html" >prev-tail</a>] [<a 
+href="compphysicsch15.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch15.html" >up</a>] </p></div>
+<!--l. 5--><p class="indent" >   <a 
+ id="tailcompphysicsch15.html"></a>   
+</body></html> 

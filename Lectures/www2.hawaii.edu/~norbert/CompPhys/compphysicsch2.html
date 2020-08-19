@@ -1,0 +1,732 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>2 A Few Concepts from Numerical Analysis</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch3.html" >next</a>] [<a 
+href="compphysicsch1.html" >prev</a>] [<a 
+href="compphysicsch1.html#tailcompphysicsch1.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch2.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch2.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;2</span><br /><a 
+ id="x4-40002"></a>A Few Concepts from Numerical Analysis</h2>
+<!--l. 3--><p class="noindent" >A systematic treatment of numerical methods is provided in conventional courses
+and textbooks on numerical analysis. But a few very common issues,
+that emerge in similar form in many numerical methods, are discussed
+here.
+   <h3 class="sectionHead"><span class="titlemark">2.1   </span> <a 
+ id="x4-50002.1"></a>Root finding: fast and unreliable</h3>
+<!--l. 9--><p class="noindent" >We consider the problem of solving a single equation, where a function of one
+variable equals a constant. Suppose a function <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) is given and we want to find
+its root(s) <span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup>, such that <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup>) = 0.
+<!--l. 13--><p class="indent" >   A popular method is that of Newton. The tangent at any point can
+be used to guess the location of the root. Since by Taylor expansion
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup>) = <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) + <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>)(<span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span>) + <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span>)<sup><span 
+class="cmr-8">2</span></sup>, the root can be estimated as
+<span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup> <span 
+class="cmsy-10x-x-120">&#x2248; </span><span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>)<span 
+class="cmmi-12">&#x2215;f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>) when <span 
+class="cmmi-12">x </span>is close to <span 
+class="cmmi-12">x</span><sup><span 
+class="cmsy-8">*</span></sup>. The procedure is applied iteratively:
+<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>)<span 
+class="cmmi-12">&#x2215;f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>). For example, it is possible to solve sin(3<span 
+class="cmmi-12">x</span>) = <span 
+class="cmmi-12">x </span>in this
+way, by finding the roots of <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) = sin(3<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span>. Starting with <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">0</span></sub> = 1, the
+procedure produces the numbers shown in column&#x00A0;2 of table&#x00A0;<a 
+href="#x4-50011">2.1<!--tex4ht:ref: tbl:newton --></a>. The sequence
+quickly approaches a root.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 17--><p class="indent" >   <a 
+ id="x4-50011"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1"><col 
+id="TBL-2-2"><col 
+id="TBL-2-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-1"  
+class="td11"> </td><td colspan="2" style="white-space:nowrap; text-align:center;" id="TBL-2-1-2"  
+class="td11">       <div class="multicolumn"  style="white-space:nowrap; text-align:center;"><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub></div>
+</td></tr><tr 
+class="cline"><td></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-1"  
+class="td11"><span 
+class="cmmi-12">n</span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-2"  
+class="td11"><span 
+class="cmmi-12">x</span><sub>
+<span 
+class="cmr-8">0</span></sub> = 1  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-3"  
+class="td11"><span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">0</span></sub> = 2  </td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-1"  
+class="td11">0</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-2"  
+class="td11">1 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-3"  
+class="td11">&#x00A0;2</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-1"  
+class="td11">1</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-2"  
+class="td11">0.7836...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-3"  
+class="td11">&#x00A0;3.212...</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-6-1"  
+class="td11">2</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-6-2"  
+class="td11">0.7602...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-6-3"  
+class="td11">&#x00A0;2.342...</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-7-1"  
+class="td11">3</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-7-2"  
+class="td11">0.7596...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-7-3"  
+class="td11">&#x00A0;3.719...</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-8-1"  
+class="td11">4</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-8-2"  
+class="td11">0.7596...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-8-3"  
+class="td11">-5.389... </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-9-1"  
+class="td11"> </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;2.1: </span><span  
+class="content">Newton&#8217;s method applied to sin(3<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x </span>= 0 with two different
+starting values.</span></div><!--tex4ht:label?: x4-50011 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 35--><p class="indent" >   Newton&#8217;s method is so fast, computers may use it internally to calculate the
+square root, <span 
+class="cmmi-12">x </span>= <img 
+src="compphysics2x.png" alt="&#x221A; --
+  y"  class="sqrt" >, with <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) = <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span>
+  </sup> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">y</span>. This only requires substractions,
+divisions, and multiplications. For example, the square root of 2 can be quickly
+calculated using only divisions and subtractions with <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) = <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-120">- </span>2. With a
+starting value of <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">0</span></sub> = 2, we obtain the numbers shown in Table&#x00A0;<a 
+href="#x4-50022">2.2<!--tex4ht:ref: tbl:sqrt2 --></a>. Eight
+significant digits are achieved after only four iterations.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 38--><p class="indent" >   <a 
+ id="x4-50022"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-3" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-3-1g"><col 
+id="TBL-3-1"><col 
+id="TBL-3-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-1"  
+class="td11"> <span 
+class="cmmi-12">n </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-1-2"  
+class="td11"><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>              </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-2-1"  
+class="td11"> 0 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-2-2"  
+class="td11">2              </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-3-1"  
+class="td11"> 1 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-3-2"  
+class="td11">1.5</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-4-1"  
+class="td11"> 2 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-4-2"  
+class="td11">1.41666...   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-5-1"  
+class="td11"> 3 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-5-2"  
+class="td11">1.414216...  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-6-1"  
+class="td11"> 4 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-6-2"  
+class="td11">1.4142136...</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-7-1"  
+class="td11"><img 
+src="compphysics3x.png" alt="&#x221A; --
+  2"  class="sqrt" ></td><td  style="white-space:nowrap; text-align:left;" id="TBL-3-7-2"  
+class="td11">1.4142136...</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-8-1"  
+class="td11">   </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;2.2: </span><span  
+class="content">Newton method used to obtain a square root</span></div><!--tex4ht:label?: x4-50022 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 56--><p class="indent" >   But Newton&#8217;s method can easily fail to find a root. Returning to the previous
+example, with <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">0</span></sub> = 2 the iteration never converges, as indicated in the last
+column of table&#x00A0;<a 
+href="#x4-50011">2.1<!--tex4ht:ref: tbl:newton --></a>.
+<!--l. 60--><p class="indent" >   Robustness may be preferable to speed. Is there a method that is certain to
+find a root? The simplest and most robust method is bisection, which follows the
+&#8220;divide-and-conquer&#8221; strategy. Suppose we start with two <span 
+class="cmmi-12">x</span>-values where the
+function <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) has opposite signs. Any continuous function <span 
+class="cmti-12">must </span>have a
+root between these two values. We then evaluate the function halfway
+between the two endpoints and check whether it is positive or negative
+there. This restricts the root to that half of the interval on whose ends the
+function has opposite signs. Table&#x00A0;<a 
+href="#x4-50033">2.3<!--tex4ht:ref: tbl:bisection --></a> shows an example. With the bisection
+method the accuracy is only doubled at each step, but the root is found for
+certain.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 62--><p class="indent" >   <a 
+ id="x4-50033"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-4" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-4-1g"><col 
+id="TBL-4-1"><col 
+id="TBL-4-2"><col 
+id="TBL-4-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-1-1"  
+class="td11"><span 
+class="cmmi-12">n</span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-1-2"  
+class="td11"><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">lower</span></sub>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-1-3"  
+class="td11"><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">upper</span></sub>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-2-1"  
+class="td11"> 0</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-2-2"  
+class="td11">0.1       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-2-3"  
+class="td11">2         </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-3-1"  
+class="td11"> 1</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-3-2"  
+class="td11">0.1 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-3-3"  
+class="td11">1.05</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-4-1"  
+class="td11"> 2</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-4-2"  
+class="td11">0.575    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-4-3"  
+class="td11">1.05      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-5-1"  
+class="td11"> 3</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-5-2"  
+class="td11">0.575 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-5-3"  
+class="td11">0.8125</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-6-1"  
+class="td11"> 4</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-6-2"  
+class="td11">0.6938...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-6-3"  
+class="td11">0.8125   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-7-1"  
+class="td11"> 5</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-7-2"  
+class="td11">0.7531...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-7-3"  
+class="td11">0.8125   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-8-1"  
+class="td11"> <img 
+src="compphysics4x.png" alt="..."  class="vdots" ></td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-8-2"  
+class="td11"><img 
+src="compphysics5x.png" alt="..."  class="vdots" >          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-8-3"  
+class="td11"><img 
+src="compphysics6x.png" alt="..."  class="vdots" >          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-9-1"  
+class="td11">15</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-9-2"  
+class="td11">0.7596...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-9-3"  
+class="td11">0.7597...</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-10-1"  
+class="td11">16</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-10-2"  
+class="td11">0.7596...</td><td  style="white-space:nowrap; text-align:left;" id="TBL-4-10-3"  
+class="td11">0.7596...</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-11-"><td  style="white-space:nowrap; text-align:right;" id="TBL-4-11-1"  
+class="td11">  </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;2.3: </span><span  
+class="content">Bisection method applied to sin(3<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x </span>= 0.</span></div><!--tex4ht:label?: x4-50033 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 84--><p class="indent" >   There are more methods for finding roots than the two just mentioned. Each
+method has its advantages and disadvantages. Bisection is most general but is
+awfully slow. Newton&#8217;s method is less general but much faster. Such a trade-off
+between generality and efficiency is often inevitable. This is so because efficiency
+is often achieved by exploiting a specific property of a system. For example,
+Newton&#8217;s method makes use of the differentiability of the function; the bisection
+method does not and works equally well for functions that cannot be
+differentiated.
+<!--l. 86--><p class="indent" >   The bisection method is guaranteed to succeed only if it brackets a root to
+begin with. There is no general method to find appropriate starting values, nor do
+we generally know how many roots there are. For example, a function can reach
+zero without changing sign; our criterion for bracketing a root does not work in
+this case. In principle, a continuous function can in any interval drop rapidly,
+cross zero, and then increase again, making it impossible to exclude the existence
+of roots.
+<!--l. 89--><p class="indent" >   The problem becomes even more severe for finding roots in more than one
+variable, say under the simultaneous conditions <span 
+class="cmmi-12">g</span>(<span 
+class="cmmi-12">x,y</span>) = 0<span 
+class="cmmi-12">,f</span>(<span 
+class="cmmi-12">x,y</span>) = 0. Newton&#8217;s
+method can be extended to several variables, but bisection cannot. How could one
+be sure all zeros are found in this vast space? There is no method that is
+guaranteed to find all roots. This is not a deficiency of the numerical
+methods, but is due to the intrinsic nature of the problem. Unless a good,
+educated initial guess can be made, finding roots in more than a few
+variables may be fundamentally and practically impossible. (This is in stark
+contrast to solving a system of <span 
+class="cmti-12">linear </span>equations, which is an easy numerical
+problem.)
+<!--l. 100--><p class="indent" >   Root finding can be a numerically difficult problem, because there is no
+method that always succeeds.
+   <h3 class="sectionHead"><span class="titlemark">2.2   </span> <a 
+ id="x4-60002.2"></a>Error propagation and numerical instabilities</h3>
+<!--l. 108--><p class="noindent" >Numerical problems can be difficult for other reasons too.
+<!--l. 110--><p class="indent" >   When small errors in the input data, of whatever origin, can lead to large
+errors in the resulting output data, the problem is called &#8220;numerically
+badly-conditioned&#8221; or if the situation is especially bad, &#8220;numerically ill-conditioned.&#8221;
+An example is solving the system of linear equations
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="compphysics7x.png" alt="x - y + z = 1,   - x + 3y + z = 1,  y + z = 2.  " class="math-display" ></center>
+Suppose there is an error <span 
+class="cmmi-12">&#x03F5; </span>in one of the coefficients such that the last equation
+becomes (1 + <span 
+class="cmmi-12">&#x03F5;</span>)<span 
+class="cmmi-12">y </span>+ <span 
+class="cmmi-12">z </span>= 2. The solution to these equations is easily worked out as
+<span 
+class="cmmi-12">x </span>= 4<span 
+class="cmmi-12">&#x2215;&#x03F5;</span>, <span 
+class="cmmi-12">y </span>= 1<span 
+class="cmmi-12">&#x2215;&#x03F5;</span>, <span 
+class="cmmi-12">z </span>= 1 <span 
+class="cmsy-10x-x-120">- </span>1<span 
+class="cmmi-12">&#x2215;&#x03F5;</span>. Hence, the result depends extremely strongly on the
+error <span 
+class="cmmi-12">&#x03F5;</span>. The reason is that for <span 
+class="cmmi-12">&#x03F5; </span>= 0 the system of equations is linearly dependent:
+the sum of the left-hand sides of the first two equations is twice that of the third
+equation. The right-hand side does not follow the same superposition.
+Consequently the unperturbed equations (<span 
+class="cmmi-12">&#x03F5; </span>= 0) have no solution. The
+situation can be visualized geometrically. Each of the equations describes an
+infinite plane in a three-dimensional space and the point at which they
+intersect represents the solution. For small <span 
+class="cmmi-12">&#x03F5;</span>, the planes intersect at a small
+angle and the intersection moves to infinity as <span 
+class="cmmi-12">&#x03F5; </span>goes to zero. This is
+a property of the problem itself, not the method used to solve it. No
+matter what method is utilized to determine the solution, the uncertainty
+in the input data will lead to an uncertainty in the output data. If a
+linear system of equations is linearly dependent, it is an ill-conditioned
+problem.
+<!--l. 116--><p class="indent" >   The theme of error propagation has many facets. Errors introduced during the
+calculation, namely by roundoff, can also become critical, in particular when
+errors are amplified not only once, but repeatedly. Let me give one such example
+for the successive propagation of inaccuracies.
+<!--l. 118--><p class="indent" >   Consider the difference equation 3<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 7<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">- </span>2<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub> with the two starting
+values <span 
+class="cmmi-12">y</span><sub><span 
+class="cmr-8">0</span></sub> = 1 and <span 
+class="cmmi-12">y</span><sub><span 
+class="cmr-8">1</span></sub> = 1<span 
+class="cmmi-12">&#x2215;</span>3. The analytic solution to this equation is <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> = 1<span 
+class="cmmi-12">&#x2215;</span>3<sup><span 
+class="cmmi-8">n</span></sup>. If
+we iterate numerically with initial values <span 
+class="cmmi-12">y</span><sub><span 
+class="cmr-8">0</span></sub> = 1 and <span 
+class="cmmi-12">y</span><sub><span 
+class="cmr-8">1</span></sub> = 0<span 
+class="cmmi-12">.</span>3333 (which
+approximates 1/3), then column&#x00A0;3 of table&#x00A0;<a 
+href="#x4-60014">2.4<!--tex4ht:ref: tbl:ninstab --></a> shows what happens. For
+comparison, the second column in the table shows the numerical value
+of the exact solution. The numerical iteration breaks down after a few
+steps.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 120--><p class="indent" >   <a 
+ id="x4-60014"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-5" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-5-1g"><col 
+id="TBL-5-1"><col 
+id="TBL-5-2"><col 
+id="TBL-5-3"><col 
+id="TBL-5-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-1-1"  
+class="td11"> </td><td colspan="3" style="white-space:nowrap; text-align:center;" id="TBL-5-1-2"  
+class="td11">                 <div class="multicolumn"  style="white-space:nowrap; text-align:center;"><span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub></div>
+</td></tr><tr 
+class="cline"><td></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-3-1"  
+class="td11"> <span 
+class="cmmi-12">n</span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-3-2"  
+class="td11"><span 
+class="cmmi-12">y</span><sub>
+<span 
+class="cmmi-8">n</span></sub> = 1<span 
+class="cmmi-12">&#x2215;</span>3<sup><span 
+class="cmmi-8">n</span></sup>   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-3-3"  
+class="td11"><span 
+class="cmmi-12">y</span><sub>
+<span 
+class="cmr-8">1</span></sub> = 0<span 
+class="cmmi-12">.</span>3333  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-3-4"  
+class="td11"><span 
+class="cmmi-12">y</span><sub><span 
+class="cmr-8">1</span></sub> = 1<span 
+class="cmmi-12">.&#x2215;</span>3<span 
+class="cmmi-12">.  </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-4-1"  
+class="td11"> 0</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-4-2"  
+class="td11">1              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-4-3"  
+class="td11">1                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-4-4"  
+class="td11">1              </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-5-1"  
+class="td11"> 1</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-5-2"  
+class="td11">0.333333 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-5-3"  
+class="td11">&#x00A0;0.3333 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-5-4"  
+class="td11">0.333333</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-6-1"  
+class="td11"> 2</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-6-2"  
+class="td11">0.111111     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-6-3"  
+class="td11">&#x00A0;0.111033     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-6-4"  
+class="td11">0.111111     </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-7-1"  
+class="td11"> 3</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-7-2"  
+class="td11">0.037037 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-7-3"  
+class="td11">&#x00A0;0.0368777 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-7-4"  
+class="td11">0.0370372</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-8-1"  
+class="td11"> 4</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-8-2"  
+class="td11">0.0123457   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-8-3"  
+class="td11">&#x00A0;0.0120257   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-8-4"  
+class="td11">0.0123459   </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-9-1"  
+class="td11"> 5</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-9-2"  
+class="td11">0.00411523 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-9-3"  
+class="td11">&#x00A0;0.00347489 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-9-4"  
+class="td11">0.00411569</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-10-1"  
+class="td11"> 6</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-10-2"  
+class="td11">0.00137174  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-10-3"  
+class="td11">&#x00A0;9.09399E-05</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-10-4"  
+class="td11">0.00137267  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-11-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-11-1"  
+class="td11"> 7</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-11-2"  
+class="td11">0.000457247</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-11-3"  
+class="td11">-0.0021044    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-11-4"  
+class="td11">0.000459095</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-12-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-12-1"  
+class="td11"> 8</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-12-2"  
+class="td11">0.000152416</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-12-3"  
+class="td11">-0.0049709    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-12-4"  
+class="td11">0.00015611  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-13-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-13-1"  
+class="td11"> 9</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-13-2"  
+class="td11">5.08053E-05</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-13-3"  
+class="td11">-0.0101958    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-13-4"  
+class="td11">5.81938E-05</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-14-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-14-1"  
+class="td11">10</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-14-2"  
+class="td11">1.69351E-05</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-14-3"  
+class="td11">-0.0204763    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-14-4"  
+class="td11">3.17123E-05</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-15-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-15-1"  
+class="td11">11</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-15-2"  
+class="td11">5.64503E-06</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-15-3"  
+class="td11">-0.0409809    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-15-4"  
+class="td11">3.51994E-05</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-16-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-16-1"  
+class="td11">12</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-16-2"  
+class="td11">1.88168E-06</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-16-3"  
+class="td11">-0.0819712    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-16-4"  
+class="td11">6.09904E-05</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-17-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-17-1"  
+class="td11">13</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-17-2"  
+class="td11">6.27225E-07</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-17-3"  
+class="td11">-0.163946     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-17-4"  
+class="td11">0.000118845</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-18-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-18-1"  
+class="td11">14</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-18-2"  
+class="td11">2.09075E-07</td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-18-3"  
+class="td11">-0.327892     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-5-18-4"  
+class="td11">0.000236644</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-19-"><td  style="white-space:nowrap; text-align:right;" id="TBL-5-19-1"  
+class="td11">  </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;2.4: </span><span  
+class="content">Numerical solution of the difference equation 3<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 7<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-120">-</span>2<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub>
+with initial error (third column) and roundoff errors (last column) compared
+to the exact numerical values (second column).</span></div><!--tex4ht:label?: x4-60014 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 148--><p class="indent" >   The reason for the rapid accumulation of errors can be understood from the
+analytic solution of the difference equation with general initial values:
+<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> = <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">1</span></sub>(1<span 
+class="cmmi-12">&#x2215;</span>3)<sup><span 
+class="cmmi-8">n</span></sup> + <span 
+class="cmmi-12">c</span><sub>
+<span 
+class="cmr-8">2</span></sub>2<sup><span 
+class="cmmi-8">n</span></sup>. The initial conditions for the above example are such that
+<span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">1</span></sub> = 1 and <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">2</span></sub> = 0, so that the growing branch of the solution vanishes, but any
+error seeds the exponentially growing contribution. Indeed, the last few entries in
+the third column of table&#x00A0;<a 
+href="#x4-60014">2.4<!--tex4ht:ref: tbl:ninstab --></a> double at every iteration; they are dominated by the
+2<sup><span 
+class="cmmi-8">n</span></sup> contribution.
+<!--l. 150--><p class="indent" >   Even if <span 
+class="cmmi-12">y</span><sub><span 
+class="cmr-8">1</span></sub> is assigned exactly 1/3 in the computer program, using
+single-precision numbers, the roundoff errors spoil the solution (last column in
+table&#x00A0;<a 
+href="#x4-60014">2.4<!--tex4ht:ref: tbl:ninstab --></a>). This iteration is &#8220;numerically unstable&#8221;; the numerical solution quickly
+grows away from the true solution. Numerical instabilities are due to the method
+rather than the mathematical nature of the equation being solved. (Contrary to
+the previous example, where the ultimate source of error was the coefficients in
+the equations themselves.) For the same problem one method might be unstable
+while another method is stable.
+   <div  
+class="centerline">                                          &#8212;&#8212;&#8212;&#8212;&#8212;                                          </div>
+<!--l. 155--><p class="indent" >   In summary, we have encountered a number of issues that come up in
+numerical computations. There is commonly a tradeoff between robustness
+and speed. There may be no algorithm that succeeds for certain, as for
+example root finding in one variable (in principle) and root finding in many
+variables (in practice). The propagation of errors in input data or due
+to roundoff can lead to difficulties. Solutions can be very sensitive to
+uncertainties in the input data, e.g.&#x00A0;a system of linear equations that is
+nearly degenerate. This sensitivity can be assessed, but that involves
+generally more work than obtaining the solution. Difficulties may be intrinsic
+to the problem or intrinsic to the method. Another concept, one barely
+touched on here, is computational efficiency. It is discussed in chapters&#x00A0;<a 
+href="compphysicsch8.html#x10-300008">8<!--tex4ht:ref: chap:performance --></a> to
+<a 
+href="compphysicsch10.html#x12-3800010">10<!--tex4ht:ref: chap:counting --></a>.
+<!--l. 163--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>A practically oriented classic is Press, Teukolsky,
+Vetterling &amp; Flannery, <span 
+class="cmti-12">Numerical Recipes</span>. This voluminous book describes a
+broad and selective collection of methods and provides insightful lessons in
+                                                                          
+
+                                                                          
+numerical analysis; see <a 
+href="http://www.nr.com" >www.nr.com</a> for further information.
+<!--l. 167--><p class="noindent" ><span 
+class="cmbx-12">Brainteaser: </span>An illustrative example of a function that suddenly crosses zero is
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) = 3<span 
+class="cmmi-12">&#x03C0;</span><sup><span 
+class="cmr-8">4</span></sup><span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup> + ln[(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">&#x03C0;</span>)<sup><span 
+class="cmr-8">2</span></sup>], which dips below zero only within a tiny interval.
+Although it is easy to show that <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) has two roots, graphing the function with
+any software will not reveal the sign change.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch3.html" >next</a>] [<a 
+href="compphysicsch1.html" >prev</a>] [<a 
+href="compphysicsch1.html#tailcompphysicsch1.html" >prev-tail</a>] [<a 
+href="compphysicsch2.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch2.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch2.html"></a>   
+</body></html> 

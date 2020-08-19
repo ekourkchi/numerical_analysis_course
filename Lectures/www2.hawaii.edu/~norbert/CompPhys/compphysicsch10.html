@@ -1,0 +1,633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>10 Operation Count; Numerical Linear Algebra</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch11.html" >next</a>] [<a 
+href="compphysicsch9.html" >prev</a>] [<a 
+href="compphysicsch9.html#tailcompphysicsch9.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch10.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch10.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;10</span><br /><a 
+ id="x12-3800010"></a>Operation Count; Numerical Linear Algebra</h2>
+   <h3 class="sectionHead"><span class="titlemark">10.1   </span> <a 
+ id="x12-3900010.1"></a>Introduction</h3>
+<!--l. 7--><p class="noindent" >Many computations are limited simply by the sheer number of required additions,
+multiplications, or function evaluations. If floating-point operations are the
+dominant cost then the computation time is proportional to the number of
+mathematical operations. Therefore, we should practice counting. For example,
+<span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">0</span></sub> + <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup> involves two additions and three multiplications, because the
+square also requires a multiplication, but the equivalent formula <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">0</span></sub> + (<span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">1</span></sub> + <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">x</span>)<span 
+class="cmmi-12">x</span>
+involves only two multiplications and two additions.
+<!--l. 10--><p class="indent" >   More generally, <span 
+class="cmmi-12">a</span><sub><span 
+class="cmmi-8">N</span></sub><span 
+class="cmmi-12">x</span><sup><span 
+class="cmmi-8">N</span></sup> + <span 
+class="cmmi-12">... </span>+ <span 
+class="cmmi-12">a</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">0</span></sub>  involves <span 
+class="cmmi-12">N </span>additions and
+<span 
+class="cmmi-12">N </span>+ (<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>1) + <span 
+class="cmmi-12">... </span>+ 1 = <span 
+class="cmmi-12">N</span>(<span 
+class="cmmi-12">N </span>+ 1)<span 
+class="cmmi-12">&#x2215;</span>2 multiplications, but (<span 
+class="cmmi-12">a</span><sub><span 
+class="cmmi-8">N</span></sub><span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">... </span>+ <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">1</span></sub>)<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">0</span></sub>
+only <span 
+class="cmmi-12">N </span>multiplications and <span 
+class="cmmi-12">N </span>additions. Both require <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>) operations, but the
+first takes about <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>2 flops for large <span 
+class="cmmi-12">N</span>, the latter 2<span 
+class="cmmi-12">N </span>for large <span 
+class="cmmi-12">N</span>. (Although the
+second form of polynomial evaluation is superior to the first in terms of the
+number of floating-point operations, in terms of <span 
+class="cmti-12">roundoff </span>it may be the other way
+round.)
+<!--l. 12--><p class="indent" >   Multiplying two <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">N </span>matrices obviously requires <span 
+class="cmmi-12">N </span>multiplications and
+<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>1 additions for each element. Since there are <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup> elements in the matrix this
+yields a total of <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>(2<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>1) floating-point operations, or about 2<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup> for large <span 
+class="cmmi-12">N</span>,
+that is, <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>).
+<!--l. 15--><p class="indent" >   A precise definition of the &#8220;order of&#8221; symbol <span 
+class="cmmi-12">O </span>is in place (Big-O notation). A
+function is of order <span 
+class="cmmi-12">x</span><sup><span 
+class="cmmi-8">p</span></sup> if there is a constant <span 
+class="cmmi-12">c </span>such that the absolute value of
+the function is no larger than <span 
+class="cmmi-12">cx</span><sup><span 
+class="cmmi-8">p</span></sup> for sufficiently large <span 
+class="cmmi-12">x</span>. For example,
+2<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup> + 4<span 
+class="cmmi-12">N </span>+ log(<span 
+class="cmmi-12">N</span>) + 7 <span 
+class="cmsy-10x-x-120">- </span>1<span 
+class="cmmi-12">&#x2215;N </span>is <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>). With this definition, a function that is
+<span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">6</span></sup>) is also <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">7</span></sup>), but it is usually implied that the power is the lowest
+possible. The analogous definition is also applicable for small numbers, as in
+chapter&#x00A0;<a 
+href="compphysicsch7.html#x9-240007">7<!--tex4ht:ref: chap:approximations --></a>. More generally, a function is of order <span 
+class="cmmi-12">g</span>(<span 
+class="cmmi-12">x</span>) if <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>)<span 
+class="cmsy-10x-x-120">|&#x2264; </span><span 
+class="cmmi-12">c</span><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">g</span>(<span 
+class="cmmi-12">x</span>)<span 
+class="cmsy-10x-x-120">| </span>for
+<span 
+class="cmmi-12">x &#x003E; x</span><sub><span 
+class="cmr-8">0</span></sub>.
+<!--l. 20--><p class="indent" >   An actual comparison of the relative speed of floating-point operations is given
+in table&#x00A0;<a 
+href="compphysicsch8.html#x10-310011">8.1<!--tex4ht:ref: tbl:flopspeeds --></a>. According to that table, we do not need to distinguish between
+addition, subtraction, and multiplication, but divisions take somewhat
+longer.
+                                                                          
+
+                                                                          
+<!--l. 24--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">10.2   </span> <a 
+ id="x12-4000010.2"></a>Slow and fast method for the determinant of a matrix</h3>
+<!--l. 26--><p class="noindent" >It is easy to exceed the computational ability of even the most powerful
+computer. Hence methods are needed that solve a problem quickly. As a
+demonstration we calculate the determinant of a matrix. Doing these
+calculations <span 
+class="cmti-12">by hand </span>gives us a feel for the problem. Although we are ultimately
+interested in the <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">N </span>case, the following 3 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>3 matrix serves as an
+example:
+   <center class="math-display" >
+<img 
+src="compphysics50x.png" alt="     (              )
+          1  1    0
+A  = (    2  1  - 1 )
+        - 1  2    5
+" class="math-display" ></center>
+<!--l. 33--><p class="nopar" >
+<!--l. 35--><p class="indent" >   One way to evaluate a determinant is Cramer&#8217;s rule, according to which the
+determinant can be calculated in terms of the determinants of submatrices. Cramer&#8217;s rule
+using the first row yields det(<span 
+class="cmmi-12">A</span>) = 1<span 
+class="cmsy-10x-x-120">&#x00D7;</span>(5+2)<span 
+class="cmsy-10x-x-120">-</span>1<span 
+class="cmsy-10x-x-120">&#x00D7;</span>(10<span 
+class="cmsy-10x-x-120">-</span>1)+0<span 
+class="cmsy-10x-x-120">&#x00D7;</span>(4+1) = 7<span 
+class="cmsy-10x-x-120">-</span>9 = <span 
+class="cmsy-10x-x-120">-</span>2.
+For a matrix of size <span 
+class="cmmi-12">N </span>this requires calculating <span 
+class="cmmi-12">N </span>subdeterminants, each of which
+in turn requires <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>1 subdeterminants, and so on. Hence the number of
+necessary operations is <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>!).
+<!--l. 37--><p class="indent" >   A faster way of evaluating the determinant of a large matrix is to bring the
+matrix to upper triangular or lower triangular form by linear transformations.
+Appropriate linear transformations preserve the value of the determinant. The
+determinant is then the product of diagonal elements, as is clear from the previous
+definition. For our example the transforms (row2<span 
+class="cmsy-10x-x-120">-</span>2<span 
+class="cmsy-10x-x-120">&#x00D7;</span>row1)&#x00A0;<span 
+class="cmsy-10x-x-120">&#x2192;</span>&#x00A0;row2 and
+(row3+row1)&#x00A0;<span 
+class="cmsy-10x-x-120">&#x2192;</span>&#x00A0;row3 yield zeros in the first column below the first matrix
+element. Then the transform (row3+3<span 
+class="cmsy-10x-x-120">&#x00D7;</span>row2)&#x00A0;<span 
+class="cmsy-10x-x-120">&#x2192;</span>&#x00A0;row3 yields zeros below the
+second element on the diagonal:
+   <center class="math-display" >
+<img 
+src="compphysics51x.png" alt="(   1  1    0 )     (  1   1    0 )     (  1    1   0  )
+(             )     (             )     (              )
+    2  1  - 1    &#x2192;     0  - 1 - 1    &#x2192;     0  - 1  - 1
+  - 1  2    5          0   3    5          0    0   2
+" class="math-display" ></center>
+<!--l. 57--><p class="nopar" > Now, the matrix is in triangular form and det(<span 
+class="cmmi-12">A</span>) = 1 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>(<span 
+class="cmsy-10x-x-120">-</span>1) <span 
+class="cmsy-10x-x-120">&#x00D7; </span>2 = <span 
+class="cmsy-10x-x-120">-</span>2. An
+                                                                          
+
+                                                                          
+<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7;</span><span 
+class="cmmi-12">N </span>matrix requires <span 
+class="cmmi-12">N </span>such steps; each linear transformation involves adding a
+multiple of one row to another row, that is, <span 
+class="cmmi-12">N </span>or fewer additions and <span 
+class="cmmi-12">N </span>or fewer
+multiplications. Hence this is an <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>) procedure. Therefore calculation of
+the determinant by bringing the matrix to upper triangular form is far
+more efficient than either of the previous two methods. For say <span 
+class="cmmi-12">N </span>= 10,
+the change from <span 
+class="cmmi-12">N</span>! to <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup> means a speedup of very roughly a thousand.
+This enormous speedup is achieved through a better choice of numerical
+method.
+<!--l. 63--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">10.3   </span> <a 
+ id="x12-4100010.3"></a>Non-intuitive operation counts in linear algebra</h3>
+<!--l. 65--><p class="noindent" >We all know how to solve a linear system of equations by hand, by extracting one
+variable at a time and repeatedly substituting it in all remaining equations, a
+method called Gauss elimination. This is essentially the same as we have done
+above in eliminating columns. The following symbolizes the procedure again on a
+4 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>4 matrix:
+   <center class="math-display" >
+<img 
+src="compphysics52x.png" alt="(  ****  )     (  **** )     (  **** )     (  ****  )
+   ****            ***           ***           ***
+(  ****  )  &#x2192;  (   *** )  &#x2192;  (    ** )  &#x2192;  (    **  )
+   ****            ***            **             *
+" class="math-display" ></center>
+<!--l. 99--><p class="nopar" > Stars indicate nonzero elements and blank elements are zero. Eliminating the first
+column takes about 2<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup> floating-point operations, the second column 2(<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>1)<sup><span 
+class="cmr-8">2</span></sup>,
+the third column 2(<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>2)<sup><span 
+class="cmr-8">2</span></sup>, and so on. This yields a total of about 2<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-12">&#x2215;</span>3
+floating-point operations. (One way to see that is to approximate the sum by an
+integral, and the integral of <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup> is <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-12">&#x2215;</span>3.)
+<!--l. 105--><p class="indent" >   Once triangular form is reached, the value of one variable is known and can be
+substituted in all other equations, and so on. These substitutions require only
+<span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>) operations. A count of 2<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-12">&#x2215;</span>3 is less than the approximately 2<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>
+operations for matrix multiplication. Solving a linear system is faster than
+multiplying two matrices!
+<!--l. 107--><p class="indent" >   During Gauss elimination the right-hand side of a system of linear equations is
+transformed along with the matrix. Many right-hand sides can be transformed
+simultaneously, but they need to be known in advance.
+                                                                          
+
+                                                                          
+<!--l. 109--><p class="indent" >   Inversion of a square matrix can be achieved by solving a system with <span 
+class="cmmi-12">N</span>
+different right-hand sides. Since the right-hand side(s) can be carried along in the
+transformation process, this is still <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>). Given <span 
+class="cmmi-12">Ax </span>= <span 
+class="cmmi-12">b</span>, the solution <span 
+class="cmmi-12">x </span>= <span 
+class="cmmi-12">A</span><sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-12">b</span>
+can be obtained by multiplying the inverse of <span 
+class="cmmi-12">A </span>with <span 
+class="cmmi-12">b</span>, but it is <span 
+class="cmti-12">not </span>necessary
+to invert a matrix to solve a linear system. Solving a linear system is
+faster than inverting and inverting a matrix is faster than multiplying two
+matrices.
+<!--l. 111--><p class="indent" >   We have only considered efficiency. It is also desirable to avoid dividing by too
+small a number or to optimize roundoff behavior or to introduce parallel efficiency.
+Since the solution of linear systems is an important and ubiquitous application, all
+these issues have received detailed attention and elaborate routines are
+available.
+<!--l. 113--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x12-410011"></a>
+                                                                          
+
+                                                                          
+<!--l. 114--><p class="noindent" ><img 
+src="compphysics53x.png" alt="PIC" class="graphics" width="170.71652pt" height="113.3372pt" ><!--tex4ht:graphics  
+name="compphysics53x.png" src="tvsN.eps"  
+--> <br />  <div class="caption" 
+><span class="id">Figure&#x00A0;10.1:  </span><span  
+class="content">Execution  time  of  a
+ program   solving   a   system   of   <span 
+class="cmmi-12">N</span>
+ linear  equations  in  <span 
+class="cmmi-12">N  </span>variables.  For
+ comparison, the dashed line shows an
+ increase proportional to <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>. </span></div><!--tex4ht:label?: x12-410011 -->
+                                                                          
+
+                                                                          
+<!--l. 118--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 120--><p class="indent" >   Figure&#x00A0;<a 
+href="#x12-410011">10.1<!--tex4ht:ref: fig:tvsN --></a> shows the actual time of execution for a program that solves a
+linear system of <span 
+class="cmmi-12">N </span>equations in <span 
+class="cmmi-12">N </span>variables. First of all, note the tremendous
+computational power of computers: Solving a linear system in 1000 variables,
+requiring about 600 million floating point operations, takes less than one second.
+(Using my workstation bought around 2010 and Matlab, I can solve a linear
+system of about 3500 equations in one second. Matlab automatically took
+advantage of all 4 CPU cores.) The increase in computation time with the
+number of variables is not as ideal as expected from the operation count,
+because time is required not only for arithmetic operations but also for
+data movement. For this particular implementation the execution time is
+larger when <span 
+class="cmmi-12">N </span>is a power of two. Other wiggles in the graph arise because
+the execution time is not exactly the same every time the program is
+run.
+   <div  
+class="centerline">                                          &#8212;&#8212;&#8212;&#8212;&#8212;                                          </div>
+<!--l. 125--><p class="indent" >   Table&#x00A0;<a 
+href="#x12-410021">10.1<!--tex4ht:ref: tbl:orders --></a> shows the operation count for several important problems.
+Operation count also goes under the name of &#8220;computational cost&#8221; or
+&#8220;computational complexity&#8221; (of an algorithm).
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 127--><p class="indent" >   <a 
+ id="x12-410021"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-18" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-18-1g"><col 
+id="TBL-18-1"><col 
+id="TBL-18-2"><col 
+id="TBL-18-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-1-1"  
+class="td11">problem                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-2"  
+class="td11"> operation </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-3"  
+class="td11">memory</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-2-1"  
+class="td11">                           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-2"  
+class="td11">  count    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-3"  
+class="td11"> count  </td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-3-1"  
+class="td11">Solving system of <span 
+class="cmmi-12">N </span>linear </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-2"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-3"  
+class="td11"></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-4-1"  
+class="td11">&#x00A0;&#x00A0;       equations in <span 
+class="cmmi-12">N </span>variables</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-2"  
+class="td11">  <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>)
+               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-3"  
+class="td11"> <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>)
+           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-5-1"  
+class="td11">Inversion of <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">N </span>matrix       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-2"  
+class="td11">  <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>)   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-3"  
+class="td11"> <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>) </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-6-1"  
+class="td11">Inversion of tridiagonal            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-2"  
+class="td11">          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-3"  
+class="td11">       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-7-1"  
+class="td11">&#x00A0;&#x00A0;       <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">N </span>matrix             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-7-2"  
+class="td11">  <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>)    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-7-3"  
+class="td11"> <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>)  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-8-1"  
+class="td11">Sorting <span 
+class="cmmi-12">N </span>real numbers           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-8-2"  
+class="td11"><span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>)</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-8-3"  
+class="td11"> <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>)  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-9-1"  
+class="td11">Fourier transform of <span 
+class="cmmi-12">N          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-10-1"  
+class="td11">&#x00A0;&#x00A0;       equidistant points         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-10-2"  
+class="td11"><span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span> log <span 
+class="cmmi-12">N</span>)</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-10-3"  
+class="td11"> <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>)  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-11-1"  
+class="td11">                           </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;10.1:  </span><span  
+class="content">Order  counts  and  required  memory  for  several  important
+problems solved by standard algorithms.</span></div><!--tex4ht:label?: x12-410021 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 164--><p class="indent" >   A matrix where most elements are zero is called &#8220;sparse.&#8221; An example is the
+tridiagonal matrix: A tridiagonal matrix has the following shape:
+<div class="center" 
+>
+<!--l. 166--><p class="noindent" >
+<center class="par-math-display" >
+<img 
+src="compphysics54x.png" alt="(                       )
+   *  *
+|  *  *  *              |
+||                       ||
+|     *  *    *         |
+||        ... ...  ...   ||
+(             *   *   * )
+
+                  *   *
+" class="par-math-display" ></center>
+<!--l. 190--><p class="nopar" ></div>
+<!--l. 192--><p class="noindent" >A sparse matrix, where most elements are zero, can be solved with appropriate
+algorithms, much faster and with less storage than a full matrix. For example, a
+tridiagonal system of equations can be solved with <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>) effort, not <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup>) but
+<span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span>), as compared to <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup>) for the a matrix.
+<!--l. 195--><p class="indent" >   The ratio of floating-point operations to bytes of main memory accessed is
+called the &#8220;arithmetic intensity.&#8221; Large problems with low arithmetic
+intensity are limited by memory bandwidth, while large problems with high
+arithmetic intensity are floating point limited. For example, a matrix transpose
+has an arithmetic intensity of zero, matrix addition of double precision
+numbers 1<span 
+class="cmmi-12">&#x2215;</span>(3 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>8) (very low), and naive matrix multiplication 2<span 
+class="cmmi-12">N&#x2215;</span>24
+(high).
+   <h3 class="sectionHead"><span class="titlemark">10.4   </span> <a 
+ id="x12-4200010.4"></a>Data locality</h3>
+<!--l. 205--><p class="noindent" >Calculations may not be limited by FLOPs/second but by data movement; hence
+we may also want to keep track of and minimize access to main memory. For
+multiplication of two <span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">N </span>matrices, simple row times column multiplication
+involves 2<span 
+class="cmmi-12">N </span>memory pulls for each of the <span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">2</span></sup> output elements. If the
+                                                                          
+
+                                                                          
+variables are 8-byte double precision numbers, then the arithmetic intensity is
+(2<span 
+class="cmmi-12">N </span><span 
+class="cmsy-10x-x-120">- </span>1)<span 
+class="cmmi-12">&#x2215;</span>(8(2<span 
+class="cmmi-12">N </span>+ 1)) <span 
+class="cmsy-10x-x-120">&#x2248; </span>1<span 
+class="cmmi-12">&#x2215;</span>8&#x00A0;FLOPs/byte. Hence the bottleneck may be memory
+bandwidth.
+<!--l. 207--><p class="indent" >   <span 
+class="cmti-12">Tiled matrix multiplication: </span>Data traffic from main memory can be reduced by
+<span 
+class="cmti-12">tiling </span>the matrix. The idea is to divide the matrix into <span 
+class="cmmi-12">m </span><span 
+class="cmsy-10x-x-120">&#x00D7; </span><span 
+class="cmmi-12">m </span>tiles small
+enough that they fit into a fast (usually on-chip) memory. For each pair
+of input tiles, there are 2<span 
+class="cmmi-12">m</span><sup><span 
+class="cmr-8">2</span></sup> movements out of and <span 
+class="cmmi-12">m</span><sup><span 
+class="cmr-8">2</span></sup> into the (slow)
+main memory. In addition, the partial sums, which will have to be stored
+temporarily in main memory, have to be brought in again for all but the first
+block; that is about another <span 
+class="cmmi-12">m</span><sup><span 
+class="cmr-8">2</span></sup> of traffic per tile. For each output tile, we
+have to go through <span 
+class="cmmi-12">N&#x2215;m </span>pairs of input tiles. In total, this amounts to
+(<span 
+class="cmmi-12">N&#x2215;m</span>)<sup><span 
+class="cmr-8">3</span></sup>4<span 
+class="cmmi-12">m</span><sup><span 
+class="cmr-8">2</span></sup> = 4<span 
+class="cmmi-12">N</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-12">&#x2215;m </span>memory movements, or 4<span 
+class="cmmi-12">N&#x2215;m </span>for each matrix element,
+versus 2<span 
+class="cmmi-12">N </span>for the naive method. This reduces data access to the main
+memory and turns matrix multiplication into a truly floating point limited
+operation.
+<!--l. 211--><p class="indent" >   There are enough highly-optimized matrix multiplication routines around that
+we never have to write one on our own, but the same concept&#8212;grouping of data
+to reduce traffic to main memory&#8212;can be applied to various problems with low
+arithmetic intensity.
+<!--l. 214--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>Golub &amp; Van&#x00A0;Loan, <span 
+class="cmti-12">Matrix Computations </span>is a
+standard work on numerical linear algebra.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch11.html" >next</a>] [<a 
+href="compphysicsch9.html" >prev</a>] [<a 
+href="compphysicsch9.html#tailcompphysicsch9.html" >prev-tail</a>] [<a 
+href="compphysicsch10.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch10.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch10.html"></a>   
+</body></html> 

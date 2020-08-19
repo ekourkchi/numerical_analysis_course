@@ -1,0 +1,118 @@
+
+/****************************************************************
+*   NAME:                Ehsan Kourkchi
+* 
+*   HOMEWORK:            9
+* 
+*   CLASS:               Scientific Computation (IfA)
+*
+*   INSTRUCTOR:          Norbert Schorghofer
+* 
+*   DATE:                November 29, 2015           
+* 
+* 
+****************************************************************/
+
+
+#####################################################################
+A-for dt {				FLOPS		Memory-Access [8 bytes] - assuming all variables are in double precession
+
+  AA-for i=1 to N:			# N FLOPs	2N 	# (i=i+1) , N-times
+     
+     a_x[i] = 0				# 0 FLOP	1
+     a_y[i] = 0				# 0 FLOP	1
+     a_z[i] = 0				# 0 FLOP	1
+     
+       # ------------------------------------------------------------
+       AAA-for j=1 to N:		# N FLOPs	2N
+      
+          dx = x[i] - x[j]		# 1 FLOP	3
+          dy = y[i] - y[j]		# 1 FLOP	3
+          dz = z[i] - z[j]		# 1 FLOP	3
+      
+          r2 = dx*dx+dy*dy+dz*dz	# 5 FLOPs	4 --> this is a rough estimation
+          r3 = r2 * sqrt(r2)		# 11 FLOPs	2
+        
+          # Updating the acceleration of the i'th object, due to the 
+          # graviataional force of j'th object
+          a_x[i] += M[j] * dx / r3	# 3 FLOPs	5
+          a_y[i] += M[j] * dy / r3	# 3 FLOPs	5
+          a_z[i] += M[j] * dz / r3	# 3 FLOPs	5
+     # ------------------------------------------------------------
+  
+  AB-for i=1 to N			# N FLOPs	2N
+     
+     x[i] += Vx[i] * dt			# 2 FLOPs	4
+     y[i] += Vy[i] * dt			# 2 FLOPs	4
+     z[i] += Vz[i] * dt			# 2 FLOPs	4
+     
+     # The effect of the gravitaional constant is applied here
+     Vx[i] += G * a_x[i] * dt		# 3 FLOPs	5
+     Vy[i] += G * a_y[i] * dt		# 3 FLOPs	5
+     Vz[i] += G * a_z[i] * dt		# 3 FLOPs	5
+
+} # The end of A-for loop
+#####################################################################
+
+NOTE: 
+   1) A-for loop is outer most loop
+   2) AA-for loop is nested in A-for loop
+   3) AB-for loop is nested in A-for loop
+   4) AAA-for loop is nested in AA-for loop
+   
+   
+##################################
+# 
+# Calculations of complexity:
+#
+##################################
+
+Total FLOPs for each AAA-for loop:	28
+
+Total FLOPs for each AA-for loop:	N + 28*N = 29*N   --> N for incrementing the loop index, 28N for the running the loop contents N times
+Total FLOPs for each AB-for loop:	15
+
+
+Total FLOPs for each A-for loop:	(N + 29*N*N) + (N + 15*N) = 29*N^2 + 17*N
+This is basically the total number of floating point operations. A-for loop is basically advancing the time, by "dt". So if A-loop repeats T times, the complexity of the algorithm would be:
+
+C = T*(29*N**2 + 17*N) = O(T*N^2)   
+
+---> Based on only the number of FLOPs, the running-time complexity is linear in number of time steps, T, and quadratic in number of bodies, N.
+---> Of course, including the factor of memory transfer might change the running-time complexity.
+
+##################################
+# 
+# Calculations of memory access:
+#
+##################################
+
+Total MAs for each AAA-for loop:		30
+
+Total MAs for each AA-for loop:			30N + 2N + 3 = 32N + 3 
+Total MAs for each AB-for loop:			27
+
+Total MAs for each A-for loop:			(N*(32N + 3)+2N) + (27N + 2N) = 32N^2 + 34N
+
+
+Total memory access in terms of byte (each variable takes 8 bytes): (32N^2 + 34N)*8 = 256*N^2 + 272*N
+
+
+##################################
+# 
+# Comparisons
+#
+##################################
+
+Total Flops		=	29*N^2 + 17*N
+Total MAs (byte)	=	256*N^2 + 272*N
+
+This implies that this calculation is data-transfer limited.
+
+Arithmetic Intensity	=	(29*N^2 + 17*N) / (256*N^2 + 272*N)
+For large N --> Arithmetic Intensity = ~11%
+
+Arithmetic Intensity depends on how the code is implemented, so this value might be different for other implementations.
+
+
+##################################

@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>8 Performance Basics; Computer Architectures</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch9.html" >next</a>] [<a 
+href="compphysicsch7.html" >prev</a>] [<a 
+href="compphysicsch7.html#tailcompphysicsch7.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch8.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch8.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;8</span><br /><a 
+ id="x10-300008"></a>Performance Basics; Computer Architectures</h2>
+   <h3 class="sectionHead"><span class="titlemark">8.1   </span> <a 
+ id="x10-310008.1"></a>Speed and limiting factors of computations</h3>
+<!--l. 7--><p class="noindent" >Basic floating-point operations, such as addition and multiplication, are
+carried out directly on the central processor unit (CPU). Elementary
+functions, on the other hand, are emulated on a higher level. Table&#x00A0;<a 
+href="#x10-310011">8.1<!--tex4ht:ref: tbl:flopspeeds --></a>
+provides an overview of the typical execution times for basic mathematical
+operations.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 9--><p class="indent" >   <a 
+ id="x10-310011"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-13" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-13-1g"><col 
+id="TBL-13-1"><col 
+id="TBL-13-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-1-1"  
+class="td11">integer addition, subtraction, or multiplication</td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-2"  
+class="td11"> <span 
+class="cmmi-12">&#x003C;</span>1  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-2-1"  
+class="td11">integer division                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-2"  
+class="td11">&#x00A0;4&#8211;10</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-3-1"  
+class="td11">float addition, subtraction, or multiplication    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-3-2"  
+class="td11">  1   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-4-1"  
+class="td11">float division                                             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-4-2"  
+class="td11"> 2&#8211;6  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-5-1"  
+class="td11">sqrt                                                         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-5-2"  
+class="td11">&#x00A0;5&#8211;20</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-6-1"  
+class="td11">sin, cos, tan, log, exp                                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-6-2"  
+class="td11">10&#8211;40</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-7-1"  
+class="td11">                                       </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;8.1: </span><span  
+class="content">The relative speed of integer operations, floating-point operations,
+and several elementary functions. (This is based on C and Fortran programs
+compiled with various compilers and executed on various platforms.) </span></div><!--tex4ht:label?: x10-310011 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 25--><p class="indent" >   (A simple interactive exercise with a program that adds a number a billion
+times to a variable can be used to approximately determine relative and absolute
+execution times. Such an exercise reveals the ratios above. It also reveals that
+Python is far slower than Fortran.)
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-7">
+&#x003E;&#x00A0;gfortran&#x00A0;speed.f90&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0; %&#x00A0;10^9&#x00A0;additions
+&#x00A0;<br />&#x003E;&#x00A0;time&#x00A0;a.out
+&#x00A0;<br />3.846u&#x00A0;0.007s
+&#x00A0;<br />&#x003E;&#x00A0;gfortran&#x00A0;-O&#x00A0;speed.f90&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+%&#x00A0;10^9&#x00A0;additions&#x00A0;with&#x00A0;optimization
+&#x00A0;<br />&#x003E;&#x00A0;time&#x00A0;a.out
+&#x00A0;<br />1.306u&#x00A0;0.003s
+&#x00A0;<br />&#x003E;&#x00A0;time&#x00A0;python&#x00A0;speed.py &#x00A0;&#x00A0;&#x00A0;&#x00A0;%&#x00A0;10^8&#x00A0;additions
+&#x00A0;<br />19.949u&#x00A0;16.576s
+</div>
+<!--l. 35--><p class="nopar" >
+<!--l. 37--><p class="indent" >   A unit of 1 in table&#x00A0;<a 
+href="#x10-310011">8.1<!--tex4ht:ref: tbl:flopspeeds --></a> corresponded to about 1&#x00A0;nanosecond on a
+personal computer or workstation (with a clock cycle of about 3&#x00A0;GHz).
+Contemplate however how many multiplications can be done in one second:
+10<sup><span 
+class="cmr-8">9</span></sup>. One second is enough time to solve a linear system in about 1000
+variables or to take the Fourier Transform of a million points. Arithmetic is
+fast!
+<!--l. 40--><p class="indent" >   Even the relative speeds in the above table are much unlike doing such
+calculations with paper-and-pencil. On a computer additions are no faster than
+multiplications, unlike when done by hand. On modern processors multiplication
+takes hardly longer than addition and subtraction. This was not always so and it
+was appropriate to worry more about the number of multiplications than about
+the number of additions. If a transformation would replace a multiplication by
+several additions, it was favorable for speed, but this is no longer the
+case.
+<!--l. 44--><p class="indent" >   Over the decades the bottlenecks for programs have changed with technology.
+Long ago it was memory size. Memory was expensive compared to floating-point
+operations, and algorithms tried to save every byte of memory possible. Later,
+memory became comparatively cheap, and the bottleneck moved to floating-point
+operations. For example, storing repeatedly used results in a temporary variable
+rather than recalculating them each time increased speed. This paradigm of
+programming is the basis of classical numerical analysis, with algorithms
+designed to minimize the number of floating-point operations. Today
+the most severe bottleneck often is moving data from memory to the
+processor. In future, perhaps, the bottleneck will be the parallelizability of an
+                                                                          
+
+                                                                          
+algorithm.
+<!--l. 48--><p class="indent" >   Moore&#8217;s law is a statement about the number of transistors per area that can
+be fit on a chip, and combined with other improvements, it has translated into
+an exponential and dramatic increase in floating point operations per
+second (FLOPS) over many decades. Until about the mid-2000&#8217;s, processor
+performance had doubled about every 18&#8211;24 months. Since then, the
+rate of increase for FLOPS per microprocessor has slowed, causing a sea
+change toward multi-core processors. This ushers in a new era for parallel
+computing.
+<!--l. 51--><p class="indent" >   There are basically four limiting factors to computations:
+      <ul class="itemize1">
+      <li class="itemize">processor speed
+      </li>
+      <li class="itemize">memory size
+      </li>
+      <li class="itemize">data transfer between memory and processor
+      </li>
+      <li class="itemize">input/output</li></ul>
+   <h3 class="sectionHead"><span class="titlemark">8.2   </span> <a 
+ id="x10-320008.2"></a>Memory and data transfer</h3>
+<!--l. 65--><p class="noindent" >The memory occupied by a number can be machine dependent, but standardization
+has led to significant uniformity. Each data type takes up a fixed number of bytes,
+      <ul class="itemize1">
+      <li class="itemize">four bytes for an integer,
+      </li>
+      <li class="itemize">four bytes for a single precision number, and
+      </li>
+      <li class="itemize">eight bytes for a double precision number.</li></ul>
+<!--l. 74--><p class="noindent" >Hence the required memory can be precisely calculated. For example, an array of
+1024 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>1024 double-precision numbers takes up exactly eight megabytes
+(2<sup><span 
+class="cmr-8">10</span></sup> <span 
+class="cmsy-10x-x-120">&#x2248; </span>10<sup><span 
+class="cmr-8">3</span></sup>).
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 77--><p class="indent" >   <a 
+ id="x10-320012"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-14" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-14-1g"><col 
+id="TBL-14-1"><col 
+id="TBL-14-2"><col 
+id="TBL-14-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-1-1"  
+class="td11">CPU                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-1-2"  
+class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-1-3"  
+class="td11">     1&#x00A0;ns        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-2-1"  
+class="td11">Memory (DRAM)</td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-2-2"  
+class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-2-3"  
+class="td11">   50&#8211;70&#x00A0;ns     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-3-1"  
+class="td11">Harddrive           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-3-2"  
+class="td11">Solid-state    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-3-3"  
+class="td11"> 0.1&#x00A0;ms = 10<sup><span 
+class="cmr-8">5</span></sup>ns </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-4-1"  
+class="td11">               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-4-2"  
+class="td11">Magnetic disk</td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-4-3"  
+class="td11">5&#8211;10&#x00A0;ms = 10<sup><span 
+class="cmr-8">7</span></sup>ns</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-5-1"  
+class="td11">               </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;8.2: </span><span  
+class="content">Execution and access times for basic computer components. Most
+of these numbers are cited from Patterson &amp; Hennessy (2013). </span></div><!--tex4ht:label?: x10-320012 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 92--><p class="indent" >   Table&#x00A0;<a 
+href="#x10-320012">8.2<!--tex4ht:ref: tbl:hardwarespeed --></a> shows how critical the issue of data transfer is, both between
+processor and memory and between memory and hard disk. When a processor
+carries out instructions it first needs to fetch necessary data from the memory.
+This is a slow process, compared to the speed with which the processor is able to
+compute. To speed up the transport of data a &#8220;cache&#8221; (pronounced &#8220;cash&#8221;) is
+used, which is a small unit of fast memory nowadays located on the main chip. A
+hierarchy of several levels of caches is possible, and in fact customary. Frequently
+used data are stored in the cache to be quickly accessible for the processor. Data
+are moved from main memory to the cache not byte by byte but in larger
+units of &#8220;cache lines,&#8221; assuming that nearby memory entries are likely
+to be needed by the processor soon (assumption of &#8220;spatial locality&#8221;).
+Similarly, &#8220;temporal locality&#8221; assumes if a data location is referenced then
+it will tend to be referenced again soon. If the processor requires data
+not yet in the cache, one speaks of &#8220;cache misses,&#8221; which lead to a time
+delay.
+<!--l. 99--><p class="indent" >   Table&#x00A0;<a 
+href="#x10-320023">8.3<!--tex4ht:ref: tbl:memhierarchy --></a> provides an overview of the memory hierarchy and the relative speed
+of its components. The large storage media are slow to access. The small memory
+units are fast.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 101--><p class="indent" >   <a 
+ id="x10-320023"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-15" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-15-1g"><col 
+id="TBL-15-1"><col 
+id="TBL-15-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-15-1-1"  
+class="td11">Registers     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-2"  
+class="td11"> 1  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-15-2-1"  
+class="td11">Level 1 Cache</td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-2"  
+class="td11">2&#8211;4</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-15-3-1"  
+class="td11">Main memory</td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-2"  
+class="td11"> 60</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-15-4-1"  
+class="td11">Magnetic disk</td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-2"  
+class="td11">10<sup><span 
+class="cmr-8">7</span></sup></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-15-5-1"  
+class="td11">            </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;8.3: </span><span  
+class="content">Memory hierarchy and relative access times (clock cycles). See
+table&#x00A0;<a 
+href="#x10-320012">8.2<!--tex4ht:ref: tbl:hardwarespeed --></a> for comparison with CPU execution speed.</span></div><!--tex4ht:label?: x10-320023 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 118--><p class="indent" >   Programs can access more (virtual) memory than physically exists on the
+computer. If the data exceed the available memory, the harddrive is used
+for temporary storage (swap space). Since reading and writing from and
+to a harddrive is comparatively slow, this slows down the calculation
+dramatically.
+<!--l. 121--><p class="indent" >   Reading or writing a few bytes to or from a magnetic disk takes as long as
+millions of floating-point operations. The majority of this time is for the head,
+that reads and writes the data, to find and move to the location on the disk where
+the data are stored. Consequently data should be read and written in big junks
+rather than in small pieces. In fact the computer will try to do so automatically.
+While a program is executing, data written to a file may not appear immediately.
+The data are not flushed to the disk until they exceed a certain size or until the
+file is closed.
+<!--l. 123--><p class="indent" >   Non-volatile flash (solid-state) memory often replaces a magnetic disk as a
+hard drive. It is faster (and more expensive per byte) than magnetic drives, but
+wears out with time.
+<!--l. 125--><p class="indent" >   Input and output are relatively slow on any medium (magnetic harddisk,
+screen, network, etc.). Writing on the screen is a particularly slow process;
+excesses thereof can easily delay the program. A common beginner&#8217;s mistake is to
+display vast amounts of output on the screen, so that data scroll down the screen
+at high speed; this slows down the calculation.
+<!--l. 127--><p class="indent" >   Input/output can be limiting due to the data transfer rate, but also due to
+size. Large data will be discussed in chapter&#x00A0;<a 
+href="compphysicsch14.html#x16-5500014">14<!--tex4ht:ref: chap:data --></a>.
+   <h3 class="sectionHead"><span class="titlemark">8.3   </span> <a 
+ id="x10-330008.3"></a>A programmer&#8217;s view of computer hardware</h3>
+<!--l. 133--><p class="noindent" >In this section we look at how a program is processed by the computer and follow
+it from the source code down to the level of individual bits executed on the
+hardware.
+<!--l. 135--><p class="indent" >   The lines of written program code are ultimately translated into hardware
+dependent machine code. For instance, the following simple line of C code adds
+two variables: <span 
+class="cmtt-12">a=i+j</span>. Suppose <span 
+class="cmtt-12">i </span>and <span 
+class="cmtt-12">j </span>have earlier been assigned values and are
+stored in memory. At a lower level we can look at the program in terms of its
+&#8220;assembly language,&#8221; which is a symbolic representation of the binary sequences
+the program is translated into:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-8">
+&#x00A0;lw&#x00A0;$8,&#x00A0;i
+&#x00A0;<br />&#x00A0;lw&#x00A0;$9,&#x00A0;j
+&#x00A0;<br />&#x00A0;add&#x00A0;$10,&#x00A0;$8,&#x00A0;$9
+&#x00A0;<br />&#x00A0;sw&#x00A0;$10,&#x00A0;a
+</div>
+<!--l. 143--><p class="nopar" > The values are pulled from main memory to a small memory unit on
+the processor, called &#8220;register,&#8221; and then the addition takes place. In
+this example, the first line loads variable <span 
+class="cmtt-12">i </span>into register 8. The second
+line loads variable <span 
+class="cmtt-12">j </span>into register 9. The next line adds the contents of
+registers 8 and 9 and stores the result in register 10. The last line copies the
+content of register 10 to memory. There are typically about 32 registers;
+they store only a few hundred bytes. Arithmetic operations, in fact most
+instructions, operate not directly on entries in memory but on entries in the
+registers.
+<!--l. 146--><p class="indent" >   At the assembly language level there is no distinction between data of different
+types. Floating-point numbers, integers, characters, and so on are all represented
+as binary sequences. What number actually corresponds to the sequence is a
+matter of how it is interpreted by the instruction. There is a different addition
+operation for integers and floats, for example.
+<!--l. 148--><p class="indent" >   Instructions themselves, like <span 
+class="cmtt-12">lw </span>and <span 
+class="cmtt-12">add</span>, are also encoded as binary sequences.
+The meaning of these sequences is hardware-encoded on the processor (instruction
+set). When a program is started, it is first loaded into memory. Then the
+instructions are executed with clock cycles.
+<!--l. 150--><p class="indent" >   During consecutive clock cycles the processor needs to fetch the instruction,
+read the registers, perform the operation, and write to the register. Depending on
+the actual hardware these steps may be split up into even more substeps. The idea
+of &#8220;pipelining&#8221; is to execute every step on a different, dedicated element of the
+hardware. The next instruction is already fetched, while the previous
+instruction is at the stage of reading registers, and so on. Effectively, several
+instructions are processed simultaneously. Hence, even a single processor
+core tries to execute tasks in parallel, an example of instruction-level
+parallelism.
+<!--l. 152--><p class="indent" >   The program is stalling when the next instruction depends on the outcome of
+the previous one, as for a conditional statement. Although an <span 
+class="cmtt-12">if </span>instruction itself
+is no slower than other elementary operations, it can stall the program in this
+                                                                          
+
+                                                                          
+way. In addition, an unexpected jump in the program can lead to cache
+misses. For the sake of speed, the programmer should keep the data flow
+predictable.
+<!--l. 157--><p class="indent" >   A computer&#8217;s CPU is extremely complex. For instance, the processor uses its
+own intelligence to decide what data to store in a register. And for conditional
+operations, it may speculate which of the possible branches is most likely to occur
+next. Much of this complexity is hidden from the user, even at the assembly
+language level, and taken care of automatically.
+<!--l. 159--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x10-330011"></a>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-16" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-16-1g"><col 
+id="TBL-16-1"><col 
+id="TBL-16-2"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-16-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-16-1-1"  
+class="td11"><div class="minipage"><div class="verbatim" id="verbatim-9">
+&#x00A0;&#x00A0;do&#x00A0;i=1,1000000000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;a=a+12.1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;a=a+7.8
+&#x00A0;<br />&#x00A0;&#x00A0;end&#x00A0;do
+</div>
+<!--l. 167--><p class="nopar" >                          </div></td><td  style="white-space:nowrap; text-align:left;" id="TBL-16-1-2"  
+class="td11"><div class="minipage"><div class="verbatim" id="verbatim-10">
+&#x00A0;&#x00A0;do&#x00A0;i=1,1000000000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;a=a+12.1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;b=b+7.8
+&#x00A0;<br />&#x00A0;&#x00A0;end&#x00A0;do
+</div>
+<!--l. 173--><p class="nopar" >                          </div></td>
+</tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;8.1:  </span><span  
+class="content">Although  both  of  these  Fortran  loops  involve  two  billion
+additions, the version to the right is twice as fast.</span></div><!--tex4ht:label?: x10-330011 -->
+                                                                          
+
+                                                                          
+<!--l. 178--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 181--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>Patterson &amp; Hennessy, <span 
+class="cmti-12">Computer Organization and</span>
+<span 
+class="cmti-12">Design: The Hardware/Software Interface </span>is a very accessible textbook for this
+rapidly changing field by two eminent scientists. Updated editions are being
+published regularly.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch9.html" >next</a>] [<a 
+href="compphysicsch7.html" >prev</a>] [<a 
+href="compphysicsch7.html#tailcompphysicsch7.html" >prev-tail</a>] [<a 
+href="compphysicsch8.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch8.html" >up</a>] </p></div>
+<!--l. 2--><p class="indent" >   <a 
+ id="tailcompphysicsch8.html"></a>   
+</body></html> 

@@ -1,0 +1,559 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>3 Roundoff and Number Representation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch4.html" >next</a>] [<a 
+href="compphysicsch2.html" >prev</a>] [<a 
+href="compphysicsch2.html#tailcompphysicsch2.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch3.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch3.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;3</span><br /><a 
+ id="x5-70003"></a>Roundoff and Number Representation</h2>
+   <h3 class="sectionHead"><span class="titlemark">3.1   </span> <a 
+ id="x5-80003.1"></a>Number representation</h3>
+<!--l. 5--><p class="noindent" >In a computer every real number is represented by a sequence of bits, commonly
+32 bits (4 bytes). One bit is for the sign, and the distribution of bits for mantissa
+and exponent can be platform dependent. Almost universally however a 32-bit
+number will have 8 bits for the exponent and 23 bits for the mantissa, leaving one
+bit for the sign (as illustrated in figure&#x00A0;<a 
+href="#x5-80011">3.1<!--tex4ht:ref: tbl:numrep --></a>). In the decimal system this
+corresponds to a maximum/minimum exponent of <span 
+class="cmsy-10x-x-120">±</span>38 and approximately 7
+decimal digits (at least 6 and at most 9). For a 64-bit number (8 bytes)
+there are 11 bits for the exponent (<span 
+class="cmsy-10x-x-120">±</span>308) and 52 bits for the mantissa,
+which gives around 16 decimal digits of precision (at least 15 and at most
+17).
+<!--l. 7--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x5-80011"></a>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-6" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-6-1g"><col 
+id="TBL-6-1"><col 
+id="TBL-6-2"><col 
+id="TBL-6-3"><col 
+id="TBL-6-4"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-6-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-6-1-1"  
+class="td11">  <span 
+class="cmtt-12">0 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-2"  
+class="td11"><img 
+src="compphysics8x.png" alt="0&#x25DF;1011&#x25DD;1&#x25DC;10-&#x25DE;" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-6-1-4"  
+class="td11"><img 
+src="compphysics9x.png" alt="0&#x25DF;011100010001&#x25DD;0&#x25DC;110000010---&#x25DE;" ></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-6-2-1"  
+class="td11">sign&#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-2-2"  
+class="td11"> exponent </td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-2-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-2-4"  
+class="td11">        <div class="multicolumn"  style="white-space:nowrap; text-align:center;">mantissa</div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-6-3-1"  
+class="td11">    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-6-4-1"  
+class="td11">   <span 
+class="cmtt-12">+</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-4-2"  
+class="td11"> <img 
+src="compphysics10x.png" alt="1&#x25DF;.23&#x25DD;4&#x25DC;56&#x25DE;" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-4-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-6-4-4"  
+class="td11"><img 
+src="compphysics11x.png" alt="E&#x25DF;-&#x25DD;&#x25DC;6&#x25DE;" >              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-6-5-1"  
+class="td11"> sign</td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-5-2"  
+class="td11"> mantissa </td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-5-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-6-5-4"  
+class="td11">exponent                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-6-6-1"  
+class="td11">    </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;3.1: </span><span  
+class="content">Typical representation of a real number with 32 bits.</span></div><!--tex4ht:label?: x5-80011 -->
+                                                                          
+
+                                                                          
+<!--l. 19--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 21--><p class="indent" >   Single-precision numbers are typically 4 bytes long. Use of double-precision
+variables doubles the length of the representation. On some machines there is a
+way to extend beyond double, possibly up to quadruple precision, but that is the
+end of how far precision can be extended. Some high-performance computers use
+64-bit numbers already at single-precision, which would correspond to
+double-precision on most other machines. While the terms single and double can
+be ambiguous, some languages (e.g.&#x00A0;Fortran) allow to declare 4-byte and 8-byte
+floating point variables to remove this ambiguity.
+<!--l. 24--><p class="indent" >   The mathematical constant <span 
+class="cmmi-12">&#x03C0; </span>up to 36 significant decimal digits (usually
+enough for quadruple precision) is<br 
+class="newline" /><div  
+class="centerline"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-7" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-7-1g"><col 
+id="TBL-7-1"><col 
+id="TBL-7-2"><col 
+id="TBL-7-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-7-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-7-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-120">&#x2190; </span>single <span 
+class="cmsy-10x-x-120">&#x2192;</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-7-2-1"  
+class="td11"> <span 
+class="cmtt-12">3.14159265</span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-7-2-2"  
+class="td11"><span 
+class="cmtt-12">3589793</span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-7-2-3"  
+class="td11"><span 
+class="cmtt-12">23846264338327950288</span></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-3-"><td colspan="2" style="white-space:nowrap; text-align:right;" id="TBL-7-3-1"  
+class="td11"><div class="multicolumn"  style="white-space:nowrap; text-align:right;"><span 
+class="cmsy-10x-x-120">&#x2190;-</span> double <span 
+class="cmsy-10x-x-120">-&#x2192;</span> </div>
+  </td></tr></table>                                         </div></div>
+<!--l. 35--><p class="indent" >   Using double-precision numbers is usually barely slower than single-precision.
+Some processors always use their highest precision even for single-precision
+variables, so that the time to convert between number representations makes
+single-precision calculations actually slower. Double-precision numbers do,
+however, take twice as much memory.
+<!--l. 37--><p class="indent" >   Several general-purpose math packages offer arbitrary-precision arithmetic.
+There are also source codes available for multiplication, square roots, and other
+common operations in arbitrary precision. In either case, arbitrary-precision
+calculations are disproportionally slow.
+<!--l. 39--><p class="indent" >   Many fractions have infinitely many digits in decimal representation, e.g.,
+1/6=0.1666666.... The same is true for binary numbers; only that the
+exactly represented fractions are fewer. The decimal number 0.5 can be
+represented exactly as <span 
+class="cmtt-12">0.100000...</span>, but decimal 0.2 is in binary form
+<span 
+class="cmtt-12">0.00110011001100110... </span>and hence not exactly representable with a finite
+number of digits. In particular, decimals like 0.1 or 10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">3</span></sup> have an infinitely long
+binary representation. For example, if a value of 9.5 is assigned it will be 9.5
+exactly, but 9.1 carries a representation error. In single-precision 9.1 is
+9.100000381.... (One can see this, for example, by using the C commands
+<span 
+class="cmtt-12">float</span><span 
+class="cmtt-12">&#x00A0;x=9.1; printf("%14.12f</span><span 
+class="cmsy-10x-x-120">\</span><span 
+class="cmtt-12">n",x);</span>, which print the single precision
+variable <span 
+class="cmtt-12">x </span>to 12 digits after the comma. Or alternatively with the Python
+command <span 
+class="cmtt-12">print </span><span 
+class="tctt-1200">'</span><span 
+class="cmtt-12">%.17f</span><span 
+class="tctt-1200">'</span><span 
+class="cmtt-12">&#x00A0;% 9.1 </span>versus <span 
+class="cmtt-12">print </span><span 
+class="tctt-1200">'</span><span 
+class="cmtt-12">%.17f</span><span 
+class="tctt-1200">'</span><span 
+class="cmtt-12">&#x00A0;% 9.5</span>). For the same
+reason, 0<span 
+class="cmmi-12">.</span>1 + 0<span 
+class="cmmi-12">.</span>1 + 0<span 
+class="cmmi-12">.</span>1 <span 
+class="cmsy-10x-x-120">- </span>0<span 
+class="cmmi-12">.</span>3 is not zero. (The fact that binary cannot represent
+arbitrary decimal fractions exactly is a particular nuisance for accounting
+software, where everything needs to match to the cent.) Any if condition for a
+floating point number hence needs to include a tolerance, e.g.&#x00A0;not <span 
+class="cmtt-12">if (a==0.8)</span>,
+                                                                          
+
+                                                                          
+but <span 
+class="cmtt-12">if (abs(a-0.8)&#x003C;1e-12)</span>.
+<!--l. 42--><p class="indent" >   In terms of algebraic structures, the set of floating point numbers does not
+obey the same rules as the set of real numbers. For example, (<span 
+class="cmmi-12">a </span>+ <span 
+class="cmmi-12">b</span>) + <span 
+class="cmmi-12">c </span>may be
+different from <span 
+class="cmmi-12">a </span>+ (<span 
+class="cmmi-12">b </span>+ <span 
+class="cmmi-12">c</span>). The associative property, that the order in which
+operations are performed does not matter, does not necessarily hold for floating
+point numbers.
+<!--l. 44--><p class="indent" >   Necessarily, there is always a maximum and minimum representable
+number; exceeding them means an &#8220;overflow&#8221; or &#8220;underflow.&#8221; This applies to
+floating-point numbers as well as to integers. Currently the most common integer
+length is 4 bytes. Since a byte is 8&#x00A0;bits, that provides 2<sup><span 
+class="cmr-8">4</span><span 
+class="cmsy-8">&#x00D7;</span><span 
+class="cmr-8">8</span></sup> = 2<sup><span 
+class="cmr-8">32</span></sup> <span 
+class="cmsy-10x-x-120">&#x2248; </span>4 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>10<sup><span 
+class="cmr-8">9</span></sup>
+different integers. The C language allows long and short integers, but
+whether they really provide a longer or shorter range depends on the
+platform.
+<!--l. 47--><p class="indent" >   This is a lot of variability, but at least for floating-point numbers
+standardization came along.
+   <h3 class="sectionHead"><span class="titlemark">3.2   </span> <a 
+ id="x5-90003.2"></a>The wonders of IEEE standardization</h3>
+<!--l. 53--><p class="noindent" >The computer arithmetic of floating-point numbers is defined by the IEEE 754
+standard (originally 754-1985, then revised by the 854-1987 and 754-2008
+standard). It standardizes number representation, roundoff behavior, and
+exception handling, which are all described in this chapter. Conformance to the
+standard can usually be enforced with compiler options.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 56--><p class="indent" >   <a 
+ id="x5-90011"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-8" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-8-1g"><col 
+id="TBL-8-1"><col 
+id="TBL-8-2"><col 
+id="TBL-8-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-1-1"  
+class="td11">                 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-1-2"  
+class="td11"> single </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-1-3"  
+class="td11"> double </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-2-1"  
+class="td11">bytes                    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-2-2"  
+class="td11">   4    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-2-3"  
+class="td11">   8     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-3-1"  
+class="td11">bits for mantissa     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-3-2"  
+class="td11">  23   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-3-3"  
+class="td11">   52    </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-4-1"  
+class="td11">bits for exponent </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-4-2"  
+class="td11"> 8 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-4-3"  
+class="td11"> 11</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-5-1"  
+class="td11">significant decimals  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-5-2"  
+class="td11">  6&#8211;9   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-5-3"  
+class="td11"> 15&#8211;17  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-6-1"  
+class="td11">maximum finite      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-6-2"  
+class="td11"> 3.4E38 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-6-3"  
+class="td11"> 1.8E308 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-7-1"  
+class="td11">minimum normal     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-7-2"  
+class="td11">1.2E-38</td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-7-3"  
+class="td11">2.2E-308</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-8-1"  
+class="td11">minimum subnormal</td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-8-2"  
+class="td11">1.4E-45</td><td  style="white-space:nowrap; text-align:center;" id="TBL-8-8-3"  
+class="td11">4.9E-324</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-8-9-1"  
+class="td11">                 </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;3.1: </span><span  
+class="content">Specifications for number representation according to the IEEE
+754 standard.</span></div><!--tex4ht:label?: x5-90011 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 73--><p class="indent" >   Table&#x00A0;<a 
+href="#x5-90011">3.1<!--tex4ht:ref: tbl:numberrep --></a> summarizes the IEEE standardized number representations, partly
+repeating what is described above. When the smallest (most negative) exponent is
+reached, the mantissa can be gradually filled with zeros, allowing for even smaller
+numbers to be represented, albeit at less precision. Underflow is hence gradual.
+These numbers are referred to as &#8220;subnormals&#8221; in Table&#x00A0;<a 
+href="#x5-90011">3.1<!--tex4ht:ref: tbl:numberrep --></a>.
+<!--l. 76--><p class="indent" >   As a curiosity, tan(<span 
+class="cmmi-12">&#x03C0;&#x2215;</span>2) does not overflow with standard IEEE 754
+single-precision numbers. Simply assign <span 
+class="cmmi-12">&#x03C0; </span>with enough digits, given above, to a
+variable, divide by two, and take the tangent; the result will be finite, in single as
+well as in double precision. In fact the tangent does not overflow for any
+argument.
+<!--l. 78--><p class="indent" >   A few bit patterns have special meaning and serve as &#8220;exceptions&#8221;. There is a
+bit pattern for numbers exceeding the maximum representable number, a bit
+pattern for <span 
+class="cmtt-12">Inf </span>(infinity), <span 
+class="cmtt-12">-Inf</span>, and <span 
+class="cmtt-12">NaN </span>(not a number). For example, 1<span 
+class="cmmi-12">.&#x2215;</span>0<span 
+class="cmmi-12">. </span>will
+produce <span 
+class="cmtt-12">Inf</span>. An overflow is also an <span 
+class="cmtt-12">Inf</span>. There is a positive and a negative zero. If
+a zero is produced as an underflow of a tiny negative number it will be <span 
+class="cmsy-10x-x-120">-</span>0<span 
+class="cmmi-12">.</span>,
+and 1<span 
+class="cmmi-12">.&#x2215;</span>(<span 
+class="cmsy-10x-x-120">-</span>0<span 
+class="cmmi-12">.</span>) produces <span 
+class="cmtt-12">-Inf</span>. A <span 
+class="cmtt-12">NaN </span>is produced by expressions like 0<span 
+class="cmmi-12">.&#x2215;</span>0<span 
+class="cmmi-12">.</span>,
+<img 
+src="compphysics12x.png" alt="&#x221A; ----
+  - 2."  class="sqrt" >, or <span 
+class="cmtt-12">Inf-Inf</span>. This is part of the IEEE 754 standard. Exceptions
+are intended to propagate through the calculation, without need for any
+exceptional control, and can turn into well-defined results in subsequent
+operations, as in <span 
+class="cmtt-12">1./Inf </span>or in <span 
+class="cmtt-12">if (2.&#x003C;Inf)</span>. If a program aborts due
+to exceptions in floating-point arithmetic, which can be a nuisance, it
+does not comply with the standard. IEEE 754 floating-point arithmetic is
+algebraically complete; every algebraic operation produces a well-defined
+result.
+<!--l. 84--><p class="indent" >   Roundoff under the IEEE 754 standard is as good as it can be for a given
+precision (at least for the elementary operations). The error never exceeds half
+the gap of the two machine-representable numbers closest to the exact
+result! Halfway cases are rounded to the nearest even (<span 
+class="cmtt-12">0 </span>at end) binary
+number, rather than always up or always down, to avoid statistical bias in
+rounding.
+<!--l. 86--><p class="indent" >   Modern platforms can conform to IEEE 754, although possibly with a penalty
+on speed. Compilers for most languages provide the option to enable or disable
+the roundoff and exception behavior of this IEEE standard. Certainly for C
+and Fortran, ideal rounding and rigorous handling of exceptions can be
+enforced on most machines. The IEEE standard can have a disadvantage
+when enabled; it can slow down the program slightly or substantially.
+                                                                          
+
+                                                                          
+Many general-purpose math packages also comply with the IEEE 754
+standard.
+<!--l. 88--><p class="indent" >   Using exactly representable numbers allows us to do calculations that
+incur no roundoff at all, at least when IEEE 754 is enabled. Of course
+every integer, even when defined as a floating-point number, is exactly
+representable. For example, addition of 1 or multiplication by 2 do not have to
+incur any roundoff at all. Factorials can be calculated, without loss of
+precision, using floating-point numbers. Normalizing a number to avoid an
+overflow is better done by dividing by a power of 2 than by a power of
+10.
+<!--l. 90--><p class="indent" >   The numerical example of a chaotic iteration in chapter&#x00A0;<a 
+href="compphysicsch1.html#x3-30001">1<!--tex4ht:ref: chap:intro --></a> was computed with
+the standard enabled. These numbers, even after one thousand iterations, can be
+reproduced <span 
+class="cmti-12">exactly </span>on a different computer and a different programming language.
+Of course, given the sensitivity to the initial value, the result is quantitatively
+incorrect on all computers; after many iterations it is entirely different from a
+calculation using infinitely many digits.
+   <h3 class="sectionHead"><span class="titlemark">3.3   </span> <a 
+ id="x5-100003.3"></a>Roundoff sensitivity basics</h3>
+<!--l. 96--><p class="noindent" >Using the rules of error propagation, or common sense, we recognize situations
+that are sensitive to roundoff. If <span 
+class="cmmi-12">x </span>and <span 
+class="cmmi-12">y </span>are real numbers of the same sign, the
+difference <span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">y </span>will have increased relative error. On the other hand, <span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">y </span>has a
+relative error at most as large as the relative error of <span 
+class="cmmi-12">x </span>or <span 
+class="cmmi-12">y</span>. Hence, adding them
+is insensitive to roundoff. Multiplication and divisions are also not roundoff
+sensitive; we only need to worry about overflows or underflows, in particular
+division by zero. Among the four elementary operations only subtraction of
+numbers of equal sign or addition of numbers of opposite sign increase the relative
+error.
+<!--l. 99--><p class="indent" >   An instructive example is solving a quadratic equation <span 
+class="cmmi-12">ax</span><sup><span 
+class="cmr-8">2</span></sup> + <span 
+class="cmmi-12">bx </span>+ <span 
+class="cmmi-12">c </span>= 0
+numerically. In the familiar solution formula <span 
+class="cmmi-12">x </span>= (<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">b </span><span 
+class="cmsy-10x-x-120">±</span><img 
+src="compphysics13x.png" alt="&#x221A; -2------
+  b -  4ac"  class="sqrt" >)<span 
+class="cmmi-12">&#x2215;</span>(2<span 
+class="cmmi-12">a</span>), a
+cancellation effect will occur for one of the two solutions if <span 
+class="cmmi-12">ac </span>is small
+compared to <span 
+class="cmmi-12">b</span><sup><span 
+class="cmr-8">2</span></sup>. The remedy is to compute the smaller root from the
+larger. For a quadratic polynomial the product of its two roots equals
+<span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">2</span></sub> = <span 
+class="cmmi-12">c&#x2215;a</span>. If <span 
+class="cmmi-12">b </span>is positive then one solution is obtained by the equation
+above, <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub> = <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">q&#x2215;</span>(2<span 
+class="cmmi-12">a</span>), with <span 
+class="cmmi-12">q </span>= <span 
+class="cmmi-12">b </span>+ <img 
+src="compphysics14x.png" alt="&#x221A; -2------
+  b -  4ac"  class="sqrt" >, but the other solution is
+obtained as <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">2</span></sub> = <span 
+class="cmmi-12">c&#x2215;</span>(<span 
+class="cmmi-12">ax</span><sub><span 
+class="cmr-8">1</span></sub>) = <span 
+class="cmsy-10x-x-120">-</span>2<span 
+class="cmmi-12">c&#x2215;q</span>. This implementation of the solution of
+quadratic equations requires no extra line of code; the common term <span 
+class="cmmi-12">q</span>
+                                                                          
+
+                                                                          
+could be calculated only once and stored in a temporary variable, and
+the sign of <span 
+class="cmmi-12">b </span>can be accommodated by using the sign function sgn(<span 
+class="cmmi-12">b</span>),
+<span 
+class="cmmi-12">q </span>= <span 
+class="cmmi-12">b </span>+ sgn(<span 
+class="cmmi-12">b</span>)<img 
+src="compphysics15x.png" alt="&#x221A; -2------
+  b - 4ac"  class="sqrt" >. (To perfect it, a factor of <span 
+class="cmsy-10x-x-120">-</span>1<span 
+class="cmmi-12">&#x2215;</span>2 can be absorbed into
+<span 
+class="cmmi-12">q</span>.)
+<!--l. 101--><p class="indent" >   Despite of what textbooks might advise, we usually do not need to bother
+writing an additional line to check whether <span 
+class="cmmi-12">a </span>is zero. The probability of an
+accidental overflow, when dividing by <span 
+class="cmmi-12">a</span>, is small and, if it does occur, a modern
+computer will either complain or it is properly taken care of by the IEEE
+standard, which would produce an <span 
+class="cmtt-12">Inf </span>and continue with the calculation in a
+consistent way.
+<!--l. 104--><p class="indent" >   Sometimes an expression can be recast to avoid cancellations that lead to
+increased sensitivity to roundoff. For example, <img 
+src="compphysics16x.png" alt="&#x221A; -------
+  1 + x2"  class="sqrt" > <span 
+class="cmsy-10x-x-120">- </span>1 leads to cancellations
+when <span 
+class="cmmi-12">x </span>is close to zero, but the equivalent expression <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>(<img 
+src="compphysics17x.png" alt="&#x221A; -----2-
+  1 + x"  class="sqrt" > + 1) has no
+such problem. A basic example of an alternating series whose cancellation
+error can be avoided is 1 <span 
+class="cmsy-10x-x-120">-</span><img 
+src="compphysics18x.png" alt="12"  class="frac" align="middle"> + <img 
+src="compphysics19x.png" alt="13"  class="frac" align="middle"> <span 
+class="cmsy-10x-x-120">-</span><img 
+src="compphysics20x.png" alt="14"  class="frac" align="middle"> + <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">... </span>= <img 
+src="compphysics21x.png" alt="11&#x22C5;2-"  class="frac" align="middle"> + <img 
+src="compphysics22x.png" alt="31&#x22C5;4"  class="frac" align="middle"> + <span 
+class="cmmi-12">...</span>. There is
+no need to evaluate this infinite series numerically, but it illustrates the
+concept.
+<!--l. 111--><p class="indent" >   An example of unavoidable cancellations are finite-difference formulas, like
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>), where the value of a function at point <span 
+class="cmmi-12">x </span>is subtracted
+from the value of a function at a nearby point <span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>. An illustration of
+the combined effect of discretization and roundoff errors will be given in
+figure&#x00A0;<a 
+href="compphysicsch7.html#x9-250021">7.1<!--tex4ht:ref: fig:balance --></a>.
+   <div  
+class="centerline">                                          &#8212;&#8212;&#8212;&#8212;&#8212;                                          </div>
+<!--l. 115--><p class="indent" >   An advanced technique called &#8220;interval arithmetic&#8221; takes advantage of directed
+roundings. Every result is represented not by one value of unknown accuracy, but
+by two that straddle the exact result. An upper and a lower bound are determined
+at every step of the calculation. Although the interval may vastly overestimate the
+actual uncertainty, it provides mathematically rigorous bounds. Interval
+arithmetic can sometimes turn a numerical calculation into a mathematical
+proof.
+<!--l. 118--><p class="noindent" ><span 
+class="cmbx-12">Brainteaser: </span>Using a programming language of your choice, find out whether
+<span 
+class="cmtt-12">1.2-1-0.2==0 </span>is true or false.
+                                                                          
+
+                                                                          
+<!--l. 121--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>The &#8220;father&#8221; of the IEEE 754
+standard, William Kahan, posts roundoff-related notes online at
+<a 
+href="http://www.cs.berkeley.edu/~wkahan/" class="url" ><span 
+class="cmtt-12">http://www.cs.berkeley.edu/</span><span 
+class="cmtt-12">~</span><span 
+class="cmtt-12">wkahan/</span></a>, including a description of the standard
+<a 
+href="http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF" class="url" ><span 
+class="cmtt-12">http://www.cs.berkeley.edu/</span><span 
+class="cmtt-12">~</span><span 
+class="cmtt-12">wkahan/ieee754status/IEEE754.PDF</span></a>. A technical
+summary is provided by David Goldberg <span 
+class="cmti-12">What every computer scientist should</span>
+<span 
+class="cmti-12">know about floating point arithmetic. </span>The document is readily found online, for
+example at <a 
+href="http://docs.oracle.com/cd/E19957-01/800-7895/800-7895.pdf" class="url" ><span 
+class="cmtt-12">http://docs.oracle.com/cd/E19957-01/800-7895/800-7895.pdf</span></a>.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch4.html" >next</a>] [<a 
+href="compphysicsch2.html" >prev</a>] [<a 
+href="compphysicsch2.html#tailcompphysicsch2.html" >prev-tail</a>] [<a 
+href="compphysicsch3.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch3.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch3.html"></a>   
+</body></html> 

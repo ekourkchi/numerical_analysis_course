@@ -1,0 +1,1008 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>7 Finite Differences; Approximation Theory</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch8.html" >next</a>] [<a 
+href="compphysicsch6.html" >prev</a>] [<a 
+href="compphysicsch6.html#tailcompphysicsch6.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch7.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch7.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;7</span><br /><a 
+ id="x9-240007"></a>Finite Differences; Approximation Theory</h2>
+<!--l. 5--><p class="noindent" >While mathematical functions can be defined on a continuous variable, any
+numerical representation is limited to a finite number of values. This
+discretization of the continuum is the source of profound issues for numerical
+interpolation, differentiation, and integration.
+   <h3 class="sectionHead"><span class="titlemark">7.1   </span> <a 
+ id="x9-250007.1"></a>Verifying the convergence of a method</h3>
+<!--l. 10--><p class="noindent" >Consider numerical differentiation with a simple finite-difference:
+<span 
+class="cmmi-12">u</span>(<span 
+class="cmmi-12">x</span>) = [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>)]<span 
+class="cmmi-12">&#x2215;</span>2<span 
+class="cmmi-12">h</span>. With a Taylor expansion we can immediately
+verify that <span 
+class="cmmi-12">u</span>(<span 
+class="cmmi-12">x</span>) = <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>) + <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>). For small <span 
+class="cmmi-12">h</span>, this formula provides therefore an
+approximation to the first derivative of <span 
+class="cmmi-12">f</span>. When the resolution is doubled, the
+discretization error, <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>), decreases by a factor of 4. Since the error decreases
+with the square of the interval <span 
+class="cmmi-12">h</span>, the method is said to converge with &#8220;second
+order.&#8221; In general, when the discretization error is <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmmi-8">p</span></sup>) then <span 
+class="cmmi-12">p </span>is called the
+&#8220;order of convergence&#8221; of the method.
+<!--l. 13--><p class="indent" >   The resolution can be expressed in terms of the number of grid points <span 
+class="cmmi-12">N</span>,
+which is simply inversely proportional to <span 
+class="cmmi-12">h</span>. To verify the convergence of a
+numerical approximation, the error can be defined as some overall difference
+between the solution at resolution 2<span 
+class="cmmi-12">N </span>and at resolution <span 
+class="cmmi-12">N</span>. Ideal would be the
+difference to the exact solution, but the solution at infinite resolution
+is usually unavailable, because otherwise we would not need numerics.
+&#8220;Norms&#8221; (denoted by <span 
+class="cmsy-10x-x-120">||&#x22C5;||</span>) provide a general notion of the magnitude
+of numbers, vectors, matrices, or functions. One example of a norm is
+the root-mean-square <span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">y</span><span 
+class="cmsy-10x-x-120">|| </span>= <img 
+src="compphysics32x.png" alt="&#x2218; -----------------
+  &#x2211;N    (y (jh ))2&#x2215;N
+     j=1"  class="sqrt" >. Norms of differences
+therefore describe the overall difference, deviation, or error. The ratio of
+errors, <span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmmi-8">N</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmmi-8">N&#x2215;</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">&#x2215;</span><span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">N</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmmi-8">N</span></sub><span 
+class="cmsy-10x-x-120">||</span>, must converge to 2<sup><span 
+class="cmmi-8">p</span></sup>, where <span 
+class="cmmi-12">p </span>is the
+order of convergence. Table&#x00A0;<a 
+href="#x9-250011">7.1<!--tex4ht:ref: tbl:convtest --></a> shows a convergence test for the center
+difference formula shown above applied to an example function. The error
+<span 
+class="cmmi-12">E</span>(<span 
+class="cmmi-12">N</span>) = <span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">N</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmmi-8">N</span></sub><span 
+class="cmsy-10x-x-120">|| </span>becomes indeed smaller and smaller with a ratio closer and
+closer to&#x00A0;4.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 18--><p class="indent" >   <a 
+ id="x9-250011"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-12" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-12-1g"><col 
+id="TBL-12-1"><col 
+id="TBL-12-2"><col 
+id="TBL-12-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-12-1-1"  
+class="td11"> <span 
+class="cmmi-12">N</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-12-1-2"  
+class="td11">  <div class="multicolumn"  style="white-space:nowrap; text-align:center;"><span 
+class="cmmi-12">E</span>(<span 
+class="cmmi-12">N</span>)</div>  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-12-1-3"  
+class="td11"><span 
+class="cmmi-12">E</span>(<span 
+class="cmmi-12">N&#x2215;</span>2)<span 
+class="cmmi-12">&#x2215;E</span>(<span 
+class="cmmi-12">N</span>)</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-12-2-1"  
+class="td11"> 20</td><td  style="white-space:nowrap; text-align:left;" id="TBL-12-2-2"  
+class="td11">0.005289  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-12-2-3"  
+class="td11">            </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-12-3-1"  
+class="td11"> 40</td><td  style="white-space:nowrap; text-align:left;" id="TBL-12-3-2"  
+class="td11">0.001292 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-12-3-3"  
+class="td11"> 4.09412</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-12-4-1"  
+class="td11"> 80</td><td  style="white-space:nowrap; text-align:left;" id="TBL-12-4-2"  
+class="td11">0.0003201</td><td  style="white-space:nowrap; text-align:center;" id="TBL-12-4-3"  
+class="td11">   4.03556     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-12-5-1"  
+class="td11">160</td><td  style="white-space:nowrap; text-align:left;" id="TBL-12-5-2"  
+class="td11">7.978E-05</td><td  style="white-space:nowrap; text-align:center;" id="TBL-12-5-3"  
+class="td11">   4.01257     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-12-6-1"  
+class="td11">   </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;7.1: </span><span  
+class="content">Convergence test for the first derivative of the function <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) =
+sin(2<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span>0<span 
+class="cmmi-12">.</span>17) + 0<span 
+class="cmmi-12">.</span>3 cos(3<span 
+class="cmmi-12">.</span>4<span 
+class="cmmi-12">x </span>+ 0<span 
+class="cmmi-12">.</span>1) in the interval 0 to 1. The error (second
+column)  decreases  with  increasing  resolution  and  the  method  therefore
+converges. Doubling the resolution reduces the error by a factor of four (third
+column),  indicating  the  finite-difference  expression  is  accurate  to  second
+order.</span></div><!--tex4ht:label?: x9-250011 -->
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 33--><p class="indent" >   The table is all that is needed to verify convergence. For deeper insight
+however the errors are plotted for a wider range of resolutions in figure&#x00A0;<a 
+href="#x9-250021">7.1<!--tex4ht:ref: fig:balance --></a>. The
+line shown has slope <span 
+class="cmsy-10x-x-120">-</span>2 on a log-log plot and the convergence is overwhelming.
+The bend at the bottom is the roundoff limitation. Beyond this resolution the
+leading error is not discretization but roundoff. If the resolution is increased
+further, the result becomes less accurate. For a method with high-order
+convergence this roundoff limitation may be reached already at modest resolution.
+A calculation at low resolution can hence be more accurate than a calculation at
+high resolution!
+<!--l. 35--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x9-250021"></a>
+                                                                          
+
+                                                                          
+<!--l. 36--><p class="noindent" ><img 
+src="compphysics33x.png" alt="PIC" class="graphics" width="170.71652pt" height="131.35735pt" ><!--tex4ht:graphics  
+name="compphysics33x.png" src="errorconv.eps"  
+--> <br />                                   <div class="caption" 
+><span class="id">Figure&#x00A0;7.1:
+ </span><span  
+class="content">Discretization   and   roundoff   errors
+ for  a  finite  difference  formula.  The
+ total   error   (circles),   consisting   of
+ discretization   and   roundoff   errors,
+ decreases   with   resolution   <span 
+class="cmmi-12">N   </span>until
+ roundoff  errors  start  to  dominate.
+ For  comparison,  the  solid  line  shows
+ the  theoretical  discretization  error,
+ proportional  to  1<span 
+class="cmmi-12">&#x2215;N</span><sup><span 
+class="cmr-8">2</span></sup>  or  <span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>,  with  an
+ arbitrary prefactor. </span></div><!--tex4ht:label?: x9-250021 -->
+                                                                          
+
+                                                                          
+<!--l. 40--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 42--><p class="indent" >   To understand the plot more completely, we check for quantitative agreement.
+In the convergence test shown in the figure, double precision numbers
+are used with an accuracy of about 10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">16</span></sup>. The function values used for
+figure&#x00A0;<a 
+href="#x9-250021">7.1<!--tex4ht:ref: fig:balance --></a> are around 1, in order of magnitude, so that absolute and relative
+errors are approximately the same. The roundoff limitation occurs in this
+example at an accuracy of 10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">11</span></sup>. Why? In the formation of the difference
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">h</span>) a roundoff error of about 10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">16</span></sup> is introduced, but to obtain <span 
+class="cmmi-12">u</span>,
+it is necessary to divide by 2<span 
+class="cmmi-12">h</span>, enhancing the error because <span 
+class="cmmi-12">h </span>is a small
+number. In the figure the maximum accuracy is indeed approximately
+10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">16</span></sup><span 
+class="cmmi-12">&#x2215;</span>(2 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>5 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">6</span></sup>) = 10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">11</span></sup>. The total error is the sum of discretization error
+and roundoff error <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>) + <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">&#x03F5;&#x2215;h</span>), where <span 
+class="cmmi-12">&#x03F5; </span><span 
+class="cmsy-10x-x-120">&#x2248; </span>10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">16</span></sup>. The total error is a minimum
+when <span 
+class="cmmi-12">h </span>= <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">&#x03F5;</span><sup><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">&#x2215;</span><span 
+class="cmr-8">3</span></sup>) = <span 
+class="cmmi-12">O</span>(5 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>10<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">6</span></sup>). This agrees perfectly with what is seen in
+figure&#x00A0;<a 
+href="#x9-250021">7.1<!--tex4ht:ref: fig:balance --></a>.
+<!--l. 44--><p class="indent" >   The same convergence test can be used not only for derivatives, but also for
+integration schemes, ordinary differential equations, partial different equations,
+etc.
+<!--l. 47--><p class="noindent" ><span 
+class="cmbx-12">Brainteaser: </span><a 
+ id="problem:convergence"></a> The convergence test indicates that <span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">N</span></sub> <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmmi-8">N</span></sub><span 
+class="cmsy-10x-x-120">||&#x2192; </span>0 as the resolution
+<span 
+class="cmmi-12">N </span>goes to infinity (roundoff ignored). Does this mean lim <sub><span 
+class="cmmi-8">N</span><span 
+class="cmsy-8">&#x2192;&#x221E;</span></sub><span 
+class="cmsy-10x-x-120">||</span><span 
+class="cmmi-12">u</span><sub><span 
+class="cmmi-8">N</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">u</span><span 
+class="cmsy-10x-x-120">||&#x2192; </span>0,
+where <span 
+class="cmmi-12">u </span>is the exact, correct answer?
+   <h3 class="sectionHead"><span class="titlemark">7.2   </span> <a 
+ id="x9-260007.2"></a>Differentiation</h3>
+<!--l. 58--><p class="noindent" >A function can be locally described by its Taylor expansion:
+   <center class="math-display" >
+<img 
+src="compphysics34x.png" alt="                                h2               hn                 hn+1
+f(x + h) = f(x) + f&#x2032;(x )h+ f &#x2032;&#x2032;(x)---+ ....+ f(n)(x) ---+ f(n+1)(x + &#x03D1;)--------
+                                2                n!               (n + 1)!
+" class="math-display" ></center>
+<!--l. 62--><p class="nopar" > The very last term is evaluated at <span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">&#x03D1;</span>, which lies somewhere between <span 
+class="cmmi-12">x </span>and
+<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>. Since <span 
+class="cmmi-12">&#x03D1; </span>is unknown, this last term provides a bound on the error when
+the series is truncated after <span 
+class="cmmi-12">n </span>terms. For example, <span 
+class="cmmi-12">n </span>= 0 tells us that
+<span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>)<span 
+class="cmsy-10x-x-120">|&#x2264; </span><span 
+class="cmmi-12">Mh</span>, where <span 
+class="cmmi-12">M </span>= max <sub><span 
+class="cmr-8">0</span><span 
+class="cmsy-8">&#x2264;</span><span 
+class="cmmi-8">&#x03D1;</span><span 
+class="cmsy-8">&#x2264;</span><span 
+class="cmmi-8">h</span></sub><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">&#x03D1;</span>)<span 
+class="cmsy-10x-x-120">|</span>.
+                                                                          
+
+                                                                          
+<!--l. 65--><p class="indent" >   The derivative of a function can be approximated by a difference over a finite
+distance, <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">&#x2248; </span>[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>)]<span 
+class="cmmi-12">&#x2215;h</span>, the &#8220;forward difference&#8221; formula, or
+<span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">&#x2248; </span>[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>)]<span 
+class="cmmi-12">&#x2215;h</span>, the &#8220;backward difference&#8221; formula. The Taylor
+expansion can be used to verify finite difference expressions for derivatives
+and to obtain an error bound: <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>) = [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>)]<span 
+class="cmmi-12">&#x2215;h </span>+ <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span>) and
+<span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">x</span>) = [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>)]<span 
+class="cmmi-12">&#x2215;h </span>+ <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span>). A function is said to be &#8220;of order <span 
+class="cmmi-12">p</span>&#8221;, <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmmi-8">p</span></sup>),
+when for sufficiently small <span 
+class="cmmi-12">h </span>its absolute value is smaller than a constant times <span 
+class="cmmi-12">h</span><sup><span 
+class="cmmi-8">p</span></sup>.
+<!--l. 67--><p class="indent" >   Another possibility is the &#8220;center difference&#8221;
+   <center class="math-display" >
+<img 
+src="compphysics35x.png" alt="f &#x2032;(x) =  f(x-+-h)---f(x---h)-+ O (h2).
+                 2h
+" class="math-display" ></center>
+<!--l. 70--><p class="nopar" > The center difference is accurate to <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>), not just <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span>) as the one-sided
+differences are, because the <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;&#x2032;</span> terms in the Taylor expansions of <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) and
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">h</span>) cancel. At first sight it may appear awkward that the center point, <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>),
+is absent from the difference formula. A parabola fitted through the three points
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>)<span 
+class="cmmi-12">,f</span>(<span 
+class="cmmi-12">x</span>), and <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>) undoubtedly requires <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>). However, it is easily
+shown that the slope at the center of such a parabola is independent of <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>).
+Thus, it makes sense that the center point does not appear in the finite difference
+formula for the first derivative.
+<!--l. 74--><p class="indent" >   The second derivative can also be approximated with a finite difference
+formula, <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;&#x2032;</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">&#x2248; </span><span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) + <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) + <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>), where the coefficients <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">2</span></sub>,
+and <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">3</span></sub> can be determined with Taylor expansions. This is a general method to
+derive finite difference formulas. We find
+   <center class="math-display" >
+<img 
+src="compphysics36x.png" alt="f&#x2032;&#x2032;(x ) = f(x---h)---2f(x-) +-f-(x-+-h-)+ O(h2).
+                      h2
+" class="math-display" ></center>
+<!--l. 77--><p class="nopar" > A mnemonic for this expression is the difference between one-sided first
+derivatives: <span 
+class="cmsy-10x-x-120">{</span>[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>)]<span 
+class="cmmi-12">&#x2215;h </span><span 
+class="cmsy-10x-x-120">- </span>[<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>)]<span 
+class="cmmi-12">&#x2215;h</span><span 
+class="cmsy-10x-x-120">}</span><span 
+class="cmmi-12">&#x2215;h</span>. With three
+coefficients, <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">2</span></sub>, and <span 
+class="cmmi-12">c</span><sub><span 
+class="cmr-8">3</span></sub>, we only expect to match the first three terms in the
+Taylor expansions, but the next order, involving <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;&#x2032;&#x2032;</span>(<span 
+class="cmmi-12">x</span>), vanishes automatically.
+Hence, the leading error term is <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">4</span></sup>)<span 
+class="cmmi-12">&#x2215;h</span><sup><span 
+class="cmr-8">2</span></sup> = <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>).
+<!--l. 81--><p class="indent" >   With more points (a larger &#8220;stencil&#8221;) the accuracy of a finite-difference
+                                                                          
+
+                                                                          
+approximation can be increased, at least as long as the high-order derivative that
+enters the error bound is not outrageously large. The error term involves a higher
+power of <span 
+class="cmmi-12">h</span>, but also a higher dervative of <span 
+class="cmmi-12">f</span>.
+<!--l. 86--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">7.3   </span> <a 
+ id="x9-270007.3"></a>Finite differences for partial differential equations: a first glimpse</h3>
+<!--l. 88--><p class="noindent" >Finite differences can also be used to solve partial differential equations (PDEs).
+As a simple example take the Laplace equation <span 
+class="cmsy-10x-x-120">&#x2207;</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">f </span>= 0 in two dimensions
+<span 
+class="cmmi-12">f </span>= <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,y</span>), supplemented by boundary conditions.
+<!--l. 91--><p class="indent" >   Each derivative can be approximated by a finite difference. Since the second
+derivative is approximately <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;&#x2032;</span>(<span 
+class="cmmi-12">x</span>) = [<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">h</span>) <span 
+class="cmsy-10x-x-120">- </span>2<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) + <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">h</span>)]<span 
+class="cmmi-12">&#x2215;h</span><sup><span 
+class="cmr-8">2</span></sup>, a
+discretization of the Laplace equation is
+   <center class="math-display" >
+<img 
+src="compphysics37x.png" alt="f(- h,0) + f(h,0 ) + f (0, - h ) + f (0, h) - 4f(0,0) = 0  " class="math-display" ></center>
+This is a linear system of equations for <span 
+class="cmmi-12">f</span>, where <span 
+class="cmmi-12">f </span>may be represented as a
+one-dimensional vector by renaming the indices; each grid point corresponds to
+one entry in this vector. In the linear system <span 
+class="cmmi-12">Af </span>= <span 
+class="cmmi-12">b</span>, <span 
+class="cmmi-12">b </span>is not zero everywhere
+because of the boundary conditions and <span 
+class="cmmi-12">A </span>is of the form
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-6">
+&#x00A0;-4&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;1&#x00A0;-4&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;-4&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;-4&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;-4&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;-4&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;-4&#x00A0;&#x00A0;1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1&#x00A0;-4
+</div>
+<!--l. 103--><p class="nopar" > where all blank entries are zero. This system of equations can be solved for <span 
+class="cmmi-12">f</span>.
+The dimension of this matrix equals the number of grid points, so it is huge, but
+it is sparse.
+<!--l. 106--><p class="indent" >   When every derivative in a PDE is replaced by a finite difference, the PDE
+turns into a large system of equations. This very general approach often leads to a
+workable numerical scheme.
+<!--l. 108--><p class="indent" >   The same finite difference expression for the Laplace equations suggests
+another method of solution. The center element <span 
+class="cmmi-12">f</span>(0<span 
+class="cmmi-12">, </span>0) is the average of its four
+neighbors,
+   <center class="math-display" >
+<img 
+src="compphysics38x.png" alt="f(0,0) = [f(- h,0) + f(h,0) + f(0,- h) + f(0,h )]&#x2215;4  " class="math-display" ></center>
+This property can be used for an iterative numerical scheme that requires only a
+few lines of code. Each grid point is assigned the average of its four neighbors.
+When repeated again and again, the solution relaxes to the correct one. This
+might not be the computationally fastest way to solve the Laplace equation, and
+it is not, but it is exceedingly quick to implement. This is a simple version of a
+&#8220;relaxation method&#8221;.
+                                                                          
+
+                                                                          
+<!--l. 119--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">7.4   </span> <a 
+ id="x9-280007.4"></a>Interpolation</h3>
+<!--l. 121--><p class="noindent" >Interpolation is concerned with how to approximate a function between two or
+more known values. Approximation by a polynomial springs to mind; after all, the
+value of a polynomial for any <span 
+class="cmmi-12">x </span>can be calculated in a finite number of steps.
+Figure&#x00A0;<a 
+href="#x9-280012">7.2<!--tex4ht:ref: fig:runge --></a> displays a fit with a polynomial which passes exactly through
+equally spaced points on the abscissa. The center part of the function
+is well approximated by the polynomial, but the polynomial oscillates
+excessively near the boundary of the domain. Although the polynomial goes
+exactly through every point demanded, it badly represents the function in
+<span 
+class="cmti-12">between </span>grid points. This oscillatory problem is known as the &#8220;Runge
+phenomenon&#8221;.
+<!--l. 128--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x9-280012"></a>
+                                                                          
+
+                                                                          
+<!--l. 129--><p class="noindent" ><img 
+src="compphysics39x.png" alt="PIC" class="graphics" width="170.71652pt" height="132.50179pt" ><!--tex4ht:graphics  
+name="compphysics39x.png" src="polyappr.eps"  
+--> <br />   <div class="caption" 
+><span class="id">Figure&#x00A0;7.2:   </span><span  
+class="content">A   polynomial   (solid
+ line)   is   fitted   through   11   equally
+ spaced points of the function <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) =
+ 1<span 
+class="cmmi-12">&#x2215;</span>(1 + 25<span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup>)  (dash  line).  Close  to
+ the  boundaries  of  the  domain,  there
+ are   large   deviations   between   the
+ polynomial and the function.</span></div><!--tex4ht:label?: x9-280012 -->
+                                                                          
+
+                                                                          
+<!--l. 133--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 136--><p class="indent" >   If a function should be approximated over the entire domain, it is better to use
+many polynomials of low degree than a single polynomial of high degree.
+Piecewise polynomial fits, where the polynomials are joined smoothly with each
+other, are called &#8220;splines.&#8221; For example, cubic polynomials which are joined such
+that the first derivative matches are a common choice, known as cubic spline
+interpolation.
+<!--l. 138--><p class="indent" >   According to the Weierstrass Approximation Theorem, it is possible to
+approximate any continuous function on a closed interval with a single
+polynomial, such that the maximum difference between the function and its
+approximation is arbitrarily small. If <span 
+class="cmmi-12">f </span>is a continuous function on [<span 
+class="cmmi-12">a,b</span>], then for
+any given <span 
+class="cmmi-12">&#x03F5; &#x003E; </span>0, there exists a polynomial <span 
+class="cmmi-12">p </span>such that <span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span>) <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">p</span>(<span 
+class="cmmi-12">x</span>)<span 
+class="cmsy-10x-x-120">| </span><span 
+class="cmmi-12">&#x003C; &#x03F5; </span>for all <span 
+class="cmmi-12">x </span>in
+[<span 
+class="cmmi-12">a,b</span>]. Such polynomials do not coincide with the function at equally spaced
+intervals, so this is not a contradiction to the above example. Best fitting
+polynomials intersect the function at points that are more densely spaced toward
+the interval boundary.
+<!--l. 143--><p class="indent" >   A problem similar to the &#8220;Runge phenomenon&#8221; occurs for approximations of
+discontinuous functions by Fourier series, and is widely known as &#8220;Gibbs
+phenomenon&#8221;. Figure&#x00A0;<a 
+href="#x9-280023">7.3<!--tex4ht:ref: fig:gibbs --></a> shows an example where a Fourier series does not
+represent the function everywhere. By design, the Fourier approximation goes
+through every required point, again uniformly spaced, but near the discontinuity
+it is a bad approximation in between grid points. Note that from the perspective
+of Fourier series, a non periodic function has a step discontinuity at the
+boundary.
+<!--l. 145--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x9-280023"></a>
+                                                                          
+
+                                                                          
+<!--l. 146--><p class="noindent" ><img 
+src="compphysics40x.png" alt="PIC" class="graphics" width="170.71652pt" height="119.50198pt" ><!--tex4ht:graphics  
+name="compphysics40x.png" src="runge.eps"  
+--> <br /> <div class="caption" 
+><span class="id">Figure&#x00A0;7.3: </span><span  
+class="content">The Gibbs phenomenon.
+ The  Fourier  series  (solid  line)  of  a
+ discontinuous function (dot line) does
+ not   approximate   the   discontinuous
+ function  everywhere,  no  matter  how
+ many terms in the series are used.</span></div><!--tex4ht:label?: x9-280023 -->
+                                                                          
+
+                                                                          
+<!--l. 150--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 152--><p class="indent" >   For interpolation in two variables, linear interpolation does not
+immediately generalize, because a plane does not simultaneously fit four
+points. A common approach, for a regular grid, is an interpolation formula
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,y</span>) = <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">0</span></sub> + <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">x </span>+ <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-12">y </span>+ <span 
+class="cmmi-12">a</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-12">xy</span>, known as &#8220;bilinear&#8221; interpolation. It
+is called bilinear, because it is the product of two linear functions.
+Along the <span 
+class="cmmi-12">x</span>-direction this is exactly linear; along the <span 
+class="cmmi-12">y</span>-direction it is
+linear; along any other direction it is not linear. For a unit square
+<span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x,y</span>) = <span 
+class="cmmi-12">f</span>(0<span 
+class="cmmi-12">, </span>0)(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span>)(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">y</span>) + <span 
+class="cmmi-12">f</span>(1<span 
+class="cmmi-12">, </span>0)<span 
+class="cmmi-12">x</span>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">y</span>) + <span 
+class="cmmi-12">f</span>(0<span 
+class="cmmi-12">, </span>1)(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span>)<span 
+class="cmmi-12">y </span>+ <span 
+class="cmmi-12">f</span>(1<span 
+class="cmmi-12">, </span>1)<span 
+class="cmmi-12">xy</span>.
+The interpolation is continuous, but derivatives are discontinuous when
+changing from one grid cell to another. This method generalizes to higher
+dimensions.
+<!--l. 155--><p class="indent" >   An irregular grid can be cumbersome to deal with, from the perspective of
+interpolation as well as many others. Triangulation is one approach.
+   <h3 class="sectionHead"><span class="titlemark">7.5   </span> <a 
+ id="x9-290007.5"></a>Numerical integration: Illusions about what lies between</h3>
+<!--l. 162--><p class="noindent" >The simplest way of numerical integration is to sum up function values.
+Rationale can be lent to this procedure by thinking of the function values
+<span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub> = <span 
+class="cmmi-12">f</span>(<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">j</span></sub>) as connected with straight lines. Let <span 
+class="cmmi-12">f</span><sub><span 
+class="cmmi-8">j</span></sub> denote the function at
+<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">j</span></sub> = <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">0</span></sub> + <span 
+class="cmmi-12">jh</span>. The area of the first trapezoidal segment is, using simple geometry,
+(<span 
+class="cmmi-12">f</span><sub><span 
+class="cmr-8">0</span></sub> + <span 
+class="cmmi-12">f</span><sub><span 
+class="cmr-8">1</span></sub>)<span 
+class="cmmi-12">&#x2215;</span>2. The area under the piecewise linear graph from <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">0</span></sub> to <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">N</span></sub> is
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="compphysics41x.png" alt="&#x222B;  xN
+    f (x )dx  &#x2248;   f0 +-f1h + f1-+-f2h + ...
+  x0                2          2
+                 ( f0                    fN )
+             =     --+  f1 + ...+ fN- 1 +---  h
+                   2                      2
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+</div>which is indeed the sum of the function values. The boundary points carry only
+half the weight. This summation formula is called the &#8220;composite trapezoidal
+rule.&#8221;
+<!--l. 173--><p class="indent" >   Instead of straight lines it is also possible to <span 
+class="cmti-12">imagine </span>the function values are
+interpolated with quadratic polynomials. Fitting a parabola through three points
+and integrating, one obtains
+   <center class="math-display" >
+<img 
+src="compphysics42x.png" alt="&#x222B; x2           h
+     f(x)dx &#x2248;  --(f0 + 4f1 + f2).
+ x0            3
+" class="math-display" ></center>
+<!--l. 176--><p class="nopar" > For a parabola the approximate sign becomes an exact equality. This integration
+formula is well-known as &#8220;Simpson&#8217;s rule.&#8221; Repeated application of Simpson&#8217;s rule
+leads to
+   <center class="math-display" >
+<img 
+src="compphysics43x.png" alt="&#x222B;
+  xN           h
+     f(x)dx &#x2248;  3-[f0 + 4f1 + 2f2 + 4f3 + 2f4 + ...+ 4fN -1 + fN].
+ x0
+" class="math-display" ></center>
+<!--l. 182--><p class="nopar" > An awkward feature of this &#8220;composite Simpson formula&#8221; is that function values
+are weighted unequally, although the grid points are equally spaced.
+<!--l. 185--><p class="indent" >   There is an exact relation between the integral and the sum of a function,
+known as &#8220;Euler-Maclaurin summation formula&#8221;: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="compphysics44x.png" alt="&#x222B; b               N&#x2211;-1
+    f(x)dx  =   h    f (a + jh) + h-(f(a) + f(b)) +
+ a                j=1             2
+                   m
+                  &#x2211;    2j B2j-( (2j-1)      (2j- 1)   )
+                -     h  (2j)! f     (b) - f     (a)  +
+                  j=1
+                   2m+2 -B2m+2----       (2m+2)
+                - h     (2m  + 2)!(b - a)f      (&#x03D1;),
+" class="math-display" ></center>
+</div>where <span 
+class="cmmi-12">B</span><sub><span 
+class="cmmi-8">k</span></sub> are the Bernoulli numbers, <span 
+class="cmmi-12">h </span>= (<span 
+class="cmmi-12">b </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a</span>)<span 
+class="cmmi-12">&#x2215;N</span>, and <span 
+class="cmmi-12">&#x03D1; </span>lies somewhere
+between <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b</span>. The Bernoulli numbers are mathematical constants; the first few
+of them are <span 
+class="cmmi-12">B</span><sub><span 
+class="cmr-8">2</span></sub> = 1<span 
+class="cmmi-12">&#x2215;</span>6, <span 
+class="cmmi-12">B</span><sub><span 
+class="cmr-8">4</span></sub> = <span 
+class="cmsy-10x-x-120">-</span>1<span 
+class="cmmi-12">&#x2215;</span>30, <span 
+class="cmmi-12">B</span><sub><span 
+class="cmr-8">6</span></sub> = 1<span 
+class="cmmi-12">&#x2215;</span>42, <span 
+class="cmmi-12">&#x2026;</span>. (Bernoulli numbers with odd
+indices are zero.)
+<!--l. 195--><p class="indent" >   The Euler-Maclaurin summation formula enables us to determine the error
+when an integral is approximated by a sum, just as the Taylor expansion provided
+the error of a finite difference formula. For <span 
+class="cmmi-12">m </span>= 0,
+   <center class="math-display" >
+<img 
+src="compphysics45x.png" alt="&#x222B;             (                           )
+  b             f0-                    fN-      2B2-        &#x2032;&#x2032;
+   f(x)dx =  h   2 + f1 + ...+  fN-1 +  2   -  h 2! (b - a )f (&#x03D1;).
+ a
+" class="math-display" ></center>
+<!--l. 201--><p class="nopar" > The first order of the Euler-Maclaurin summation formula <span 
+class="cmti-12">is </span>the trapezoidal rule
+and the error for trapezoidal integration is <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">2</span></sup>(<span 
+class="cmmi-12">b </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a</span>)<span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;&#x2032;</span>(<span 
+class="cmmi-12">&#x03D1;</span>)<span 
+class="cmmi-12">&#x2215;</span>12.
+<!--l. 204--><p class="indent" >   The Euler-Maclaurin summation formula for <span 
+class="cmmi-12">m </span>= 1 is <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="compphysics46x.png" alt="&#x222B; b              ( f0                     fN )
+   f(x )dx  =  h   ---+ f1 + ...+ fN -1 + ---  +
+ a                  2                      2
+                   2B2-  &#x2032;      &#x2032;        4B4-       (4)
+               - h  2! (f (b) - f (a)) - h 4! (b - a)f  (&#x03D1;).
+" class="math-display" ></center>
+</div>There is no <span 
+class="cmmi-12">O</span>(<span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">3</span></sup>) error term. It is now apparent that the leading error in the
+composite trapezoidal rule arises from the boundaries only, not from the interior
+of the domain. If <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">a</span>) and <span 
+class="cmmi-12">f</span><span 
+class="cmsy-10x-x-120">&#x2032;</span>(<span 
+class="cmmi-12">b</span>) are known or if they cancel each other, the
+integration error is only <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">4</span></sup>(<span 
+class="cmmi-12">b </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a</span>)<span 
+class="cmmi-12">f</span><sup><span 
+class="cmr-8">(4)</span></sup>(<span 
+class="cmmi-12">&#x03D1;</span>)<span 
+class="cmmi-12">&#x2215;</span>720.
+<!--l. 213--><p class="indent" >   The composite Simpson formula can be derived by using the Euler-Maclaurin
+summation formula with spacings <span 
+class="cmmi-12">h </span>and 2<span 
+class="cmmi-12">h</span>. The integration error obtained in this
+way is <span 
+class="cmmi-12">h</span><sup><span 
+class="cmr-8">4</span></sup>(<span 
+class="cmmi-12">b </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a</span>)<img 
+src="compphysics47x.png" alt="[1  (4)       4 (4)   ]
+ 3f   (&#x03D1;1) - 3f  (&#x03D1;2 )"  class="left" align="middle"><span 
+class="cmmi-12">&#x2215;</span>180. Since the error is proportional to
+<span 
+class="cmmi-12">f</span><sup><span 
+class="cmr-8">(4)</span></sup>, applying Simpson&#8217;s rule to a <span 
+class="cmti-12">cubic </span>polynomial yields the integral exactly,
+although it is derived by integrating a <span 
+class="cmti-12">quadratic </span>polynomial.
+<!--l. 218--><p class="indent" >   The fourth-order error bound in the Simpson formula is larger than in the
+trapezoidal formula. The Simpson formula is only more accurate than the
+trapezoidal rule, because it better approximates the boundary regions. Away from
+the boundaries, the Simpson formula, the method of higher order, yields less
+accurate results than the trapezoidal rule, which is the penalty for the
+unequal coefficients. At the end, simple summation of function values is an
+excellent way of integration in the interior of the domain. Thinking that
+parabolas better approximate the area under the graph than straight lines is
+illusionary.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch8.html" >next</a>] [<a 
+href="compphysicsch6.html" >prev</a>] [<a 
+href="compphysicsch6.html#tailcompphysicsch6.html" >prev-tail</a>] [<a 
+href="compphysicsch7.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch7.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch7.html"></a>   
+</body></html> 

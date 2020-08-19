@@ -1,0 +1,17 @@
+# plots output of standardmap2.c
+
+reset
+set size ratio -1
+set size 0.75,1    # reduce margin
+
+set nokey
+set xlabel 'a' font 'Symbol-Oblique,38'
+set ylabel 'w T' font 'Symbol-Oblique,38'
+set tmargin 1
+set rmargin 1
+
+set term post eps enh 30
+set output 'smK=.eps'
+
+plot [0:2*pi][-pi:pi] 'standardmap.dat' u 3:2 w p pt 7 ps 0.4
+

@@ -1,0 +1,19 @@
+reset
+set size 1,1.1
+set nokey
+set log
+set format x "10^{%T}"
+set format y "10^{%T}"
+set format x2 "10^{%T}"
+set xlabel 'N' font "Helvetica-Oblique,34"
+set ylabel 'error' 2,0 font 'Helvetica,34'
+set x2label 'h' font 'Helvetica-Oblique,34'
+set x2tics ("10^{-1}" 10,"10^{-2}" 1e2,"10^{-3}" 1e3,"10^{-4}" 1e4,"10^{-5}" 1e5,"10^{-6}" 1e6,"10^{-7}" 1e7)
+set xtics nomirror
+set nomxtics
+set border 31 lt -1 lw 2
+set output 'errorconv.eps'
+set term post eps enh 30
+plot [10:1e7][1.e-12:] 'errorconv.dat' w p pt 6 ps 2, 0.5/x**2 w lines lt 1 lw 3
+
+

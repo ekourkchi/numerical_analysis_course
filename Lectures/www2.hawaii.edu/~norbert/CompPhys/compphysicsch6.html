@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>6 Building Programs and Conclusions</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch7.html" >next</a>] [<a 
+href="compphysicsch5.html" >prev</a>] [<a 
+href="compphysicsch5.html#tailcompphysicsch5.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch6.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch6.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;6</span><br /><a 
+ id="x8-200006"></a>Building Programs and Conclusions</h2>
+   <h3 class="sectionHead"><span class="titlemark">6.1   </span> <a 
+ id="x8-210006.1"></a>Numerical libraries</h3>
+<!--l. 7--><p class="noindent" >Pre-written code is available for common tasks.<br 
+class="newline" />
+<!--l. 9--><p class="noindent" >Code Repositories:
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="cmti-12">NETLIB </span>at <a 
+href="http://www.netlib.org" >www.netlib.org</a> offers free sources from a myriad of authors.
+      </li>
+      <li class="itemize"><span 
+class="cmti-12">Numerical     Recipes</span>,      <a 
+href="http://numerical.recipes/" class="url" ><span 
+class="cmtt-12">http://numerical.recipes/</span></a>,      explains
+      and provides a broad and selective collection of reliable subroutines.
+      Each program is available in several languages: C, C++, Fortran&#x00A0;77,
+      and Fortran&#x00A0;90. Code is proprietary but you will get the source code.
+      </li>
+      <li class="itemize">The  <span 
+class="cmti-12">Gnu  Scientific  Library  </span>is  a  collection  of  open-source  routines,
+      <a 
+href="http://www.gnu.org/software/gsl" >www.gnu.org/software/gsl</a>. It is written in C.
+      </li>
+      <li class="itemize"><span 
+class="cmti-12">IMSL   (International   Mathematical   and   Statistical   Library)   </span>&#8211;
+      proprietary
+      </li>
+      <li class="itemize"><span 
+class="cmti-12">NAG (Numerical Algorithms Group) </span>Library &#8211; proprietary
+      </li>
+      <li class="itemize"><span 
+class="cmti-12">SciPy </span>includes an open source library for Python.</li></ul>
+<!--l. 22--><p class="noindent" >The <span 
+class="cmti-12">Guide to Available Mathematical Software </span><a 
+href="http://math.nist.gov" class="url" ><span 
+class="cmtt-12">http://math.nist.gov</span></a>
+maintains a directory of subroutines from numerous public and proprietary
+repositories.
+<!--l. 28--><p class="noindent" >A few noteworthy specialized numerical libraries:
+      <ul class="itemize1">
+      <li class="itemize">A specialized, refereed set of routines is available to the public from
+      the <span 
+class="cmti-12">Collected Algorithms of the ACM </span>at <a 
+href="http://calgo.acm.org" class="url" ><span 
+class="cmtt-12">http://calgo.acm.org</span></a>.
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">An  exceptional  implementation  is  FFT-W,  the  &#8220;Fastest  Fourier
+      Transform in the West&#8221;. It is a portable source code that first detects
+      what hardware it is running on and chooses different computational
+      strategies depending on the specific hardware architecture. This way,
+      it can simultaneously achieve portability and efficiency.
+      </li>
+      <li class="itemize">BLAS and LAPACK are highly optimized libraries for numerical linear
+      algebra
+      </li>
+      <li class="itemize">Computational Geometry Algorithms Library, <a 
+href="http://www.cgal.org" class="url" ><span 
+class="cmtt-12">http://www.cgal.org</span></a>
+      </li>
+      <li class="itemize">Stony                Brook                Algorithm                Repository,
+      <a 
+href="http://www3.cs.stonybrook.edu/~algorith/" class="url" ><span 
+class="cmtt-12">http://www3.cs.stonybrook.edu/</span><span 
+class="cmtt-12">~</span><span 
+class="cmtt-12">algorith/</span></a>
+      </li>
+      <li class="itemize">PETSc  is  a  framework  for  solving  partial  differential  equations,
+      <a 
+href="http://www.mcs.anl.gov/petsc/" class="url" ><span 
+class="cmtt-12">http://www.mcs.anl.gov/petsc/</span></a>
+      </li></ul>
+<!--l. 55--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">6.2   </span> <a 
+ id="x8-220006.2"></a>Programming</h3>
+<!--l. 57--><p class="noindent" >
+      <div class="quote">
+      <!--l. 58--><p class="noindent" ><span 
+class="cmti-12">&#8220;In  computer  programming,  the  technique  of  choice  is  not</span>
+      <span 
+class="cmti-12">necessarily the most efficient, or elegant, or fastest executing one.</span>
+      <span 
+class="cmti-12">Instead, it may be the one that is quick to implement, general,</span>
+      <span 
+class="cmti-12">and easy to check.&#8221;</span>
+      Numerical Recipes
+                                                                          
+
+                                                                          
+<!--l. 66--><p class="noindent" >To a large extent the same advice applies for scientific programming as for
+programming in general. Programs should be clear, robust, general. Only when
+performance is critical, and only in the parts where it is critical, should one
+compromise these principles. Most programmers find that it is more efficient to
+write a part, test it, and then code the next part, rather than to write the whole
+program first and then start testing. In software engineering this is known as
+&#8220;unit testing&#8221;.
+<!--l. 69--><p class="indent" >   In other aspects, writing programs for scientific research is different from
+software development. Research programs keep changing and are usually used
+only by the programmer herself or a small group of users. Most programs
+written for everyday scientific computing are used for a limited time only
+(&#8220;throw-away codes&#8221;). Under these circumstances there is little reason to extract
+the last margin of efficiency, create nice user interfaces, write extensive
+documentation, or implement complex algorithms. Any of that can actually be
+counterproductive, as it consumes time and reduces flexibility. Better is the enemy
+of good.
+<!--l. 73--><p class="indent" >   Debugging. It is easy to miss a mistake or an inconsistency within many lines
+of code. In principle, already one wrong symbol in the program can invalidate the
+result. And in practice, it sometimes does. Program validation is a practical
+necessity. Some go so far as to add &#8220;blunders&#8221; to the list of common types of error
+in numerical calculations: roundoff, approximation errors, statistical errors, and
+blunders. Absence of obvious contradictions is not a sufficient standard of
+checking. Catching a mistake later or not at all may lead to a huge waste of
+effort, and this risk can be reduced by spending time on checking early on.
+One will want to compare with analytically known solutions, including
+trivial solutions. Finding good test cases can be a considerable effort on its
+own.
+<!--l. 75--><p class="indent" >   Programs undergo evolution. As time passes improvements are made
+on a program, bugs fixed, and the program matures. For time-intensive
+computations, it is thus never a good idea to make long runs right away.
+Moreover, the experience of analyzing the result of a short run might
+change which and in what form data are output. Simulations shorter
+than one minute allow for interactive improvements, and thus a rapid
+development cycle. Besides the obvious difference in cumulative computation
+time (a series of minute-long calculations is much shorter than a series of
+hour-long calculations), the mind has to sluggishly refocus after a lengthy
+gap.
+<!--l. 81--><p class="indent" >   For lengthy runs one may wish to know how far the program has proceeded.
+                                                                          
+
+                                                                          
+While a program is executing its output is not immediately written to disk,
+because this may slow it down. This has the disadvantage that recent output is
+unavailable. Prompt output can be enforced by closing the file and then reopening
+the file before further output occurs.
+<!--l. 83--><p class="indent" >   <span 
+class="cmti-12">Build automation. </span>For fully compiled languages and programs that consist of
+many source and/or header files, when one file is changed dependent files must be
+recompiled. On Unix environments, <span 
+class="cmtt-12">makefile</span>s help to build (compile and link)
+software by keeping track of the last time files were updated and only updates
+those files which are required. Type make and the commands in the makefile will
+be executed.
+<!--l. 85--><p class="indent" >   When data sets accumulate, it is practical to keep a log of the various
+simulations and their specifications. The situation is analogous to an
+experimentalist who maintains a laboratory notebook. Forgetting to write down
+one parameter might necessitate repetition of the experiment. And not labeling a
+sample can, under unfortunate circumstances, make it useless. Ironically, some
+scientists keep notes of their model computations not in an electronic file but in a
+real paper notebook.
+<!--l. 87--><p class="indent" >   For large or collaborative projects, version control systems are commonly used.
+These record and archive changes to files. Examples are <span 
+class="cmti-12">CVS </span>(Concurrent
+Versions System), <span 
+class="cmti-12">Git</span>, <span 
+class="cmti-12">Mercurial</span>, and <span 
+class="cmti-12">SVN</span>. Version control can also serve as
+backup and, if hosted on a website, is a mechanism for distributing code to
+users.
+<!--l. 90--><p class="indent" >   Data can be either evaluated as they are computed (run-time evaluation) or
+stored and evaluated afterwards (post-evaluation). Post-evaluation allows changes
+and flexibility in the evaluation process, without having to repeat the run.
+Numbers can be calculated much faster than they can be written to any kind of
+output; it is easy to calculate far more than can be stored. For this reason, output
+is selective.
+   <div  
+class="centerline">                                          &#8212;&#8212;&#8212;&#8212;&#8212;                                          </div>
+<!--l. 95--><p class="indent" >   To be compelling, a numerical result, or a conclusion derived from numerics,
+needs to be reliable and robust. This expectation is no different from any other
+branch of scientific inquiry; a laboratory measurement, an astronomical
+observation, and a theoretical formula are all expected to hold up to scrutiny,
+because scientists fool themselves often enough, but for numerics the standards
+are less established. Robustness and convergence tests go a long way. We can
+                                                                          
+
+                                                                          
+change a parameter that should not matter to see if the we get the same
+result, and change an input parameter that should matter to see if the
+expected change occurs. Fitting a graph to data ought to be robust, i.e.
+when a few of the points are removed the fit parameters should barely
+change.
+<!--l. 104--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">6.3   </span> <a 
+ id="x8-230006.3"></a>Modern curve fitting</h3>
+<!--l. 106--><p class="noindent" >Fitting straight lines by the least-square method is straightforward. For linear
+regression we minimize the quadratic deviations <span 
+class="cmmi-12">E </span>= <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub>(<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">a</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub>)<sup><span 
+class="cmr-8">2</span></sup>, where <span 
+class="cmmi-12">x</span><sub>
+<span 
+class="cmmi-8">i</span></sub>
+and <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> are the data and <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b </span>are, respectively, the intercept and slope of a
+straight line. The extremum conditions <span 
+class="cmmi-12">&#x2202;E&#x2215;&#x2202;a </span>= 0 and <span 
+class="cmmi-12">&#x2202;E&#x2215;&#x2202;b </span>= 0 lead to the
+linear equations <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub>(<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub>) = 0 and <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">i</span></sub>(<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub>) = 0, which can
+be explicitly solved for <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b</span>. The popularity of linear regression is
+partially due to do the computational convenience the fit parameters can be
+obtained.
+<!--l. 109--><p class="indent" >   Minimizing the sum of the square deviations yields the most likely fit for
+Gaussian distributed errors. The maximum likelihood fit maximizes the
+probability <span 
+class="cmmi-12">P </span>= &#x03A0;<sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">p</span><sub><span 
+class="cmmi-8">i</span></sub> where <span 
+class="cmmi-12">p</span><sub><span 
+class="cmmi-8">i</span></sub> = <span 
+class="cmmi-12">p</span>(<span 
+class="cmmi-12">y</span>(<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">i</span></sub>; <span 
+class="cmmi-12">a,b,...</span>) <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub>). Using the product
+rule for differentiation, an extremum with respect to <span 
+class="cmmi-12">a </span>occurs when
+<span 
+class="cmmi-12">&#x2202;P&#x2215;&#x2202;a </span>= <span 
+class="cmmi-12">P</span> <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub>(<span 
+class="cmmi-12">&#x2202;p</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">&#x2215;&#x2202;a</span>)<span 
+class="cmmi-12">&#x2215;p</span><sub><span 
+class="cmmi-8">i</span></sub> = 0, and hence <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">&#x2202;</span> ln <span 
+class="cmmi-12">p</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">&#x2215;&#x2202;a </span>= <span 
+class="cmmi-12">&#x2202;</span>(<span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub> ln <span 
+class="cmmi-12">p</span><sub><span 
+class="cmmi-8">i</span></sub>)<span 
+class="cmmi-12">&#x2215;&#x2202;a </span>= 0.
+There is one such equation for each parameter. In other words, &#x03A0;<sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">p</span><sub><span 
+class="cmmi-8">i</span></sub> is maximized
+when <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub> ln <span 
+class="cmmi-12">p</span><sub><span 
+class="cmmi-8">i</span></sub> is maximized. When <span 
+class="cmmi-12">p </span>is Gaussian, the most likely parameters are
+those that minimize the sum of the square deviations.
+<!--l. 111--><p class="indent" >   Some other functions can be reduced to linear regression, e.g., <span 
+class="cmmi-12">y</span><sup><span 
+class="cmr-8">2</span></sup> = exp(<span 
+class="cmmi-12">x</span>). If
+errors are distributed Gaussian then linear regression finds the most likely fit, but
+a transformation of variables spoils this property. If the fitting function cannot
+be reduced to linear regression it is necessary to minimize the error as
+a function of the fit parameter(s) nonlinearly. This is numerically far
+more challenging than linear regression, because, similar to nonlinear
+root-finding, one cannot be sure the optimum found is global rather than only
+local.
+<!--l. 114--><p class="indent" >   Fits with quadratically weighted deviations are not particularly robust, since
+an outlying data point can affect it significantly. Weighting proportional with
+distance, for instance, improves robustness. In this case, we seek to minimize
+<span 
+class="cmex-10x-x-120">&#x2211;</span>
+   <sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmsy-10x-x-120">|</span><span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmsy-10x-x-120">|</span>, where, again, <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">i</span></sub> and <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> are the data and <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b </span>are,
+                                                                          
+
+                                                                          
+respectively, the intercept and slope of a straight line. Differentiation with respect
+to <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b </span>yields the following two conditions: <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">i</span></sub>sgn(<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">a </span><span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub>) = 0 and
+<span 
+class="cmex-10x-x-120">&#x2211;</span>
+   <sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">i</span></sub>sgn(<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">a</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub>) = 0. Unlike for the case where the square of the deviations
+is minimized, these equations are not linear in <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b</span>, because of the sign
+function sgn. (They happen to be still easier to solve than by nonlinear root
+finding in two variables. The first condition says that the number of positive
+elements must be equal to the number of negative elements, and hence <span 
+class="cmmi-12">a </span>is the
+median among the set of numbers <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">bx</span><sub><span 
+class="cmmi-8">i</span></sub>. Since <span 
+class="cmmi-12">a </span>is determined as a
+function of <span 
+class="cmmi-12">b </span>in this relatively simple way, the remaining problem is to solve
+the second condition, which requires nonlinear root-finding in only one
+variable.)
+<!--l. 117--><p class="indent" >   Another type of error analysis made possible by numerical computations is
+error determination by randomization. The uncertainty is determined based on a
+large number of random deviations in the input parameters. This is especially
+useful for discrete or discontinuous problems where error propagation using
+derivatives is not possible.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch7.html" >next</a>] [<a 
+href="compphysicsch5.html" >prev</a>] [<a 
+href="compphysicsch5.html#tailcompphysicsch5.html" >prev-tail</a>] [<a 
+href="compphysicsch6.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch6.html" >up</a>] </p></div>
+<!--l. 2--><p class="indent" >   <a 
+ id="tailcompphysicsch6.html"></a>   
+</body></html> 

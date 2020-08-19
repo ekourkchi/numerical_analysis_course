@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>1 Analytic and Numeric Solutions</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch2.html" >next</a>] [<a 
+href="compphysicsli1.html" >prev</a>] [<a 
+href="compphysicsli1.html#tailcompphysicsli1.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch1.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch1.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;1</span><br /><a 
+ id="x3-30001"></a>Analytic and Numeric Solutions</h2>
+<!--l. 5--><p class="noindent" >Many equations describing the behavior of physical systems cannot be solved
+analytically. In fact, &#8220;most&#8221; can not. Approximate solutions can still be obtained
+numerically. Numerical methods can be useful because they provide quantitative
+answers that would otherwise elude us. But they can also be valuable for
+another reason: they can provide new insight. One such example is given
+here.
+<!--l. 10--><p class="indent" >   A calculator or a short computer program suffices for a simple demonstration.
+If we repeatedly evaluate <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>), starting with an arbitrary value
+0 <span 
+class="cmmi-12">&#x003C; x &#x003C; </span>1, the number will decrease and slowly approach zero. For example,
+<span 
+class="cmmi-12">x </span>=&#x00A0;0.800, 0.160, 0.134, 0.116, 0.103&#x00A0;<span 
+class="cmmi-12">&#x2026;</span> The sequence decreases because
+<span 
+class="cmmi-12">x</span>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span>) <span 
+class="cmmi-12">&#x003C; x </span>for any 0 <span 
+class="cmmi-12">&#x003C; x</span>. If we try instead <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 3<span 
+class="cmmi-12">.</span>1<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>), the iteration
+is no longer driven toward a constant. For example, <span 
+class="cmmi-12">x </span>=&#x00A0;0.800, 0.496,
+0.775, 0.541, 0.770,&#x00A0;<span 
+class="cmmi-12">&#x2026;</span> One thousand iterations later <span 
+class="cmmi-12">x </span>= 0.765, 0.558,
+0.765, 0.558,&#x00A0;<span 
+class="cmmi-12">&#x2026;</span> The iteration settles into a periodic behavior; it alternates
+between two values. A yet higher prefactor, <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 4<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>) produces
+<span 
+class="cmmi-12">x </span>=&#x00A0;0.800, 0640, 0.922, 0.289, 0.822,&#x00A0;<span 
+class="cmmi-12">&#x2026;</span> One thousand iterations later <span 
+class="cmmi-12">x </span>=
+0.456, 0.992, 0.031, 0.122, 0.428, 0.979, 0.082, 0.301, 0.841&#x00A0;<span 
+class="cmmi-12">&#x2026;</span>, which has no
+recognizable period. Is the period unrecognizably long? Is the transient long? Or
+does this iteration not approach anything at all? We are faced with a
+dilemma on how to interpret this numerical result and whether to trust
+it.
+<!--l. 14--><p class="indent" >   Can it be true that the iteration does not settle to a constant or into a
+periodic pattern, or is this an artifact of numerical inaccuracies? Consider the
+simple iteration <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 1 <span 
+class="cmsy-10x-x-120">-|</span>2<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">- </span>1<span 
+class="cmsy-10x-x-120">| </span>known as &#8220;tent map.&#8221; For <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">&#x2264; </span>1<span 
+class="cmmi-12">&#x2215;</span>2 the value
+is doubled, <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 2<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub>, and for <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">&#x2265; </span>1<span 
+class="cmmi-12">&#x2215;</span>2 it is subtracted from 1 and then doubled,
+<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 2(1 <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub>). The behavior of the tent map is particularly easy to understand
+when <span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> is represented in the binary number system. As for integers, floating
+point numbers can be cast in binary format. For example, the binary number
+<span 
+class="cmtt-12">0.101 </span>is 1 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>2<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sup> + 0 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>2<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">2</span></sup> + 1 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>2<sup><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">3</span></sup> = 0<span 
+class="cmmi-12">.</span>625. Multiplication by two for binary
+numbers corresponds to a shift by one digit, just as multiplication by 10 shifts any
+decimal number by one digit. When a binary sequence is subtracted from 1, zeros
+and ones are simply interchanged. (This is always true as long as the following
+identity is taken into account. The value of <span 
+class="cmtt-12">0.011111... </span>with infinitely many
+<span 
+class="cmtt-12">1</span>s is 1/2, and is in this sense identical to <span 
+class="cmtt-12">0.1</span>.) The iteration goes from
+<span 
+class="cmtt-12">0.011001...</span>&#x00A0;to <span 
+class="cmtt-12">0.11001... </span>to <span 
+class="cmtt-12">0.0110...</span>. After many iterations the digits from
+                                                                          
+
+                                                                          
+far behind dominate the result. Hence, the leading digits take on new and new
+values, making the behavior of the sequence apparently random. This
+demonstrates that a simple iteration can exhibit &#8220;chaotic&#8221; behavior. It also
+shows there is no fundamental difference between a chaotic and a random
+sequence.
+<!--l. 19--><p class="indent" >   The substitution <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub> = sin <sup><span 
+class="cmr-8">2</span></sup>(<span 
+class="cmmi-12">&#x03C0;y</span><sub>
+<span 
+class="cmmi-8">n</span></sub>) transforms the tent map into
+<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 4<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>), used above and known as the &#8220;logistic map&#8221;. This
+transformation proves that the logistic map is indeed chaotic, because it can be
+transformed back to a simple iteration whose chaotic behavior is proven
+mathematically.
+<!--l. 21--><p class="indent" >   It is remarkable that the numerical solution maintains the stochastic character
+of the logistic map. That said, numerical simulation of the tent map is hampered
+by roundoff.
+<!--l. 24--><p class="indent" >   The behavior of the iteration formulae <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = <span 
+class="cmmi-12">rx</span><sub><span 
+class="cmmi-8">n</span></sub>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>), with increasing
+parameter <span 
+class="cmmi-12">r </span>is readily visualized by plotting the value of <span 
+class="cmmi-12">x </span>for many iterations. If
+<span 
+class="cmmi-12">x </span>approaches a constant, then, after an initial transient, there is only one point.
+The initial transient is eliminated by discarding the first thousand values or so. If
+the solution becomes periodic, there will be several points on the plot.
+If it is chaotic, there will be a range of values. Figure&#x00A0;<a 
+href="#x3-30011">1.1<!--tex4ht:ref: fig:feigenbaum --></a>(a) shows the
+asymptotic behavior for a range of parameter values. As we have seen in the
+examples above, the asymptotic value for <span 
+class="cmmi-12">r </span>= 1 is zero, <span 
+class="cmmi-12">r </span>= 3 settles into a
+period of two, and for <span 
+class="cmmi-12">r </span>= 4 the behavior is chaotic. With increasing
+<span 
+class="cmmi-12">r </span>the period doubles repeatedly and then the iteration transitions into
+chaos.
+<!--l. 27--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x3-30011"></a>
+                                                                          
+
+                                                                          
+<!--l. 28--><p class="noindent" >(a)<img 
+src="compphysics0x.png" alt="PIC" class="graphics" width="167.87125pt" height="117.51042pt" ><!--tex4ht:graphics  
+name="compphysics0x.png" src="map_log.eps"  
+-->
+(b)<img 
+src="compphysics1x.png" alt="PIC" class="graphics" width="167.87125pt" height="117.51042pt" ><!--tex4ht:graphics  
+name="compphysics1x.png" src="map_sin.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1.1: </span><span  
+class="content">Asymptotic behavior of two different iterative equations with
+varying parameter <span 
+class="cmmi-12">r</span>. In (a) <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = <span 
+class="cmmi-12">rx</span><sub><span 
+class="cmmi-8">n</span></sub>(1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span></sub>), the iteration converges to a
+fixed value for <span 
+class="cmmi-12">r </span><span 
+class="cmsy-10x-x-120">&#x2264; </span>1, exhibits periodic behavior with periods 2, 4, 8, <span 
+class="cmmi-12">&#x2026;</span>, and
+becomes chaotic around <span 
+class="cmmi-12">r </span><span 
+class="cmsy-10x-x-120">&#x2248; </span>3<span 
+class="cmmi-12">.</span>57. The behavior in panel (b) for the iteration
+<span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = sin(<span 
+class="cmmi-12">rx</span><sub><span 
+class="cmmi-8">n</span></sub>) is qualitatively the same.</span></div><!--tex4ht:label?: x3-30011 -->
+                                                                          
+
+                                                                          
+<!--l. 34--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 36--><p class="indent" >   Part&#x00A0;(b) of the figure shows a similar iteration, the sine map <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = sin(<span 
+class="cmmi-12">rx</span><sub><span 
+class="cmmi-8">n</span></sub>),
+which also exhibits period doubling and chaos. Many, many other iterative
+equations show the same behavior of period doubling and chaos. The generality of
+this phenomenon, called Feigenbaum universality, was not realized before
+computers came along.
+<!--l. 39--><p class="indent" >   The universality goes beyond the qualitative similarities between figures <a 
+href="#x3-30011">1.1<!--tex4ht:ref: fig:feigenbaum --></a>a
+and <a 
+href="#x3-30011">1.1<!--tex4ht:ref: fig:feigenbaum --></a>b; it also has specific quantitative aspects. The critical parameter
+values <span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">n</span></sub> of the bifurcations to cycles of period 2<sup><span 
+class="cmmi-8">n</span></sup> approach a ratio of
+(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">n&#x2215;</span><span 
+class="cmr-8">2</span></sub>)<span 
+class="cmmi-12">&#x2215;</span>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">n</span></sub>) <span 
+class="cmsy-10x-x-120">&#x2248; </span>4<span 
+class="cmmi-12">.</span>6692 as they approach <span 
+class="cmmi-12">r</span><sub><span 
+class="cmsy-8">&#x221E;</span></sub>. Another universal constant
+asymptotically describes the shrinking of the width of the periodic cycles. If <span 
+class="cmmi-12">d</span><sub><span 
+class="cmmi-8">n</span></sub> is
+the distance between adjacent <span 
+class="cmmi-12">x</span>-values of the cycle of period 2<sup><span 
+class="cmmi-8">n</span></sup>, then <span 
+class="cmmi-12">d</span><sub>
+<span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-12">&#x2215;d</span><sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">n</span></sub>
+converges to <span 
+class="cmsy-10x-x-120">&#x2248; </span>2<span 
+class="cmmi-12">.</span>5029. These two mathematical constants are known as
+Feigenbaum constants.
+<!--l. 41--><p class="indent" >   Once aware of the period doubling behavior and its ubiquity, one can set out
+to understand, and eventually prove, why period doubling and chaos often occur
+in iterative equations. Indeed, Feigenbaum universality was eventually understood
+in a profound way, but only <span 
+class="cmti-12">after </span>it was discovered numerically. This is a historical
+example where numerical calculations lead to an important insight. It opens our
+eyes to the possibility that numerical calculations can be used not only to obtain
+numbers and solutions, but also to make original discoveries and gain profound
+insights.
+<!--l. 45--><p class="noindent" ><span 
+class="cmbx-12">Brainteaser: </span><a 
+ id="problem:analytical"></a> Not every equation requires numerial methods, and we want to be
+able to distinguish problems that require numerics from those that do not. As an
+exercise, can you judge which of the following can be obtained analytically, in
+closed form?
+      <ol  class="enumerate1" >
+      <li 
+  class="enumerate" id="x3-3003x1">The roots of <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">5</span></sup> <span 
+class="cmsy-10x-x-120">- </span>7<span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">4</span></sup> + 2<span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">3</span></sup> + 2<span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-120">- </span>7<span 
+class="cmmi-12">x </span>+ 1 = 0
+      </li>
+      <li 
+  class="enumerate" id="x3-3005x2">The integral <span 
+class="cmex-10x-x-120">&#x222B;</span>
+  <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>(2 + <span 
+class="cmmi-12">x</span><sup><span 
+class="cmr-8">7</span></sup>)<span 
+class="cmmi-12">dx</span>
+      </li>
+      <li 
+  class="enumerate" id="x3-3007x3">The sum <span 
+class="cmex-10x-x-120">&#x2211;</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">N</span></sup><span 
+class="cmmi-12">k</span><sup><span 
+class="cmr-8">4</span></sup>
+      </li>
+      <li 
+  class="enumerate" id="x3-3009x4">The solution to the difference equation 3<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = 7<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-120">- </span>2<span 
+class="cmmi-12">y</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1</span></sub>
+                                                                          
+
+                                                                          
+      </li>
+      <li 
+  class="enumerate" id="x3-3011x5">exp(<span 
+class="cmmi-12">A</span>),  where  <span 
+class="cmmi-12">A </span>is  a  2 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>2  matrix,  <span 
+class="cmmi-12">A  </span>=  ((2<span 
+class="cmmi-12">,</span><span 
+class="cmsy-10x-x-120">-</span>1)<span 
+class="cmmi-12">, </span>(0<span 
+class="cmmi-12">, </span>2)),  and  the
+      exponential of the matrix is defined by its power series.</li></ol>
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch2.html" >next</a>] [<a 
+href="compphysicsli1.html" >prev</a>] [<a 
+href="compphysicsli1.html#tailcompphysicsli1.html" >prev-tail</a>] [<a 
+href="compphysicsch1.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch1.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch1.html"></a>  
+</body></html> 

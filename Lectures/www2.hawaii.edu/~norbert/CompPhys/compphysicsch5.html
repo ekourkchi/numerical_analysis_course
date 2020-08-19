@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>5 Sample Problems</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch6.html" >next</a>] [<a 
+href="compphysicsch4.html" >prev</a>] [<a 
+href="compphysicsch4.html#tailcompphysicsch4.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch5.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch5.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;5</span><br /><a 
+ id="x7-160005"></a>Sample Problems</h2><div class="quote">
+      <!--l. 6--><p class="noindent" ><span 
+class="cmti-12">&#8220;Excellent computer simulations are done for a purpose.&#8221;</span>
+      Leo Kadanoff
+   <h3 class="sectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x7-170005.1"></a>Chaotic standard map</h3>
+<!--l. 13--><p class="noindent" >As an example, we study the following simple physical system. A freely
+rotating rod is periodically kicked, such that the effect of the kicking
+depends on the rod&#8217;s position; see figure&#x00A0;<a 
+href="#x7-170021">5.1<!--tex4ht:ref: fig:rod --></a>. The equations for the angle <span 
+class="cmmi-12">&#x03B1;</span>,
+measured from the vertical, and the angular velocity <span 
+class="cmmi-12">&#x03C9; </span>after each kick are
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="compphysics24x.png" alt="&#x03B1;n+1   =  &#x03B1;n +  &#x03C9;nT
+
+&#x03C9;n+1   =  &#x03C9;n +  K sin&#x03B1;n+1
+" class="math-display" ></center>
+</div>The period of kicking is <span 
+class="cmmi-12">T </span>and <span 
+class="cmmi-12">K </span>is its strength. The iteration acts as a strobe
+effect for the time-continuous system. For <span 
+class="cmmi-12">K </span>= 0, without kicking, the rod will
+rotate with constant period. For finite <span 
+class="cmmi-12">K</span>, will the rod stably position itself along
+the direction of force or will it rotate full turns forever? Will many weak kicks
+ultimately cause a big change in the behavior or not? Will it accumulate
+unlimited amounts of kinetic energy or not?
+<!--l. 21--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x7-170021"></a>
+                                                                          
+
+                                                                          
+<!--l. 22--><p class="noindent" ><img 
+src="compphysics25x.png" alt="PIC" class="graphics" width="142.26378pt" height="132.78299pt" ><!--tex4ht:graphics  
+name="compphysics25x.png" src="rod.eps"  
+--> <br />  <div class="caption" 
+><span class="id">Figure&#x00A0;5.1:  </span><span  
+class="content">Freely  rotating  rod  that  is
+ periodically kicked. </span></div><!--tex4ht:label?: x7-170021 -->
+                                                                          
+
+                                                                          
+<!--l. 26--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 28--><p class="indent" >   A program to iterate the above formula is only a few lines long. The angle can
+be restricted to the range 0 to 2<span 
+class="cmmi-12">&#x03C0;</span>. If mod(2<span 
+class="cmmi-12">&#x03C0;</span>) is applied to <span 
+class="cmmi-12">&#x03B1; </span>at every iteration, it
+will cause a tiny bit of roundoff after each full turn (and none without a full turn),
+but it avoids loss of significant digits when <span 
+class="cmmi-12">&#x03B1; </span>is large, as it will be after many full
+turns in the same direction.
+<!--l. 30--><p class="indent" >   To begin with, a few test cases are in order. This program may be too short to
+require validation, and maybe it is, but testing a program is usually a reflex
+reaction for any computational scientist with experience. For <span 
+class="cmmi-12">K </span>= 0 the velocity
+should never change. A simple test run, <span 
+class="cmmi-12">&#x03C9; </span>= 0<span 
+class="cmmi-12">.</span>2<span 
+class="cmmi-12">, </span>0<span 
+class="cmmi-12">.</span>2<span 
+class="cmmi-12">, </span>0<span 
+class="cmmi-12">.</span>2<span 
+class="cmmi-12">,...</span>, confirms this.
+Without kicking <span 
+class="cmmi-12">&#x03B1;</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> = <span 
+class="cmmi-12">&#x03B1;</span><sub><span 
+class="cmmi-8">n</span></sub> + 2<span 
+class="cmmi-12">&#x03C0;T&#x2215;T</span><sub><span 
+class="cmmi-8">r</span></sub>, where <span 
+class="cmmi-12">T</span><sub><span 
+class="cmmi-8">r</span></sub> = 2<span 
+class="cmmi-12">&#x03C0;&#x2215;&#x03C9; </span>is the rotation period of
+the rod. Between snapshots separated by time <span 
+class="cmmi-12">T</span>, the angle <span 
+class="cmmi-12">&#x03B1; </span>changes
+either periodically or, when <span 
+class="cmmi-12">T</span><sub><span 
+class="cmmi-8">r</span></sub><span 
+class="cmmi-12">&#x2215;T </span>is not a ratio of integers, the motion
+is &#8220;quasi-periodic,&#8221; because the rod never returns exactly to the same
+position.
+<!--l. 34--><p class="indent" >   A second test case are the initial values <span 
+class="cmmi-12">&#x03B1; </span>= 0 and <span 
+class="cmmi-12">&#x03C9; </span>= 2<span 
+class="cmmi-12">&#x03C0;&#x2215;T</span>, that is, the rod
+rotates initially exactly at the kicking frequency and <span 
+class="cmmi-12">&#x03B1; </span>should return to the same
+position after every kick, no matter how hard the kicking: <span 
+class="cmmi-12">&#x03B1; </span>= 0<span 
+class="cmmi-12">, </span>0<span 
+class="cmmi-12">, </span>0<span 
+class="cmmi-12">,...</span>. The
+program reproduces the correct behavior in cases we understand, so we can
+proceed to more complex situations.
+<!--l. 36--><p class="indent" >   For <span 
+class="cmmi-12">K </span>= 0<span 
+class="cmmi-12">.</span>2 the angular velocity changes quasi-periodically, as a simple plot
+will show. For stronger <span 
+class="cmmi-12">K </span>= 1<span 
+class="cmmi-12">.</span>4 the motion can be chaotic, for example <span 
+class="cmmi-12">&#x03B1; </span><span 
+class="cmsy-10x-x-120">&#x2248; </span>0, 1,
+3.18, 5.31, 6.27, 0.94, 3.01, 5.27, 0<span 
+class="cmmi-12">.</span>05<span 
+class="cmmi-12">,...</span>.
+<!--l. 39--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x7-170032"></a>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-11" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-11-1g"><col 
+id="TBL-11-1"><col 
+id="TBL-11-2"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-11-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-1-1"  
+class="td11">(a)<img 
+src="compphysics26x.png" alt="PIC" class="graphics" width="119.50157pt" height="111.5357pt" ><!--tex4ht:graphics  
+name="compphysics26x.png" src="smK=0.0.eps"  
+--></td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-1-2"  
+class="td11">(b)<img 
+src="compphysics27x.png" alt="PIC" class="graphics" width="119.50157pt" height="111.5357pt" ><!--tex4ht:graphics  
+name="compphysics27x.png" src="smK=0.2.eps"  
+--></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-2-1"  
+class="td11"> (c)<img 
+src="compphysics28x.png" alt="PIC" class="graphics" width="119.50157pt" height="111.5357pt" ><!--tex4ht:graphics  
+name="compphysics28x.png" src="smK=0.8.eps"  
+--> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-2-2"  
+class="td11">(d)<img 
+src="compphysics29x.png" alt="PIC" class="graphics" width="119.50157pt" height="111.5357pt" ><!--tex4ht:graphics  
+name="compphysics29x.png" src="smK=1.4.eps"  
+--></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-3-1"  
+class="td11">                           </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.2: </span><span  
+class="content">Angular velocity <span 
+class="cmmi-12">&#x03C9; </span>versus angle <span 
+class="cmmi-12">&#x03B1; </span>for the standard map for
+different kicking strengths, (a) K=0, (b) K=0.2, (c) K=0.8, and (d) K=1.4.
+Nine  initial  conditions  are  used  in  each  plot.  Lines  that  appear  to  be
+continuous consist of many discrete points. </span></div><!--tex4ht:label?: x7-170032 -->
+                                                                          
+
+                                                                          
+<!--l. 49--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 51--><p class="indent" >   Plots of <span 
+class="cmmi-12">&#x03C9; </span>versus <span 
+class="cmmi-12">&#x03B1; </span>reveal more systematic information about the behavior of
+the solutions. Figure&#x00A0;<a 
+href="#x7-170032">5.2<!--tex4ht:ref: fig:standardmap --></a> shows the phase space plots for several initial values for
+<span 
+class="cmmi-12">&#x03C9; </span>and <span 
+class="cmmi-12">&#x03B1;</span>. And since <span 
+class="cmmi-12">&#x03B1; </span>is periodic, the (<span 
+class="cmmi-12">&#x03B1;,&#x03C9;</span>) phase space may be thought of as
+cylinder. For <span 
+class="cmmi-12">K </span>= 0, if <span 
+class="cmmi-12">&#x03C9; </span>is irrational it will ultimately sweep out all values of <span 
+class="cmmi-12">&#x03B1;</span>,
+which appears as horizontal straight line in the plot; if <span 
+class="cmmi-12">&#x03C9; </span>is a rational
+number there will only be a finite number of <span 
+class="cmmi-12">&#x03B1; </span>values. Solutions that
+perpetually lie on a curve in phase space (or, in higher dimensions, a
+surface) are called &#8220;integrable&#8221;. Without perturbation all of the solutions are
+integrable.
+<!--l. 54--><p class="indent" >   For small <span 
+class="cmmi-12">K</span>, there is a small perturbation of the unforced behavior, with many
+integrable orbits (b). When the rod starts out slow and near the stable position
+<span 
+class="cmmi-12">&#x03B1; </span>= <span 
+class="cmmi-12">&#x03C0;</span>, it will perpetually remain near the stable position, while for high initial
+speeds the rod will take full turns forever at (quasi)periodically changing
+velocities. These numerical results suggest, but do not prove, that the motion, at
+least for the few initial values plotted here, remains perpetually regular, because
+they lie on an invariant curve.
+<!--l. 56--><p class="indent" >   The behavior for stronger <span 
+class="cmmi-12">K </span>is shown in panel (c). For some initial conditions
+the rod bounces back and forth; others make it go around without ever changing
+direction. The two regions are separated by a layer where the motion is
+chaotic. The rod can go around several times in the same direction, and
+then reverse its sense of rotation. The motion of the rod is perpetually
+irregular. The phase plot also reveals that this chaotic motion is bounded in
+energy.
+<!--l. 58--><p class="indent" >   For strong kicking there is a &#8220;sea&#8221; of chaos (d). Although the motion is
+erratic for many initial conditions, the chaotic motion does not cover all
+possible combinations of velocities and angles. We see intricate structures in
+this plot. Simple equations can have complicated solutions, and although
+complicated they still have structure to them. A qualitative difference between
+(c) and (d) is that in (d) the chaotic motions are no longer bounded in
+energy.
+<!--l. 62--><p class="indent" >   And, by the way, the rod can accumulate energy without limit. In the figure, <span 
+class="cmmi-12">&#x03C9;</span>
+is renormalized to keep it in the range <span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">&#x03C0;&#x2215;T </span>to <span 
+class="cmmi-12">&#x03C0;&#x2215;T</span>. Physicist Enrico
+Fermi used a similar model to show that electrically charged particles can
+acquire large amounts of energy from a driving field. Unbounded growth
+of kinetic energy due to periodic forcing is thus also known as &#8220;Fermi
+acceleration&#8221;.
+                                                                          
+
+                                                                          
+   <h4 class="likesubsectionHead"><a 
+ id="x7-180005.1"></a>Theory discussion: almost integrable systems*</h4>
+<!--l. 69--><p class="noindent" >The kicked rotator is a mechanical system without friction, so it is a
+Hamiltonian system, and the pair of canonical variables (<span 
+class="cmmi-12">&#x03B1;,&#x03C9;</span>) forms a phase
+space. The map is known as the (Chirikov) &#8220;standard map&#8221; of chaotic
+Hamiltonian dynamics. It has the smallest number of variables possible for a
+Hamiltonian system (two) and simple functional dependencies. Although
+it may be a bit of a toy system, lessons drawn from studying its phase
+space structure apply to an extraordinarily wide range of Hamiltonian
+systems.
+<!--l. 71--><p class="indent" >   Kolmogorov-Arnold-Moser (KAM) theory is concerned with the stability of
+motions in Hamiltonian systems under small perturbations. It answers whether or
+not a small perturbation of a conservative dynamical system results in a
+lasting quasiperiodic motion, and it gives conditions under which chaos is
+restricted.
+      <div class="quote">
+      <!--l. 73--><p class="noindent" >KAM  theorem:  For  a  small  perturbation  of  an  integrable
+      Hamiltonian system, invariant surfaces in phase space <span 
+class="cmti-12">continue</span>
+      <span 
+class="cmti-12">to exist </span>for <span 
+class="cmti-12">most </span>initial conditions.</div>
+<!--l. 77--><p class="indent" >   This is seen to be the case in Fig.&#x00A0;<a 
+href="#x7-170032">5.2<!--tex4ht:ref: fig:standardmap --></a>b. For larger perturbations, Fig.&#x00A0;<a 
+href="#x7-170032">5.2<!--tex4ht:ref: fig:standardmap --></a>c,
+the fraction of non-integrable solutions has grown. Some of the invariant curves
+are deformed and survive, while others are destroyed. KAM curves are deformed
+but remain impenetrable. Beyond a certain perturbation strength, this barrier
+breaks down (Fig.&#x00A0;<a 
+href="#x7-170032">5.2<!--tex4ht:ref: fig:standardmap --></a>d).
+<!--l. 81--><p class="indent" >   A physical example are the Kirkwood gaps in the asteroid belt, that have been
+emptied due to gravitational interaction with Jupiter, while most asteroids revolve
+in stable orbits.
+<!--l. 85--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">5.2   </span> <a 
+ id="x7-190005.2"></a>Gravitational 3-body problem; The process of scientific computing</h3>
+<!--l. 87--><p class="noindent" >The motion of two bodies due to their mutual gravitational attraction
+leads to orbits with the shape of circles, ellipses, parabolas, or hyperbolas.
+For three bodies an analytic solution is no longer possible (&#8220;three-body
+                                                                          
+
+                                                                          
+problem&#8221;). Nothing keeps us from exploring gravitational interaction
+numerically. For example, we might want to know the fraction of comets,
+coming in from far away, that will be trapped into an orbit around the sun
+due to interaction with Jupiter, the heaviest planet in our solar system.
+This could be estimated based on theory, so it is no a great example,
+but the goal here is to get a perspective of the overall process. In fact,
+the problem will only be outlined, so we can quickly move from step to
+step.
+<!--l. 90--><p class="indent" >   1. Cast and simplify equations: The acceleration of the bodies due to their
+gravitational interaction is given by <span 
+class="cmmi-12">d</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">r</span><sub>
+<span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">&#x2215;dt</span><sup><span 
+class="cmr-8">2</span></sup> = <span 
+class="cmmi-12">G</span><span 
+class="cmex-10x-x-120">&#x2211;</span><sub>
+<span 
+class="cmmi-8">j</span><span 
+class="cmmi-8">&#x2260;</span><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-12">m</span><sub><span 
+class="cmmi-8">j</span></sub>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">j</span></sub>)<span 
+class="cmmi-12">&#x2215;</span>(<span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">r</span><sub><span 
+class="cmmi-8">j</span></sub>)<sup><span 
+class="cmr-8">3</span></sup>,
+where <span 
+class="cmmi-12">G </span>is the gravitational constant, the sum is over all bodies, and <span 
+class="cmmi-12">m </span>and <span 
+class="cmmi-12">r</span>(<span 
+class="cmmi-12">t</span>)
+are their masses and positions. The motion of the center of mass can be
+subtracted from the initial conditions, so that all bodies revolve relative to the
+center of mass at a reduced mass. This reduces the number of equations from 9 to
+6.
+<!--l. 94--><p class="indent" >   2. What capabilities does a numerical ODE solver need to have for this task?
+The numerical task is to integrate a system of ordinary differential equations
+(ODEs) that describe the positions and velocities of the bodies as a function of
+time. Since the velocities can vary tremendously over time, an adaptive time step
+is a necessity, otherwise the time integration would have to use the smallest
+tilmestep throughout.
+<!--l. 98--><p class="indent" >   The masses and radii in units of kilograms and meters are large numbers,
+hence we might want to worry about overflow in intermediate results. For
+example, the mass of the sun is 2 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>10<sup><span 
+class="cmr-8">30</span></sup>kg and the body starts from many
+times the Earth-sun distance of 1<span 
+class="cmmi-12">.</span>5 <span 
+class="cmsy-10x-x-120">&#x00D7; </span>10<sup><span 
+class="cmr-8">11</span></sup>m. We cannot be sure of the
+sequence in which the operations are carried out. If <span 
+class="cmmi-12">G&#x2215;r</span><sup><span 
+class="cmr-8">3</span></sup>, the worst possible
+combination, is formed first, the exponent of a single precision variable
+(-38) would underflow. Double precision representation is save (-308). In
+summary, this problem demands an ODE solver with variable step size
+and double precision. A standard 4th order Runge-Kutta method should
+do.
+<!--l. 102--><p class="indent" >   3. Implementation: A general-purpose software package is easily capable of
+solving a system of ODEs of this kind. Or, in combination with a lower-level
+language, pre-written routines for ODE integration can be found. The next
+chapter will provide a list of available repositories.
+<!--l. 107--><p class="indent" >   4. Test: As a first test, for the two-body problem, we can choose the initial
+velocity for a circular orbit. The resulting trajectory is plotted in figure&#x00A0;<a 
+href="#x7-190013">5.3<!--tex4ht:ref: fig:gravity --></a>(a)
+and is indeed circular. In fact, in this plot the trajectory goes around in a circular
+                                                                          
+
+                                                                          
+orbit one hundred times, but the accuracy of the calculation and the
+plotting are so high that it appears to be a single circle. A convenient test
+for the three-body problem is an equilateral triangle (stable Lagrange
+points).
+<!--l. 112--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x7-190013"></a>
+                                                                          
+
+                                                                          
+<!--l. 113--><p class="noindent" >(a)<img 
+src="compphysics30x.png" alt="PIC" class="graphics" width="105.27519pt" height="105.27538pt" ><!--tex4ht:graphics  
+name="compphysics30x.png" src="gravity1.eps"  
+--> (b)<img 
+src="compphysics31x.png" alt="PIC" class="graphics" width="105.27519pt" height="86.9984pt" ><!--tex4ht:graphics  
+name="compphysics31x.png" src="gravity6.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.3: </span><span  
+class="content">Numerical solutions for the gravitational interaction of two and
+three bodies. (a) A circular orbit for testing purposes. The orbit has actually
+undergone  100  revolutions,  demonstrating  the  accuracy  of  the  numerical
+solution. (b) Motion of three bodies (center point, solid line, dashed line)
+with very different masses. A body from far away is captured into a periodic
+orbit.</span></div><!--tex4ht:label?: x7-190013 -->
+                                                                          
+
+                                                                          
+<!--l. 120--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 124--><p class="indent" >   5. Answer research question: After these steps, we are prepared to answer the
+original question. Figure&#x00A0;<a 
+href="#x7-190013">5.3<!--tex4ht:ref: fig:gravity --></a>(b) shows an example of a three-body motion, where
+one body from far away comes in and is deflected by the orbiting planet such that
+it begins to orbit the sun. Its initial conditions are such that without the influence
+of the planet the object would escape to infinity. Jupiter has captured numerous
+comets in this manner.
+<!--l. 127--><p class="indent" >   6. Now comes the step that is so characteristic of everyday scientific
+computing: We will want to change up the question. For example, how does
+adding Saturn change the result? Or does the small initial velocity of the far-away
+object matter? Typically this leads to numerous iterations of implementation,
+validation, and exploration, without a program that is ever final, only the
+conclusion we draw ought to be.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 1--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch6.html" >next</a>] [<a 
+href="compphysicsch4.html" >prev</a>] [<a 
+href="compphysicsch4.html#tailcompphysicsch4.html" >prev-tail</a>] [<a 
+href="compphysicsch5.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch5.html" >up</a>] </p></div>
+<!--l. 1--><p class="indent" >   <a 
+ id="tailcompphysicsch5.html"></a>   
+</body></html> 

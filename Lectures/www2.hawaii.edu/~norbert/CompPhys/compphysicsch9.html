@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>9 High-Performance and Parallel Computing</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2 --> 
+<meta name="src" content="compphysics.tex"> 
+<meta name="date" content="2015-12-09 14:48:00"> 
+<link rel="stylesheet" type="text/css" href="compphysics.css"> 
+</head><body 
+>
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch10.html" >next</a>] [<a 
+href="compphysicsch8.html" >prev</a>] [<a 
+href="compphysicsch8.html#tailcompphysicsch8.html" >prev-tail</a>] [<a 
+href="#tailcompphysicsch9.html">tail</a>] [<a 
+href="compphysics.html#compphysicsch9.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">&#x00A0;9</span><br /><a 
+ id="x11-340009"></a>High-Performance and Parallel Computing</h2>
+   <h3 class="sectionHead"><span class="titlemark">9.1   </span> <a 
+ id="x11-350009.1"></a>Code optimization</h3>
+<!--l. 8--><p class="noindent" >To use resources efficiently, the time saved through optimizing code has to be
+weighed against the human resources required to implement these optimizations.
+There is no need to worry about the speed of non-critical parts. And sometimes
+writing well performing code is no more work than writing in badly performing
+style.
+<!--l. 12--><p class="indent" >   Memory addresses are numbered in a linear manner. Even when an array has
+two or more indices, its elements are ultimately stored in physical memory in a
+one-dimensional fashion. The fastest accessible index of an array is for Fortran the
+first (leftmost) index and for C the last (rightmost) index. Fortran stores data
+row-wise, C column-wise. Although this is not part of the language standard, it is
+the universally accepted practice of compiler writers. Reading data along any
+other index requires jumping between distant memory locations, leading to cache
+misses.
+<!--l. 16--><p class="indent" >   Obviously, large data should not be unnecessarily duplicated. In C, arrays can
+only be passed to a function by the address of its first element, but some other
+languages allow this confusion to happen.
+<!--l. 19--><p class="indent" >   An effort-free way to take advantage of parallelism on any level is index-free
+notation, available in some languages, such as arithmetic with an array,
+e.g.&#x00A0;<span 
+class="cmtt-12">a(:)=b(:)+1</span>.
+<!--l. 22--><p class="indent" >   <span 
+class="cmti-12">Optimization by the Compiler. </span>Almost any compiler provides options for
+automatic speed optimization. A speedup by a factor of five is not unusual, and is
+very nice since it requires no work on our part (see example in chapter&#x00A0;<a 
+href="compphysicsch8.html#x10-310008.1">8.1<!--tex4ht:ref: sec:speed --></a>). In
+the optimization process the compiler might decide to get rid of unused variables,
+pull out common subexpressions from loops, rearrange formulas to reduce the
+number of required floating-point operations, inline short subroutines, rearrange
+the order of a few lines of code, and more. The compiler optimization
+cannot be expected to have too large of a scope; it mainly does local
+optimizations.
+<!--l. 25--><p class="indent" >   Rearrangements of formulas can spoil roundoff and overflow behavior. If
+an expression is potentially sensitive to roundoff or prone to overflow,
+setting otherwise redundant parenthesis might help. Some compilers honor
+them.
+                                                                          
+
+                                                                          
+<!--l. 27--><p class="indent" >   It can make a difference whether subroutines are in the same file or
+not. Compilers usually do not optimize across files or perform any global
+optimization.
+<!--l. 29--><p class="indent" >   At the time of compilation it is not clear (to the computer) which parts of the
+program are most heavily used or what kind of situations will arise. The optimizer
+may try to accelerate execution of the code for all possible inputs and program
+branches, which may not be the best possible speedup for the actual input. (This
+is the one reason why JIT-compilers can, in principle, provide better optimization
+results than static compilers.)
+<!--l. 31--><p class="indent" >   Another trick for speedup: If available, try different compilers and compare the
+speed of the executable they produce. Different compilers sometimes see a
+program in different ways. For example, a commercial and a free C compiler may
+be available.
+<!--l. 33--><p class="indent" >   Over time, compilers have become more intelligent and mature, taking away
+some of the work programmers need to do to improve performance of the code.
+The compiler most likely understands more about the computer&#8217;s central
+processor than we do, but the programmer understands her code better overall
+and will want to assist the compiler in the optimization.
+<!--l. 36--><p class="indent" >   <span 
+class="cmti-12">Performance Analysis Tools. </span>Hidden or unexpected bottlenecks can
+be identified and improvements in code performance can be verified by
+measuring the execution time for the entire run or the fraction of time
+spent in each subroutine. Even for a single user the execution time of
+a program varies due to other ongoing processes, say by 5%. Thus, a
+measured improvement by a few percent might merely be a statistical
+fluctuation. For <span 
+class="cmti-12">profiling</span>, a program is compiled and linked with appropriate
+options enabled. The profiler then collects information while the program is
+executing. Profiling analysis reveals how much time a program spent in each
+function, and how many times that function was called. If you simply want to
+know which functions consumes most of the cycles, this is the way to find
+out.
+<!--l. 43--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">9.2   </span> <a 
+ id="x11-360009.2"></a>Parallel computing</h3>
+<!--l. 45--><p class="noindent" >Modern CPUs are intrinsically parallel. In fact, purely serial CPUs are no longer
+manufactured. Fully exploiting the parallel hardware can be a formidable
+programming challenge.
+                                                                          
+
+                                                                          
+<!--l. 47--><p class="indent" >   A computer cluster with many processor or a CPU with several processor
+cores can execute instructions in parallel. The memory can either still be shared
+among processors or also be split among processors or small groups of processors
+(&#8220;shared memory&#8221; versus &#8220;distributed memory&#8221;). An example of the former is a
+multicore processor. For very large clusters only the latter is possible. When the
+memory is split, it usually requires substantially more programming work
+that explicitly controls the exchange of information between memory
+units.
+<!--l. 49--><p class="indent" >   As for a single processor core, a parallel calculation may be limited by 1) the
+number of floating-point operations, 2) memory size, 3) the time to move data
+between memory and processor, and 4) input/output, but communication between
+processors needs to be considered also. For parallel as well as for single processors
+moving data from memory to the processor is slow compared to floating-point
+arithmetic. If two processors share a calculation, but one of them has to wait for a
+result from the other, it might take <span 
+class="cmti-12">longer </span>than on a single processor.
+Transposing a matrix, a simple procedure that requires no floating-point
+operations but lots of movement of data, can be particularly slow on parallel
+machines.
+<!--l. 51--><p class="indent" >   Parallel computing is only efficient if communication between the processors is
+meager. This exchange of information limits the maximum number of
+processors that can be used economically. The fewer data dependencies,
+the better the &#8220;scalability&#8221; of the problem, meaning that the speedup is
+close to proportional to the number of processors. If the fraction of the
+runtime that can be parallelized is <span 
+class="cmmi-12">p</span>, then the execution time on <span 
+class="cmmi-12">N </span>cores is
+<span 
+class="cmmi-12">t</span><sub><span 
+class="cmmi-8">N</span></sub> = <img 
+src="compphysics48x.png" alt="p-
+N"  class="frac" align="middle"><span 
+class="cmmi-12">t</span><sub><span 
+class="cmr-8">1</span></sub> + (1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">p</span>)<span 
+class="cmmi-12">t</span><sub><span 
+class="cmr-8">1</span></sub>. The speedup is <span 
+class="cmmi-12">S </span>= <span 
+class="cmmi-12">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">&#x2215;t</span><sub><span 
+class="cmmi-8">N</span></sub> = 1<span 
+class="cmmi-12">&#x2215;</span>(<img 
+src="compphysics49x.png" alt="-p
+N"  class="frac" align="middle"> + 1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">p</span>); this
+commonsense relation is called Amdahl&#8217;s law. Suppose a subroutine that
+takes 99% of the run time on a single processor core has been perfectly
+parallelized, but not the remaining part of the program, which takes only 1% of
+the time. Amdahl&#8217;s law shows that 4 processors provide a speedup of
+3.9 (subproportional), and 100 processors provide a speedup of 50. No
+matter how many processors are used, the speedup is always less than 100,
+demanded by the 1% fraction of nonparallelized code. For a highly parallel
+calculation, small non-parallelized parts of the code create a bottleneck.
+Essentially, Amdahl&#8217;s law says that the bottleneck will soon lie somewhere
+else.
+<!--l. 58--><p class="indent" >   When the very same program needs to run only with different input
+parameters, the scalability is perfect. No intercommunication between
+processors is required during the calculation. The input data are sent to
+                                                                          
+
+                                                                          
+each processor at the beginning and the output data are collected at the
+end. Computational problems of this kind are called &#8220;embarrassingly
+parallel.&#8221;
+<!--l. 60--><p class="indent" >   Parallelization of a program can be done by compilers automatically, but if
+this does not happen in an efficient way&#8212;and often it does not&#8212;the programmer
+has to provide instructions, by placing special commands into the source code
+(compiler directives).
+<!--l. 62--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x11-360011"></a>
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-17" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-17-1g"><col 
+id="TBL-17-1"><col 
+id="TBL-17-2"><col 
+id="TBL-17-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-17-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-17-1-1"  
+class="td11"><div class="minipage"><div class="verbatim" id="verbatim-11">
+!$OMP&#x00A0;PARALLEL
+&#x00A0;<br />print&#x00A0;*,&#8217;Hello&#x00A0;world&#8217;
+&#x00A0;<br />!$OMP&#x00A0;END&#x00A0;PARALLEL
+</div>
+<!--l. 69--><p class="nopar" >                     </div></td><td  style="white-space:nowrap; text-align:left;" id="TBL-17-1-2"  
+class="td11"><div class="minipage"><div class="verbatim" id="verbatim-12">
+&#x00A0;&#x00A0;!$OMP&#x00A0;PARALLEL&#x00A0;DO
+&#x00A0;<br />&#x00A0;&#x00A0;do&#x00A0;i=1,10
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;...
+</div>
+<!--l. 76--><p class="nopar" >                     </div></td>
+</tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;9.1: </span><span  
+class="content">Examples of parallel programming for a shared memory machine
+using compiler directives for OpenMP. The left example spawns a task over
+several threads. The right example is a parallelized loop. </span></div><!--tex4ht:label?: x11-360011 -->
+                                                                          
+
+                                                                          
+<!--l. 91--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 93--><p class="indent" >   A common standard for parallelization of programs on shared memory
+machines is OpenMP (Multi-Processing), and many compilers offer intrinsic
+support for OpenMP. It specifies, for example what loop should be parallelized,
+and variables can be declared as public (shared through main memory) or private
+(limited in scope to one core). A widely accepted standard for parallelization
+on distributed memory machines is MPI (Message Passing Interface),
+<a 
+href="http://www.mpich.org" class="url" ><span 
+class="cmtt-12">http://www.mpich.org</span></a>. Message passing is communicating between multiple
+processors by explicitly sending and receiving information.
+<!--l. 100--><p class="indent" >   <span 
+class="cmti-12">&#8220;Thinking Parallel.&#8221; </span>Summing numbers can obviously take advantage of
+parallel processing. But in the sequential implementation
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-13">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;s=a[0];
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for(i=1;i&#x003C;N;i++)&#x00A0;s=s+a[i];
+</div>
+<!--l. 105--><p class="nopar" > the dependency of <span 
+class="cmtt-12">s </span>on the previous step spoils parallelization. The sequential
+implementation disguises the natural parallelizability of the problem. In Fortran
+and Matlab a special command, <span 
+class="cmtt-12">s=sum(a)</span>, makes the parallelizability evident to
+the compiler. The same languages also offer index-free notation, such as matrix
+multiplication <span 
+class="cmtt-12">A*B </span>and element-wise multiplication <span 
+class="cmtt-12">A.B </span>(in Matlab notation).
+The right side of Figure&#x00A0;<a 
+href="#x11-360011">9.1<!--tex4ht:ref: code:openmp --></a> is replaced by <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">do</span><span 
+class="cmtt-12">&#x00A0;concurrent</span><span 
+class="cmtt-12">&#x00A0;(i=1:10)</span></span></span> in
+Fortran.
+<!--l. 110--><p class="indent" >   <span 
+class="cmti-12">Concurrency </span>refers to processes or tasks that can be executed in any order or,
+optionally, simultaneously. Concurrent tasks may be executed in parallel or
+serially, and no interdependence is allowed. Concurrency allows processors to
+freely schedule tasks to optimize throughput.
+<!--l. 113--><p class="indent" >   <span 
+class="cmti-12">Distributed or grid computing </span>involves a large number of processors located at
+multiple locations. It is a form of parallel computing, but the communication cost
+is very high and the platforms are diverse. Distributed computer systems can be
+realized, for example, between computers in a computer lab, as a network of
+workstations on a university campus, or with idle personal computers from around
+the world. Tremendous computational power can be achieved with the sheer
+number of available processors. Judged by the total number of floating point
+operations, distributed calculations rank as the largest computations ever
+performed. In a pioneering attempt, SETI@home utilizes millions of personal
+computers to analyze data coming from a radio telescope listening to
+space.
+<!--l. 117--><p class="indent" >   <span 
+class="msam-10x-x-120">&#x25A1; </span>Executables are typically submitted to a computer cluster through a job
+scheduler, such as <span 
+class="cmti-12">Condor</span>, <span 
+class="cmti-12">Portable Batch System (PBS)</span>, and <span 
+class="cmti-12">Slurm</span>.
+   <h3 class="sectionHead"><span class="titlemark">9.3   </span> <a 
+ id="x11-370009.3"></a>Hardware acceleration</h3>
+<!--l. 128--><p class="noindent" ><span 
+class="cmti-12">Graphics Processing Units (GPUs). </span>CPUs have to carry out versatile tasks, in
+addition to floating point arithmetic. Additional dedicated floating-point units can
+                                                                          
+
+                                                                          
+be of benefit for numerically intensive calculations. Graphics Processing
+Units, which, as the name indicates, evolved from graphics hardware,
+provide massively parallel computational capabilities. GPUs consist of
+many (up to thousands of) cores and each core can execute many threads
+concurrently. In fact, each core processes threads in groups no smaller than 32 (a
+&#8220;warp&#8221;).
+<!--l. 130--><p class="indent" >   The many floating point units are only part of the reason why GPUs achieve
+high throughput; exploiting memory structures is necessary to keep them busy.
+Physically the memory technology of a GPU is not much different from that of a
+CPU; there is fast on-chip memory and slow off-chip memory, but how memory is
+organized and used is different. For example, part of the memory can be dedicated
+as read-only memory. And communication among a block of threads is through
+fast shared memory. The programmer has a more detailed control of memory
+organization and access patterns.
+<!--l. 135--><p class="indent" >   Programming GPUs efficiently can be difficult, but the payoff is potentially
+high. GPUs work well only with data-level parallel problems. And they are only
+efficient if many FLOPs are carried out for each byte of data moved from main
+memory to GPU memory. For example, matrix addition is not worthwhile on
+GPUs, but matrix multiplication is. Successfully ported applications are known to
+have led to a hundredfold speedup compared to a CPU core (e.g.&#x00A0;the
+gravitational N-body problem). Languages for GPU programming are
+CUDA and OpenCL. A modern GPU can carry out calculations with single
+and double precision numbers, but, unlike a modern CPU, the latter is
+slower.
+<!--l. 153--><p class="indent" >   In CUDA, a C function call <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">VecEval(C)</span></span></span> becomes <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">VecEval&#x003C;&#x003C;&#x003C;1,N&#x003E;&#x003E;&#x003E;(C)</span></span></span> to
+evaluate the same function on <span 
+class="cmmi-12">N </span>threads. The function can use a thread specific
+index with <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">int</span><span 
+class="cmtt-12">&#x00A0;i</span><span 
+class="cmtt-12">&#x00A0;=</span><span 
+class="cmtt-12">&#x00A0;threadIdx.x</span></span></span>.
+<!--l. 156--><p class="indent" >   <span 
+class="cmti-12">Other accelerators. </span>Another type of numerical co-processor is the &#8220;Many
+Integrated Core Architecture&#8221; (currently the Xeon Phi). It has many cores, but is
+easier to program than GPUs.
+<!--l. 159--><p class="indent" >   <span 
+class="cmti-12">Special purpose computers. </span>For particularly large and important problems,
+specialized hardware optimized for the problem at hand can be considered.
+Examples of special purpose hardware are GRAPE, for the numerical solution of
+the <span 
+class="cmmi-12">N</span>-body problem, and Deep Blue, for chess playing. So far, such attempts have
+turned out to be short-lived, because the performance of mainstream processors
+has increased so rapidly. By the time the specialized system is developed and
+built, its performance gain barely competes with the newest mainstream
+computing hardware. However, since Moore&#8217;s law has slowed down this approach
+                                                                          
+
+                                                                          
+may become fruitful.
+<!--l. 165--><p class="indent" >   <span 
+class="msam-10x-x-120">&#x25A1; </span>Intel and AMD are the manufacturers of CPUs. nNvidia and AMD build
+GPUs.
+<!--l. 169--><p class="noindent" ><span 
+class="cmbx-12">Recommended Reading: </span>Kirk &amp; Hwu, <span 
+class="cmti-12">Programming Massively Parallel</span>
+<span 
+class="cmti-12">Processors: A Hands-on Approach </span>is a pioneering book on GPU computing. The
+aforementioned textbook by Patterson &amp; Hennessy also includes an introduction
+to GPUs.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 2--><div class="crosslinks"><p class="noindent">[<a 
+href="compphysicsch10.html" >next</a>] [<a 
+href="compphysicsch8.html" >prev</a>] [<a 
+href="compphysicsch8.html#tailcompphysicsch8.html" >prev-tail</a>] [<a 
+href="compphysicsch9.html" >front</a>] [<a 
+href="compphysics.html#compphysicsch9.html" >up</a>] </p></div>
+<!--l. 2--><p class="indent" >   <a 
+ id="tailcompphysicsch9.html"></a>   
+</body></html> 

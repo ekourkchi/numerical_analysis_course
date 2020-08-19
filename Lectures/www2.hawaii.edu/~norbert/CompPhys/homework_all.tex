@@ -1,0 +1,130 @@
+% !TEX TS-program = latex
+\documentclass[12pt]{article}
+
+
+\begin{document}
+\setlength\parindent{0cm}
+%\thispagestyle{empty}
+
+Astr 735 -- Fall 2015 -- Scientific Computing -- Norbert Schorghofer\\
+
+
+{\bf Homework \#1}
+
+Survey on Google Forms\\
+
+{\bf Homework \#2}
+
+a) Plot the function  $f(x) = 3 \pi^4 x^2+\ln((x-\pi)^2)$ in the range 0 to 4.\\   % with a graphing software of your choice.
+b) Proof that $f(x)$ has two roots, $f(x)=0$.\\
+c) Estimate the distance between the two roots. \\
+d) Plot the function in the vicinity of these roots.  Does the function change sign, as it must?\\
+
+%{\it Solution:} The graph of the function appears to be positive everywhere, but it's not. At $x=\pi$, $f(x) = -\infty$.  Hence, the function has two roots very close to $x=\pi$. It has no additional roots, as $f$ is clearly positive far from $\pi$. With $x=\pi+\epsilon$, $\ln\epsilon^2 \approx -3 \pi^6$, and thus $|\epsilon| \approx e^{-1442} = e^{1442/\ln 10} \approx 10^{-626}$.  Your plotting program does not resolve distances this small, no matter how short a range one picks.\\
+
+
+{\bf Homework \#3}
+
+\begin{enumerate}
+\item
+Using a programming language of your choice, find out whether
+$1.2-1-0.2==0$ is true or false. Also state the language you used.
+
+\item
+The iteration $x_{n+1} = 4x_n (1-x_n)$ is extremely sensitive to the initial value as well as to roundoff. Yet, thanks to the IEEE 754 standard, it is possible to reproduce the exact same sequence on many platforms.
+
+Calculate the first 1,010 iterations with initial conditions $x_0=0.8$ and $x_0 = 0.8+10^{-15}$. Use double (8-byte) precision.  
+If IEEE 754 compliance is not enabled by default for the tool/language you use, find out how to enable it. 
+Submit the program as well as the values $x_{1000} ... x_{1009}$ to 10 digits after the comma.
+We will compare the results in class.
+
+\end{enumerate}
+
+%Everyone should get the same result, irrespective of programming language, compiler, operating system, and type of CPU.  
+
+%{\it Solution 1}: Students used five different programming languages (Python, C, C++, Matlab, and Lisp) and all obtained \texttt{False}. Comment: $1.2+(-1-0.2)==0$ would be \texttt{True}.  Lesson: When making a comparison with a floating point number one {\it must} allow for a tolerance.
+
+%Solution 2: See slides\\
+% Note that languages have compiler options
+
+{\bf Homework \#4}
+
+Practice your programming language or learn a new one or get acquainted with an editor like emacs or vi. No need to turn in anything.\\
+
+
+{\bf Homework \#5}
+
+For the kicked rotator ($\alpha_{n+1}=\alpha_n+\omega_n T$, $\omega_{n+1}=\omega_n + K\sin\alpha_{n+1}$), determine how fast the energy $E=\omega^2/2$ grows with time $n$.  
+Consider the ensemble average and large kicking strength ($K \geq 4$). You need to consider only one value of $K$; the answer is supposedly independent of $K$ beyond this value.
+Take initial values that lead to chaotic motions, that is, find a way to exclude integrable solutions from the average.
+The function you fit should have a physically reasonable asymptotic behavior.
+
+%Take initial values that lead to chaotic motions and large kicking strength ($K \geq 4$).  Consider the ensemble average, but find a way to exclude integrable solutions from the average.\\
+
+Send:  1) a plot of the ensemble-averaged energy as a function of time and a functional fit to this graph, 
+2) a description of how you avoided the integrable solutions, and 
+3) basic info such as the value of $K$ used, how many initial values were chosen and how they were chosen, and whatnot.\\
+
+%The goal is simple: Find out how fast the energy (of the chaotic solutions) grows with time.
+
+
+
+{{\bf Homework \#6}
+
+Solve Kepler's equation with Newton's method.\\
+
+The Kepler equation is
+$M=E-e\sin E$, where $M$ is the mean anomaly (linear in time), $E$ the eccentric anomaly, and $e$ the eccentricity.
+The distance from the sun is $r = a(1-e\cos E)$.
+Write a function that reliably solves this equation for any $M$.
+Use a reasonable criterion to decide how many iterations are necessary.
+Test the program with exact solutions.
+Use $e=0.9671$, appropriate for Halley's comet.
+
+\hspace{0.25in}
+Calculate the time average of $(a/r)^2$ to at least three significant digits. The mean solar flux is proportional to this quantity.
+(This average can be obtained analytically, but the task here is to obtain it numerically.)\\
+
+
+
+
+{\bf Homework \#7}
+
+The fragment of a Fortran program below finds the distance between the nearest pair among $N$ points in two dimensions.  This implementation is wasteful in computer resources.
+Can you suggest at least 4 simple changes that will improve its computational performance?
+(You are {\it not} asked to verify that they improve performance.)
+
+\begin{verbatim}
+  ! ... x and y have been assigned values earlier ...
+  m=1E38
+  do i=1,N
+     do j=1,N
+        if (i==j) cycle  ! skips to next iteration
+        r(i,j) = sqrt((x(i)-x(j))**2. + (y(i)-y(j))**2.)
+        if (r(i,j)<m) m=r(i,j)
+     enddo
+  enddo
+  ! m is minimum distance
+\end{verbatim}
+
+\vspace{1em}
+{\bf Homework \#8}
+
+What is the arithmetic intensity for the full gravitational N-body
+problem when evaluated with a simple nested double loop?
+Steps: 1. Write down program code or pseudocode that calculates the acceleration of each body
+in 3D, 2. Count the number of floating point operations required for
+the evaluation, to leading order. Assume the square root operation is
+equivalent to 10 FLOPs. 3. Count the number of bytes that need to be
+accessed from main memory. Assume floating point numbers with 8 bytes. 
+4. Take the ratio.
+Based on this ratio, do you think this calculation is floating-point
+limited or data-transfer limited?
+\\
+
+
+
+
+\end{document}
+
+
